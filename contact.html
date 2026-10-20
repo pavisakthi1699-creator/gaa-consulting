@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact Us — GAA Advisory Group | Business, first.</title>
+  <meta name="description" content="Connect directly with senior practice partners at GAA Consulting, Filings First, and Hirings First under statutory confidentiality.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       GAA DESIGN SYSTEM TOKENS (Strictly matching Home Page & Website Theme)
+       ========================================================================== */
+    :root {
+      --o: #DC6A40;
+      --od: #C25A34;
+      --k: #121212;
+      --p: #F3EDE6;
+      --p-light: #FBF7F2;
+      --m: #6B655E;
+      --hh: 96px;
+      --pj: "Plus Jakarta Sans", sans-serif;
+      --gm: "Geist Mono", ui-monospace, monospace;
+      --pm: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--p-light);
+      color: var(--k);
+      font-family: Geist, system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Ambient Warm Glow matching Home Page Hero */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(70vw, 680px);
+      height: min(70vw, 680px);
+      background: radial-gradient(circle, rgba(220, 106, 64, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ==========================================================================
+       HEADER (Exact match with Home & About navigation)
+       ========================================================================== */
+    #hdr {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid #ECE6DF;
+      transition: background 0.3s ease;
+    }
+
+    .hd {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px clamp(20px, 3.5vw, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--pj);
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      color: var(--k);
+      transition: opacity 0.2s ease;
+    }
+
+    .brand-logo:hover {
+      opacity: 0.85;
+    }
+
+    .brand-logo span {
+      color: var(--o);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--gm);
+      margin-left: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4D4842;
+    }
+
+    .nav-links a {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--k);
+      transform: translateY(-1px);
+    }
+
+    .nav-links a.active {
+      color: var(--k);
+      font-weight: 600;
+    }
+
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--o);
+      border-radius: 2px;
+    }
+
+    /* Header Pill Action Button */
+    .hdr-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--k);
+      border-radius: 999px;
+      font: 600 13.5px/1 Geist, sans-serif;
+      color: var(--k);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hdr-btn:hover {
+      background: var(--k);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(18, 18, 18, 0.15);
+    }
+
+    .hdr-btn span.arr {
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    .hdr-btn:hover span.arr {
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 820px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       MAIN WRAPPER & ANIMATIONS
+       ========================================================================== */
+    .contact-root {
+      min-height: 100vh;
+      position: relative;
+      padding: clamp(120px, 15vh, 160px) 0 clamp(64px, 8vh, 100px);
+      z-index: 1;
+    }
+
+    .cp-wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 3.5vw, 40px);
+    }
+
+    .cp-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      gap: clamp(36px, 5.5vw, 76px);
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .cp-grid {
+        grid-template-columns: 1fr;
+        gap: 52px;
+      }
+    }
+
+    /* Staggered Entrance Animations */
+    .fade-in-up {
+      animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       LEFT COLUMN: EDITORIAL CONTENT & DIRECT LINES
+       ========================================================================== */
+    .cp-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Main Title — Exactly Home Page Hero typography */
+    .cp-title {
+      font-family: var(--pj);
+      font-weight: 650;
+      font-size: clamp(42px, 5.2vw, 68px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      color: var(--k);
+      margin-bottom: 22px;
+    }
+
+    .cp-title em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--o);
+    }
+
+    .cp-title span.sub-line {
+      display: block;
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      margin-top: 6px;
+      color: var(--k);
+    }
+
+    .cp-lead {
+      font-size: clamp(16px, 1.25vw, 18px);
+      line-height: 1.6;
+      color: #4D4842;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+
+    /* Interactive Assurance Pills Strip */
+    .cp-assurances {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .cp-as-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid rgba(18, 18, 18, 0.1);
+      padding: 9px 18px;
+      border-radius: 999px;
+      font: 600 12px/1 var(--gm);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--k);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(18, 18, 18, 0.03);
+      cursor: default;
+    }
+
+    .cp-as-pill:hover {
+      border-color: var(--o);
+      background: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220, 106, 64, 0.16);
+    }
+
+    .cp-as-pill span.icon {
+      font-size: 14px;
+    }
+
+    /* Direct Channels Card with Rich Hover Effects */
+    .cp-channels-card {
+      background: #FFFFFF;
+      border: 1px solid #E6E0D8;
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 8px 26px -6px rgba(18, 18, 18, 0.04);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 24px;
+    }
+
+    .cp-channels-card:hover {
+      border-color: rgba(220, 106, 64, 0.35);
+      box-shadow: 0 16px 36px -8px rgba(220, 106, 64, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .cp-channels-label {
+      font: 600 11.5px/1 var(--gm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--od);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .cp-channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 18px;
+      background: var(--p-light);
+      border: 1px solid rgba(18, 18, 18, 0.08);
+      border-radius: 12px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .cp-channel-item:hover {
+      background: #FFFFFF;
+      border-color: var(--o);
+      transform: translateX(4px);
+      box-shadow: 0 6px 18px rgba(220, 106, 64, 0.14);
+    }
+
+    .cp-chan-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .cp-chan-sub {
+      font: 600 11px/1 var(--gm);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #7A7268;
+    }
+
+    .cp-chan-link {
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--k);
+      transition: color 0.2s ease;
+    }
+
+    .cp-channel-item:hover .cp-chan-link {
+      color: var(--o);
+    }
+
+    .cp-chan-arrow {
+      font-size: 17px;
+      color: var(--od);
+      transition: transform 0.25s ease, color 0.25s ease;
+      display: inline-block;
+    }
+
+    .cp-channel-item:hover .cp-chan-arrow {
+      transform: translateX(4px);
+      color: var(--o);
+    }
+
+    /* Locations Line */
+    .cp-locations {
+      font: 500 12.5px/1.5 var(--gm);
+      color: #7A7268;
+      padding-top: 16px;
+      border-top: 1px solid rgba(18, 18, 18, 0.08);
+    }
+
+    .cp-locations b {
+      color: var(--k);
+    }
+
+    /* ==========================================================================
+       RIGHT COLUMN: ANIMATIVE FORM CARD
+       ========================================================================== */
+    .cp-form-card {
+      background: #FFFFFF;
+      border: 1px solid #E6E0D8;
+      border-radius: 22px;
+      padding: clamp(26px, 4vw, 42px);
+      box-shadow:
+        0 20px 54px -16px rgba(18, 16, 15, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      position: relative;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cp-form-card:hover {
+      border-color: rgba(220, 106, 64, 0.4);
+      box-shadow: 0 28px 72px -16px rgba(220, 106, 64, 0.14);
+    }
+
+    .cp-form-head {
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+    }
+
+    .cp-form-head h2 {
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: clamp(22px, 2.2vw, 26px);
+      letter-spacing: -0.03em;
+      color: var(--k);
+    }
+
+    .cp-form-head p {
+      font-size: 13.5px;
+      color: #6E6860;
+      margin-top: 4px;
+    }
+
+    /* Brand Selector Tabs (Matching Home Page) */
+    .cp-brand-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 560px) {
+      .cp-brand-selector {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cp-brand-btn {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(18, 18, 18, 0.1);
+      background: var(--p-light);
+      color: #4D4842;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      outline: none;
+    }
+
+    .cp-brand-btn:hover {
+      background: #FFFFFF;
+      border-color: rgba(220, 106, 64, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(220, 106, 64, 0.12);
+    }
+
+    .cp-brand-btn.active {
+      background: var(--k);
+      color: #FFFFFF;
+      border-color: var(--k);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(18, 18, 18, 0.2);
+    }
+
+    .cp-brand-btn b {
+      font-family: var(--pj);
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .cp-brand-btn small {
+      font: 500 10.5px/1.2 var(--gm);
+      opacity: 0.8;
+      text-transform: uppercase;
+    }
+
+    /* Partner Routing Ribbon */
+    .cp-routing-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 16px;
+      background: var(--p-light);
+      border: 1px solid rgba(220, 106, 64, 0.24);
+      border-left: 4px solid var(--o);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 12.5px;
+      transition: all 0.3s ease;
+    }
+
+    .cp-routing-ribbon b {
+      color: var(--od);
+      font-weight: 700;
+    }
+
+    .cp-routing-ribbon span {
+      font: 600 10.5px/1 var(--gm);
+      color: #7A7268;
+      text-transform: uppercase;
+    }
+
+    /* Form Fields */
+    .cp-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cp-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cp-field-label {
+      font-family: var(--pj);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--k);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cp-field-label span.req {
+      color: var(--o);
+    }
+
+    .cp-select {
+      width: 100%;
+      padding: 13px 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(18, 18, 18, 0.14);
+      border-radius: 12px;
+      font: 500 14px/1.4 Geist, system-ui, sans-serif;
+      color: var(--k);
+      outline: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23DC6A40' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 14px;
+    }
+
+    .cp-select:focus,
+    .cp-select:hover {
+      border-color: var(--o);
+      box-shadow: 0 0 0 3px rgba(220, 106, 64, 0.16);
+    }
+
+    .cp-input {
+      width: 100%;
+      padding: 13px 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(18, 18, 18, 0.14);
+      border-radius: 12px;
+      font: 500 14px/1.4 Geist, system-ui, sans-serif;
+      color: var(--k);
+      outline: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cp-input:hover {
+      border-color: rgba(220, 106, 64, 0.45);
+    }
+
+    .cp-input:focus {
+      border-color: var(--o);
+      box-shadow: 0 0 0 3px rgba(220, 106, 64, 0.16);
+      background: #FFFFFF;
+    }
+
+    .cp-textarea {
+      width: 100%;
+      padding: 13px 16px;
+      background: #FFFFFF;
+      border: 1px solid rgba(18, 18, 18, 0.14);
+      border-radius: 12px;
+      font: 500 14px/1.5 Geist, system-ui, sans-serif;
+      color: var(--k);
+      resize: vertical;
+      min-height: 92px;
+      outline: none;
+      transition: all 0.25s ease;
+    }
+
+    .cp-textarea:hover {
+      border-color: rgba(220, 106, 64, 0.45);
+    }
+
+    .cp-textarea:focus {
+      border-color: var(--o);
+      box-shadow: 0 0 0 3px rgba(220, 106, 64, 0.16);
+    }
+
+    /* Suggestion Chips with Hover Bounce */
+    .cp-tags-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .cp-tag {
+      font: 600 11px/1 var(--gm);
+      color: var(--od);
+      background: rgba(220, 106, 64, 0.08);
+      border: 1px dashed rgba(220, 106, 64, 0.3);
+      padding: 5px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cp-tag:hover {
+      background: var(--o);
+      color: #FFFFFF;
+      border-style: solid;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 12px rgba(220, 106, 64, 0.25);
+    }
+
+    /* NDA Checkbox */
+    .cp-nda-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--p-light);
+      border: 1px solid rgba(18, 18, 18, 0.08);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12.5px;
+      color: #554F49;
+      transition: all 0.2s ease;
+    }
+
+    .cp-nda-label:hover {
+      border-color: rgba(220, 106, 64, 0.35);
+      background: #FFFFFF;
+    }
+
+    .cp-nda-label input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--o);
+      cursor: pointer;
+    }
+
+    .cp-nda-label b {
+      color: var(--k);
+    }
+
+    /* Submit Button (Home Page Pill Style with Terracotta Slide Fill) */
+    .cp-submit-btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 16px 32px;
+      border-radius: 999px;
+      background: var(--k);
+      border: 1px solid var(--k);
+      color: #FFFFFF;
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: 14.5px;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 24px -6px rgba(18, 18, 18, 0.25);
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .cp-submit-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--o);
+      transform: translateY(102%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .cp-submit-btn:hover:not(:disabled) {
+      border-color: var(--o);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px -8px rgba(220, 106, 64, 0.42);
+    }
+
+    .cp-submit-btn:hover:not(:disabled)::before {
+      transform: translateY(0);
+    }
+
+    .cp-submit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .cp-submit-btn span.arr {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .cp-submit-btn:hover:not(:disabled) span.arr {
+      transform: translateX(4px);
+    }
+
+    .cp-subnote {
+      font: 500 11.5px/1.4 var(--gm);
+      color: #7A7268;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* ==========================================================================
+       FOOTER (Matching Site Footer)
+       ========================================================================== */
+    .c-footer {
+      border-top: 1px solid #ECE6DF;
+      background: #FFFFFF;
+      padding: 32px 0;
+      margin-top: 40px;
+    }
+
+    .c-footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 3.5vw, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13.5px;
+      color: #7A7268;
+    }
+
+    .c-footer-inner b {
+      color: var(--k);
+      font-family: var(--pj);
+      font-size: 14.5px;
+    }
+
+    .c-footer-inner a:hover {
+      color: var(--o);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="hdr">
+    <div class="hd">
+      <a href="index.html" class="brand-logo">
+        GAA <span>CONSULTING</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About us</a>
+        <a href="index.html#chapters">Services</a>
+        <a href="index.html#careers">Careers &amp; CS Training</a>
+        <a href="contact.html" class="active">Contact us</a>
+      </nav>
+      <a href="#contact-top" class="hdr-btn">
+        <span>Enquire</span>
+        <span class="arr">→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTACT SECTION -->
+  <main class="contact-root" id="contact-top">
+    <div class="cp-wrap">
+      <div class="cp-grid">
+        
+        <!-- LEFT: EDITORIAL HEADLINE & DIRECT CHANNELS (Eyebrow completely removed) -->
+        <div class="cp-left fade-in-up">
+          <h1 class="cp-title">
+            Business, <em>first.</em>
+            <span class="sub-line">Let's start the conversation.</span>
+          </h1>
+
+          <p class="cp-lead">
+            Connect directly with senior practice partners across corporate legal advisory, statutory MCA compliance, and executive talent. Every matter is protected under strict fiduciary privilege.
+          </p>
+
+          <!-- Interactive Assurance Pills -->
+          <div class="cp-assurances">
+            <div class="cp-as-pill">
+              <span class="icon">⏱️</span>
+              <b>&lt; 4 Hours Response SLA</b>
+            </div>
+            <div class="cp-as-pill">
+              <span class="icon">🔒</span>
+              <b>100% Mutual NDA</b>
+            </div>
+            <div class="cp-as-pill">
+              <span class="icon">⚖️</span>
+              <b>32 Specialists</b>
+            </div>
+          </div>
+
+          <!-- Direct Channels Card -->
+          <div class="cp-channels-card">
+            <span class="cp-channels-label">Direct Communication Lines</span>
+
+            <a href="mailto:enquiries@gaaconsulting.com" class="cp-channel-item">
+              <div class="cp-chan-info">
+                <span class="cp-chan-sub">Corporate Inquiries</span>
+                <span class="cp-chan-link">enquiries@gaaconsulting.com</span>
+              </div>
+              <span class="cp-chan-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="tel:+912249801200" class="cp-channel-item">
+              <div class="cp-chan-info">
+                <span class="cp-chan-sub">HQ Direct Telephone</span>
+                <span class="cp-chan-link">+91 22 4980 1200</span>
+              </div>
+              <span class="cp-chan-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a href="tel:+912249801299" class="cp-channel-item" style="border-color:rgba(220,106,64,0.3)">
+              <div class="cp-chan-info">
+                <span class="cp-chan-sub" style="color:var(--o)">Emergency Statutory Duty Line</span>
+                <span class="cp-chan-link" style="color:var(--o)">+91 22 4980 1299</span>
+              </div>
+              <span class="cp-chan-arrow" style="color:var(--o)" aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <!-- Locations -->
+          <div class="cp-locations">
+            <b>Corporate Desks:</b> Mumbai (BKC) · New Delhi (CP) · Bengaluru (Indiranagar) · GIFT City IFSC
+          </div>
+        </div>
+
+        <!-- RIGHT: ANIMATIVE CONCIERGE FORM -->
+        <div class="cp-right fade-in-up delay-1">
+          <div class="cp-form-card" id="form-container">
+            <form class="cp-form" id="contact-form" onsubmit="handleDispatch(event)">
+              <div class="cp-form-head">
+                <span class="cp-channels-label" style="margin-bottom:6px">Executive Briefing Concierge</span>
+                <h2>Send a Direct Message</h2>
+                <p>Select practice area. Transmission is protected by statutory professional privilege.</p>
+              </div>
+
+              <!-- Practice Selection Tabs (Home Page Brand Selector) -->
+              <div class="cp-brand-selector" role="tablist">
+                <button type="button" class="cp-brand-btn active" id="btn-gaa" onclick="switchBrand('gaa')">
+                  <b>GAA Consulting</b>
+                  <small>Corporate Advisory</small>
+                </button>
+                <button type="button" class="cp-brand-btn" id="btn-filings" onclick="switchBrand('filings')">
+                  <b>Filings First</b>
+                  <small>Accounting &amp; Tax</small>
+                </button>
+                <button type="button" class="cp-brand-btn" id="btn-hirings" onclick="switchBrand('hirings')">
+                  <b>Hirings First</b>
+                  <small>Talent &amp; Workforce</small>
+                </button>
+              </div>
+
+              <!-- Partner Routing Ribbon -->
+              <div class="cp-routing-ribbon" id="routing-ribbon">
+                <div>
+                  <span>Practice Partner:</span>
+                  <b id="lead-display" style="margin-left:6px">Senior Corporate Law Partner</b>
+                </div>
+                <span id="sla-display">SLA: &lt; 4 business hours</span>
+              </div>
+
+              <!-- Primary Topic Dropdown -->
+              <div class="cp-field">
+                <label class="cp-field-label" for="cp-topic">
+                  <span>Primary Topic <span class="req">*</span></span>
+                </label>
+                <select id="cp-topic" class="cp-select">
+                  <!-- Dynamically populated -->
+                </select>
+              </div>
+
+              <!-- Name & Company (2 columns) -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="cp-field">
+                  <label class="cp-field-label" for="cp-name">
+                    <span>Full Name <span class="req">*</span></span>
+                  </label>
+                  <input type="text" id="cp-name" class="cp-input" placeholder="e.g. Rahul Sharma" required />
+                </div>
+                <div class="cp-field">
+                  <label class="cp-field-label" for="cp-company">
+                    <span>Company (optional)</span>
+                  </label>
+                  <input type="text" id="cp-company" class="cp-input" placeholder="e.g. Apex Tech Ltd." />
+                </div>
+              </div>
+
+              <!-- Work Email & Phone (2 columns) -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div class="cp-field">
+                  <label class="cp-field-label" for="cp-email">
+                    <span>Work Email <span class="req">*</span></span>
+                  </label>
+                  <input type="email" id="cp-email" class="cp-input" placeholder="name@company.com" required />
+                </div>
+                <div class="cp-field">
+                  <label class="cp-field-label" for="cp-phone">
+                    <span>Phone / WhatsApp <span class="req">*</span></span>
+                  </label>
+                  <input type="tel" id="cp-phone" class="cp-input" placeholder="+91 98765 43210" required />
+                </div>
+              </div>
+
+              <!-- Requirement Scope Textarea -->
+              <div class="cp-field">
+                <label class="cp-field-label" for="cp-msg">
+                  <span>Requirement Scope / Context</span>
+                  <span style="font-size:11px;color:#7A7268;font-weight:500">Optional</span>
+                </label>
+                <textarea id="cp-msg" class="cp-textarea" placeholder="Briefly state your matter, jurisdiction, deal quantum, or filing urgency..."></textarea>
+                
+                <!-- Quick Suggestion Chips -->
+                <div class="cp-tags-row">
+                  <span style="font:700 10.5px/1 var(--gm);color:#7A7268;text-transform:uppercase">Quick Add:</span>
+                  <button type="button" class="cp-tag" onclick="appendTag('M&A Advisory')">+ M&amp;A Advisory</button>
+                  <button type="button" class="cp-tag" onclick="appendTag('MCA Notice Defence')">+ MCA Notice Defence</button>
+                  <button type="button" class="cp-tag" onclick="appendTag('Due Diligence Review')">+ Due Diligence</button>
+                  <button type="button" class="cp-tag" onclick="appendTag('C-Suite Search')">+ C-Suite Search</button>
+                  <button type="button" class="cp-tag" onclick="appendTag('GST Audit Assistance')">+ GST Audit</button>
+                  <button type="button" class="cp-tag" onclick="appendTag('GIFT City Entity')">+ GIFT City</button>
+                </div>
+              </div>
+
+              <!-- Mutual NDA Checkbox -->
+              <label class="cp-nda-label">
+                <input type="checkbox" id="cp-nda" checked />
+                <span><b>Execute Mutual NDA</b> prior to sharing confidential deal documents.</span>
+              </label>
+
+              <!-- Submit Button (Pill with Terracotta Hover Slide) -->
+              <button type="submit" class="cp-submit-btn" id="sub-btn">
+                <span id="btn-text">Send enquiry to GAA Consulting</span>
+                <span class="arr" aria-hidden="true">→</span>
+              </button>
+
+              <div class="cp-subnote">
+                🔒 Strictly confidential · Protected by statutory professional secrecy
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="c-footer">
+    <div class="c-footer-inner">
+      <b>GAA Advisory Group · Business, first.</b>
+      <span>© 2026 GAA Consulting, Filings First &amp; Hirings First. All rights reserved.</span>
+      <a href="#contact-top" style="color:var(--o);font-weight:700">Back to Top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const BRAND_DATA = {
+      gaa: {
+        name: "GAA Consulting",
+        lead: "Senior Corporate Law Partner",
+        sla: "< 4 business hours",
+        topics: [
+          "Corporate law & company secretarial",
+          "Mergers, acquisitions & restructuring",
+          "Fundraising, term sheets & due diligence",
+          "NBFC & financial regulatory advisory",
+          "General corporate governance retainer"
+        ]
+      },
+      filings: {
+        name: "Filings First",
+        lead: "Taxation & Statutory Compliance Lead",
+        sla: "< 2 business hours",
+        topics: [
+          "Statutory bookkeeping & financial accounts",
+          "Corporate taxation & advance tax",
+          "GST returns, reconciliations & audit defence",
+          "Corporate secretarial & MCA compliance calendar",
+          "FDI, RBI & cross-border regulatory reporting"
+        ]
+      },
+      hirings: {
+        name: "Hirings First",
+        lead: "Executive Search & Talent Director",
+        sla: "< 6 business hours",
+        topics: [
+          "Hire leadership / C-suite executives",
+          "IT & specialized engineering talent",
+          "Corporate legal, finance & CS recruitment",
+          "Campus placement drives for early talent",
+          "Managed workforce outsourcing & payroll"
+        ]
+      }
+    };
+
+    let activeBrandKey = "gaa";
+
+    function populateTopics(brandKey) {
+      const select = document.getElementById("cp-topic");
+      select.innerHTML = "";
+      BRAND_DATA[brandKey].topics.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        select.appendChild(opt);
+      });
+    }
+
+    function switchBrand(brandKey) {
+      activeBrandKey = brandKey;
+      const data = BRAND_DATA[brandKey];
+
+      document.querySelectorAll(".cp-brand-btn").forEach(b => b.classList.remove("active"));
+      const activeBtn = document.getElementById("btn-" + brandKey);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      document.getElementById("lead-display").textContent = data.lead;
+      document.getElementById("sla-display").textContent = "SLA: " + data.sla;
+      document.getElementById("btn-text").textContent = "Send enquiry to " + data.name;
+
+      populateTopics(brandKey);
+    }
+
+    function appendTag(text) {
+      const msg = document.getElementById("cp-msg");
+      msg.value = msg.value ? msg.value + "\n• Requirement: " + text : "• Requirement: " + text;
+      msg.focus();
+    }
+
+    function handleDispatch(e) {
+      e.preventDefault();
+      const name = document.getElementById("cp-name").value.trim();
+      const company = document.getElementById("cp-company").value.trim();
+      const email = document.getElementById("cp-email").value.trim();
+      const phone = document.getElementById("cp-phone").value.trim();
+      const topic = document.getElementById("cp-topic").value;
+      const msg = document.getElementById("cp-msg").value.trim();
+      const nda = document.getElementById("cp-nda").checked;
+      const btn = document.getElementById("sub-btn");
+
+      if (!name || !email || !phone) {
+        alert("Please provide your full name, work email, and telephone number.");
+        return;
+      }
+
+      btn.disabled = true;
+      document.getElementById("btn-text").textContent = "Dispatching Brief to Practice Partner…";
+
+      const brand = BRAND_DATA[activeBrandKey];
+      const ref = "GAA-2026-" + Math.floor(1000 + Math.random() * 9000);
+
+      // Construct mailto backup
+      const subject = encodeURIComponent(`[${ref}] ${brand.name} — ${topic}`);
+      const body = encodeURIComponent(
+        `REFERENCE: ${ref}\n` +
+        `PRACTICE: ${brand.name}\n` +
+        `LEAD PARTNER: ${brand.lead}\n` +
+        `TOPIC: ${topic}\n` +
+        `NAME: ${name}\n` +
+        `COMPANY: ${company || "Confidential"}\n` +
+        `EMAIL: ${email}\n` +
+        `PHONE: ${phone}\n` +
+        `MUTUAL NDA REQUESTED: ${nda ? "Yes" : "No"}\n` +
+        `----------------------------------------\n` +
+        `REQUIREMENT:\n${msg || "General inquiry regarding " + topic}`
+      );
+
+      setTimeout(() => {
+        window.open(`mailto:enquiries@gaaconsulting.com?subject=${subject}&body=${body}`, "_self");
+
+        const card = document.getElementById("form-container");
+        card.innerHTML = `
+          <div style="text-align:center;padding:32px 14px;display:flex;flex-direction:column;align-items:center;gap:14px">
+            <div style="width:60px;height:60px;border-radius:50%;background:rgba(16,185,129,0.14);border:2px solid #10B981;color:#065F46;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:bold">✓</div>
+            <span style="font-family:var(--gm);font-size:11.5px;font-weight:700;color:var(--od);background:rgba(220,106,64,0.1);padding:5px 14px;border-radius:999px;border:1px solid rgba(220,106,64,0.25)">DISPATCH REF #${ref}</span>
+            <h3 style="font-family:var(--pj);font-size:24px;font-weight:800;color:var(--k)">Consultation Dispatched</h3>
+            <p style="font-size:14.5px;color:#554F49;max-width:420px;line-height:1.6">
+              Thank you, <b>${name}</b>. Your executive brief has been dispatched directly to the desk of our <b>${brand.lead}</b> under strict fiduciary privilege.
+            </p>
+            <p style="font-size:13px;color:#7A7268">
+              Guaranteed response window: <b>${brand.sla}</b>.
+            </p>
+            <a href="contact.html" class="cp-submit-btn" style="width:auto;margin-top:10px;padding:14px 28px">
+              <span>Send Another Message</span>
+              <span class="arr">→</span>
+            </a>
+          </div>
+        `;
+      }, 600);
+    }
+
+    // Initialize topics
+    populateTopics("gaa");
+  </script>
+</body>
+</html>

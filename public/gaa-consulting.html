@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>GAA Consulting — Corporate Law, M&A Advisory & Company Secretarial Practice</title>
+  <meta name="description" content="Dedicated corporate legal advisory, company secretarial execution, M&A due diligence, and regulatory counsel for businesses and boards across India.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --o: #DC6A40;
+      --od: #C25A34;
+      --k: #121212;
+      --p: #F3EDE6;
+      --p-light: #FBF7F2;
+      --m: #6B655E;
+      --hh: 96px;
+      --pj: "Plus Jakarta Sans", sans-serif;
+      --gm: "Geist Mono", ui-monospace, monospace;
+      --pm: "IBM Plex Mono", ui-monospace, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--p-light);
+      color: var(--k);
+      font-family: Geist, system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Ambient Warm Glow */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(70vw, 700px);
+      height: min(70vw, 700px);
+      background: radial-gradient(circle, rgba(220, 106, 64, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Wrap Utility */
+    .gaa-wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 3.5vw, 40px);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       HEADER
+       ========================================================================== */
+    #hdr {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid #ECE6DF;
+    }
+
+    .hd {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px clamp(20px, 3.5vw, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--pj);
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -0.03em;
+      color: var(--k);
+    }
+
+    .brand-logo span {
+      color: var(--o);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: var(--gm);
+      margin-left: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4D4842;
+    }
+
+    .nav-links a {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--k);
+      transform: translateY(-1px);
+    }
+
+    .nav-links a.active {
+      color: var(--k);
+      font-weight: 600;
+    }
+
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--o);
+      border-radius: 2px;
+    }
+
+    .hdr-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--k);
+      border-radius: 999px;
+      font: 600 13.5px/1 Geist, sans-serif;
+      color: var(--k);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hdr-btn:hover {
+      background: var(--k);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(18, 18, 18, 0.15);
+    }
+
+    /* Sub-Bar / Portal Switcher */
+    .gaa-top-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid #ECE6DF;
+      padding: 10px 0;
+      margin-top: 70px;
+      font-size: 13px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .gaa-top-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .gaa-back-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 600 12.5px/1 var(--gm);
+      letter-spacing: 0.03em;
+      color: var(--k);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--p-light);
+      border: 1px solid rgba(18, 18, 18, 0.1);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-back-portal:hover {
+      background: var(--k);
+      color: #FFFFFF;
+      border-color: var(--k);
+      transform: translateX(-2px);
+    }
+
+    .gaa-badge-pill {
+      font: 600 11.5px/1 var(--gm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--od);
+      background: rgba(220, 106, 64, 0.1);
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(220, 106, 64, 0.25);
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .gaa-hero {
+      padding: clamp(60px, 8vh, 100px) 0 clamp(50px, 7vh, 80px);
+      position: relative;
+    }
+
+    .gaa-hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: clamp(40px, 5.5vw, 80px);
+      align-items: center;
+    }
+
+    @media (max-width: 960px) {
+      .gaa-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .gaa-hero-tag {
+      font: 600 12px/1.4 var(--gm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--od);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .gaa-hero-title {
+      font-family: var(--pj);
+      font-weight: 650;
+      font-size: clamp(42px, 5.5vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      color: var(--k);
+      margin-bottom: 22px;
+    }
+
+    .gaa-hero-title em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--o);
+    }
+
+    .gaa-hero-desc {
+      font-size: clamp(16.5px, 1.3vw, 19px);
+      line-height: 1.6;
+      color: #4D4842;
+      max-width: 580px;
+      margin-bottom: 32px;
+    }
+
+    .gaa-hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* Pill Buttons */
+    .gaa-pill-btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding: 14px 26px;
+      border-radius: 999px;
+      background: var(--k);
+      border: 1px solid var(--k);
+      color: #FFFFFF;
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 22px rgba(18, 18, 18, 0.16);
+    }
+
+    .gaa-pill-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--o);
+      transform: translateY(102%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .gaa-pill-btn:hover {
+      border-color: var(--o);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(220, 106, 64, 0.38);
+    }
+
+    .gaa-pill-btn:hover::before {
+      transform: translateY(0);
+    }
+
+    .gaa-pill-btn span.arr {
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .gaa-pill-btn:hover span.arr {
+      transform: translateX(4px);
+    }
+
+    .gaa-pill-outline {
+      padding: 13px 24px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid var(--k);
+      color: var(--k);
+      font-family: var(--pj);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-pill-outline:hover {
+      background: #FFFFFF;
+      border-color: var(--o);
+      color: var(--o);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(220, 106, 64, 0.14);
+    }
+
+    /* Hero Stats Card */
+    .gaa-hero-card {
+      background: #FFFFFF;
+      border: 1px solid #E6E0D8;
+      border-radius: 20px;
+      padding: clamp(24px, 3.5vw, 36px);
+      box-shadow: 0 16px 44px -12px rgba(18, 16, 15, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-hero-card:hover {
+      border-color: rgba(220, 106, 64, 0.4);
+      box-shadow: 0 24px 60px -12px rgba(220, 106, 64, 0.16);
+      transform: translateY(-3px);
+    }
+
+    .gaa-stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      border-bottom: 1px solid #F0EAE1;
+      padding-bottom: 16px;
+    }
+
+    .gaa-stat-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .gaa-stat-num {
+      font-family: var(--pj);
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--k);
+      letter-spacing: -0.03em;
+    }
+
+    .gaa-stat-num span {
+      color: var(--o);
+    }
+
+    .gaa-stat-label {
+      font: 500 12px/1.3 var(--gm);
+      text-transform: uppercase;
+      color: #7A7268;
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       BENCHMARK SECTION
+       ========================================================================== */
+    .gaa-benchmark-section {
+      padding: clamp(60px, 8vh, 100px) 0;
+      background: #FFFFFF;
+      border-top: 1px solid #ECE6DF;
+      border-bottom: 1px solid #ECE6DF;
+    }
+
+    .gaa-section-head {
+      max-width: 680px;
+      margin-bottom: clamp(36px, 5vw, 56px);
+    }
+
+    .gaa-section-label {
+      font: 600 12px/1.4 var(--gm);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--od);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .gaa-section-title {
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--k);
+    }
+
+    .gaa-section-title em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--o);
+    }
+
+    .gaa-diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .gaa-diff-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gaa-diff-card {
+      padding: 32px 26px;
+      border-radius: 16px;
+      border: 1px solid #E6E0D8;
+      background: var(--p-light);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-diff-card:hover {
+      transform: translateY(-4px);
+      background: #FFFFFF;
+      border-color: rgba(220, 106, 64, 0.45);
+      box-shadow: 0 16px 36px rgba(18, 18, 18, 0.08);
+    }
+
+    .gaa-diff-card.highlight {
+      background: #FFFFFF;
+      border: 2px solid var(--o);
+      box-shadow: 0 12px 32px rgba(220, 106, 64, 0.12);
+    }
+
+    .gaa-diff-tag {
+      font: 600 11px/1 var(--gm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #7A7268;
+    }
+
+    .gaa-diff-card.highlight .gaa-diff-tag {
+      color: var(--od);
+    }
+
+    .gaa-diff-card h3 {
+      font-family: var(--pj);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--k);
+      letter-spacing: -0.02em;
+    }
+
+    .gaa-diff-card p {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #554F49;
+    }
+
+    .gaa-diff-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(18, 18, 18, 0.08);
+    }
+
+    .gaa-diff-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13.5px;
+      color: #4D4842;
+    }
+
+    .gaa-diff-list li span.bullet {
+      color: var(--o);
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       PRACTICE AREAS
+       ========================================================================== */
+    .gaa-practices-section {
+      padding: clamp(60px, 9vh, 110px) 0;
+    }
+
+    .gaa-practice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 980px) {
+      .gaa-practice-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gaa-practice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gaa-practice-card {
+      background: #FFFFFF;
+      border: 1px solid #E6E0D8;
+      border-radius: 18px;
+      padding: 30px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+
+    .gaa-practice-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--o);
+      box-shadow: 0 16px 40px rgba(220, 106, 64, 0.14);
+    }
+
+    .gaa-practice-num {
+      font: 700 12px/1 var(--pm);
+      color: var(--od);
+      letter-spacing: 0.06em;
+    }
+
+    .gaa-practice-card h3 {
+      font-family: var(--pj);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--k);
+      line-height: 1.2;
+    }
+
+    .gaa-practice-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #554F49;
+      flex-grow: 1;
+    }
+
+    .gaa-practice-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .gaa-practice-chip {
+      font: 500 11px/1.2 var(--gm);
+      color: #4D4842;
+      background: var(--p-light);
+      border: 1px solid rgba(18, 18, 18, 0.08);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    /* ==========================================================================
+       ABOUT GAA CONSULTING SECTION
+       ========================================================================== */
+    .gaa-about-section {
+      padding: clamp(60px, 9vh, 110px) 0;
+      background: #FFFFFF;
+      border-top: 1px solid #ECE6DF;
+    }
+
+    .gaa-about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(40px, 6vw, 84px);
+      align-items: start;
+    }
+
+    @media (max-width: 920px) {
+      .gaa-about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+    }
+
+    .gaa-about-text h2 {
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: clamp(34px, 4.2vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--k);
+      margin-bottom: 22px;
+    }
+
+    .gaa-about-text h2 em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--o);
+    }
+
+    .gaa-about-p {
+      font-size: 16.5px;
+      line-height: 1.65;
+      color: #4D4842;
+      margin-bottom: 18px;
+    }
+
+    .gaa-values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 32px;
+    }
+
+    @media (max-width: 560px) {
+      .gaa-values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gaa-val-item {
+      padding: 18px;
+      background: var(--p-light);
+      border-radius: 12px;
+      border: 1px solid rgba(18, 18, 18, 0.08);
+      transition: all 0.25s ease;
+    }
+
+    .gaa-val-item:hover {
+      background: #FFFFFF;
+      border-color: var(--o);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(220, 106, 64, 0.12);
+    }
+
+    .gaa-val-item b {
+      font-family: var(--pj);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--k);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gaa-val-item span {
+      font-size: 13px;
+      color: #6E6860;
+      line-height: 1.5;
+    }
+
+    /* Regulatory Box */
+    .gaa-cred-box {
+      background: var(--p-light);
+      border: 1px solid #E6E0D8;
+      border-radius: 20px;
+      padding: clamp(26px, 3.5vw, 36px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 10px 30px -10px rgba(18, 18, 18, 0.05);
+    }
+
+    .gaa-cred-head {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(18, 18, 18, 0.1);
+    }
+
+    .gaa-cred-head h3 {
+      font-family: var(--pj);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--k);
+    }
+
+    .gaa-cred-head p {
+      font-size: 13px;
+      color: #7A7268;
+      margin-top: 3px;
+    }
+
+    .gaa-cred-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .gaa-cred-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(220, 106, 64, 0.12);
+      color: var(--od);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .gaa-cred-info b {
+      font-family: var(--pj);
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--k);
+      display: block;
+    }
+
+    .gaa-cred-info span {
+      font-size: 13px;
+      color: #554F49;
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       4 HUBS SECTION
+       ========================================================================== */
+    .gaa-hubs-section {
+      padding: clamp(60px, 8vh, 100px) 0;
+      background: var(--p-light);
+      border-top: 1px solid #ECE6DF;
+    }
+
+    .gaa-hubs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 990px) {
+      .gaa-hubs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .gaa-hubs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .gaa-hub-card {
+      background: #FFFFFF;
+      border: 1px solid #E6E0D8;
+      border-radius: 14px;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-hub-card:hover {
+      border-color: var(--o);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(220, 106, 64, 0.12);
+    }
+
+    .gaa-hub-tag {
+      font: 600 11px/1 var(--gm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--od);
+    }
+
+    .gaa-hub-card b {
+      font-family: var(--pj);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--k);
+    }
+
+    .gaa-hub-card span.addr {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #6E6860;
+      flex-grow: 1;
+    }
+
+    .gaa-hub-card span.tel {
+      font: 600 12px/1 var(--gm);
+      color: var(--k);
+      padding-top: 8px;
+      border-top: 1px solid #F0EAE1;
+    }
+
+    /* ==========================================================================
+       CTA STRIP
+       ========================================================================== */
+    .gaa-cta-strip {
+      background: var(--k);
+      color: #FFFFFF;
+      padding: clamp(50px, 7vh, 80px) 0;
+    }
+
+    .gaa-cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .gaa-cta-text h2 {
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: clamp(32px, 3.8vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+
+    .gaa-cta-text h2 em {
+      color: var(--o);
+      font-style: italic;
+    }
+
+    .gaa-cta-text p {
+      font-size: 15px;
+      color: #B5AEA4;
+      margin-top: 6px;
+      max-width: 520px;
+    }
+
+    .gaa-cta-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .gaa-cta-btn-o {
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: var(--o);
+      border: 1px solid var(--o);
+      color: var(--k);
+      font-family: var(--pj);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gaa-cta-btn-o:hover {
+      background: #FFFFFF;
+      border-color: #FFFFFF;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(220, 106, 64, 0.4);
+    }
+
+    .gaa-cta-btn-outline {
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #FFFFFF;
+      font-family: var(--pj);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .gaa-cta-btn-outline:hover {
+      border-color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    .c-footer {
+      border-top: 1px solid #ECE6DF;
+      background: #FFFFFF;
+      padding: 32px 0;
+    }
+
+    .c-footer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 3.5vw, 40px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13.5px;
+      color: #7A7268;
+    }
+
+    .c-footer-inner b {
+      color: var(--k);
+      font-family: var(--pj);
+      font-size: 14.5px;
+    }
+
+    .c-footer-inner a:hover {
+      color: var(--o);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="hdr">
+    <div class="hd">
+      <a href="index.html" class="brand-logo">
+        GAA <span>CONSULTING</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Group Portal</a>
+        <a href="#practices" class="active">Practice Areas</a>
+        <a href="#about-gaa">About GAA Consulting</a>
+        <a href="#hubs">Commercial Hubs</a>
+        <a href="contact.html">Contact Partner</a>
+      </nav>
+      <a href="contact.html" class="hdr-btn">
+        <span>Book Consultation</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- SUB-BAR / PORTAL TOGGLE -->
+  <div class="gaa-top-bar">
+    <div class="gaa-wrap">
+      <div class="gaa-top-inner">
+        <a href="index.html" class="gaa-back-portal">
+          <span>←</span>
+          <span>Return to GAA Advisory Group Portal (All 3 Practices)</span>
+        </a>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="gaa-badge-pill">GAA Consulting Practice</span>
+          <span style="font:500 12px var(--gm);color:#7A7268">🔒 Statutory Professional Privilege</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO SECTION -->
+  <section class="gaa-hero">
+    <div class="gaa-wrap">
+      <div class="gaa-hero-grid">
+        <div class="gaa-hero-left">
+          <span class="gaa-hero-tag">
+            Corporate Law · M&amp;A Advisory · Company Secretarial
+          </span>
+          <h1 class="gaa-hero-title">
+            Strategic Counsel for <em>Uncompromising Governance.</em>
+          </h1>
+          <p class="gaa-hero-desc">
+            GAA Consulting is the specialized corporate legal, company secretarial, and transaction diligence practice of GAA Group. We advise founders, enterprise boards, private equity funds, and foreign corporations navigating high-stakes statutory compliance, cross-border entry, and corporate restructurings across India.
+          </p>
+          <div class="gaa-hero-actions">
+            <a href="contact.html" class="gaa-pill-btn">
+              <span>Consult Senior Corporate Partner</span>
+              <span class="arr">→</span>
+            </a>
+            <a href="#practices" class="gaa-pill-outline">
+              <span>Explore Practice Areas ↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Stats Card -->
+        <div class="gaa-hero-card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font:700 11.5px/1 var(--gm);color:var(--od);text-transform:uppercase">Practice Benchmarks</span>
+            <span style="font:500 11px/1 var(--gm);color:#7A7268">Est. for Growth</span>
+          </div>
+
+          <div class="gaa-stat-row">
+            <div>
+              <div class="gaa-stat-num">150<span>+</span></div>
+              <div class="gaa-stat-label">M&amp;A &amp; Diligence Mandates</div>
+            </div>
+            <div>
+              <div class="gaa-stat-num">500<span>+</span></div>
+              <div class="gaa-stat-label">Annual Board Calendars</div>
+            </div>
+          </div>
+
+          <div class="gaa-stat-row">
+            <div>
+              <div class="gaa-stat-num">100<span>%</span></div>
+              <div class="gaa-stat-label">ICSI Fiduciary Standard</div>
+            </div>
+            <div>
+              <div class="gaa-stat-num">4</div>
+              <div class="gaa-stat-label">Physical Desks in India</div>
+            </div>
+          </div>
+
+          <div style="font:500 12.5px/1.5 Geist,sans-serif;color:#554F49;padding-top:6px">
+            Direct senior partner leadership on every file. Zero junior delegating or automated form-filling shortcuts.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENCHMARK SECTION (COMPETITOR COMPARISON) -->
+  <section class="gaa-benchmark-section">
+    <div class="gaa-wrap">
+      <div class="gaa-section-head">
+        <span class="gaa-section-label">The Advisory Difference</span>
+        <h2 class="gaa-section-title">
+          Why leading enterprises <em>choose GAA Consulting.</em>
+        </h2>
+        <p style="font-size:16px;color:#4D4842;margin-top:12px;line-height:1.6">
+          India's corporate advisory space is polarized between low-cost automated filing portals that lack legal foresight, and traditional law firms that charge punitive hourly retainers without operational execution. GAA Consulting bridges that chasm.
+        </p>
+      </div>
+
+      <div class="gaa-diff-grid">
+        <div class="gaa-diff-card">
+          <span class="gaa-diff-tag">Commodity Filing Portals</span>
+          <h3>Routine Form-Filers</h3>
+          <p>
+            Low-cost automated platforms designed for basic incorporations. They lack strategic corporate counsel, offer zero NCLT/RD defense, and leave boards exposed to severe statutory fines when complex compliance lapses arise.
+          </p>
+          <ul class="gaa-diff-list">
+            <li><span class="bullet">✕</span> Passive, automated form submission</li>
+            <li><span class="bullet">✕</span> No transaction or M&amp;A advisory</li>
+            <li><span class="bullet">✕</span> Inability to represent before NCLT or ROC</li>
+          </ul>
+        </div>
+
+        <div class="gaa-diff-card highlight">
+          <span class="gaa-diff-tag">GAA Consulting Standard</span>
+          <h3>Strategic Corporate Advisory</h3>
+          <p>
+            Integrated corporate law, company secretarial retainer, and transaction execution under strict fiduciary oversight. Dedicated senior partner accessibility with predictable, fixed-mandate pricing.
+          </p>
+          <ul class="gaa-diff-list">
+            <li><span class="bullet">✓</span> Senior Practising CS &amp; Corporate Lawyers</li>
+            <li><span class="bullet">✓</span> Full M&amp;A diligence, Section 233, and NCLT representation</li>
+            <li><span class="bullet">✓</span> Proactive statutory calendar with Zero Default record</li>
+            <li><span class="bullet">✓</span> Protected by statutory professional secrecy</li>
+          </ul>
+        </div>
+
+        <div class="gaa-diff-card">
+          <span class="gaa-diff-tag">Legacy Law Firms</span>
+          <h3>Traditional Law Firms</h3>
+          <p>
+            High-overhead law practices designed for litigation. Excellent legal briefs, but punitive hourly billing models, junior associate file delegation, and minimal hands-on day-to-day secretarial execution.
+          </p>
+          <ul class="gaa-diff-list">
+            <li><span class="bullet">✕</span> Unpredictable hourly billing models</li>
+            <li><span class="bullet">✕</span> Disconnected from routine MCA execution</li>
+            <li><span class="bullet">✕</span> Junior associate delegation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRACTICE VERTICALS -->
+  <section class="gaa-practices-section" id="practices">
+    <div class="gaa-wrap">
+      <div class="gaa-section-head">
+        <span class="gaa-section-label">Core Practice Areas</span>
+        <h2 class="gaa-section-title">
+          Precision counsel across the <em>corporate lifecycle.</em>
+        </h2>
+        <p style="font-size:16px;color:#4D4842;margin-top:12px;line-height:1.6">
+          From initial India entity architecture to complex cross-border restructuring and regulatory defense, explore our specialized advisory verticals.
+        </p>
+      </div>
+
+      <div class="gaa-practice-grid">
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">01 — PRACTICE</span>
+          <h3>Corporate Law &amp; Company Secretarial (CS)</h3>
+          <p>
+            Comprehensive corporate secretarial retainer for Indian entities and multinationals. We ensure statutory registers, Board and shareholder meetings, MCA-21 filings, and Secretarial Audits (under Section 204 of Companies Act, 2013) are impeccably maintained.
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">Board Governance</span>
+            <span class="gaa-practice-chip">MCA-21 Filings</span>
+            <span class="gaa-practice-chip">Secretarial Audit (Sec 204)</span>
+            <span class="gaa-practice-chip">Compounding of Offenses</span>
+          </div>
+        </div>
+
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">02 — PRACTICE</span>
+          <h3>M&amp;A, Restructuring &amp; Joint Ventures</h3>
+          <p>
+            End-to-end transactional execution for domestic and cross-border M&amp;A. From structuring fast-track mergers under Section 233 to NCLT schemes of arrangement, capital reductions, and slump sale business transfer agreements (BTA).
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">NCLT Schemes</span>
+            <span class="gaa-practice-chip">Fast-Track Mergers (Sec 233)</span>
+            <span class="gaa-practice-chip">Demergers</span>
+            <span class="gaa-practice-chip">Share Purchase Agreements</span>
+          </div>
+        </div>
+
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">03 — PRACTICE</span>
+          <h3>FDI, FEMA &amp; Cross-Border India Entry</h3>
+          <p>
+            Turnkey India entry advisory for multinational corporations, foreign funds, and NRIs. Structuring Wholly Owned Subsidiaries (WOS), Joint Ventures, and Liaison/Branch offices in full compliance with RBI guidelines and FEMA regulations.
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">Wholly Owned Subsidiaries</span>
+            <span class="gaa-practice-chip">FCGPR &amp; FLA Returns</span>
+            <span class="gaa-practice-chip">Branch Offices</span>
+            <span class="gaa-practice-chip">Overseas Direct Investment</span>
+          </div>
+        </div>
+
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">04 — PRACTICE</span>
+          <h3>Transaction &amp; Legal Due Diligence</h3>
+          <p>
+            Rigorous buy-side and sell-side legal, regulatory, and corporate secretarial diligence for venture capital rounds, private equity investments, and strategic acquisitions. We identify latent non-compliances and rectify them pre-closing.
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">VC / PE Diligence</span>
+            <span class="gaa-practice-chip">Secretarial Health Checks</span>
+            <span class="gaa-practice-chip">Cap Table Validation</span>
+            <span class="gaa-practice-chip">CP Satisfaction</span>
+          </div>
+        </div>
+
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">05 — PRACTICE</span>
+          <h3>NBFC &amp; Financial Sector Advisory</h3>
+          <p>
+            Specialized regulatory counsel for Non-Banking Financial Companies (NBFCs), digital lending platforms, and fintechs navigating the Reserve Bank of India’s strict master directions, registration hurdles, and periodic statutory inspections.
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">RBI NBFC Registration</span>
+            <span class="gaa-practice-chip">Digital Lending Guidelines</span>
+            <span class="gaa-practice-chip">Co-Lending Frameworks</span>
+            <span class="gaa-practice-chip">Fair Practices Code</span>
+          </div>
+        </div>
+
+        <div class="gaa-practice-card" onclick="location.href='contact.html'">
+          <span class="gaa-practice-num">06 — PRACTICE</span>
+          <h3>Board Governance &amp; Regulatory Defense</h3>
+          <p>
+            Advising Boards of Directors, Promoters, and Independent Directors on corporate governance best practices, Committee mandates (Audit, NRC, CSR), SEBI LODR alignment for pre-IPO firms, and defense against MCA show-cause notices.
+          </p>
+          <div class="gaa-practice-chips">
+            <span class="gaa-practice-chip">Independent Director Counsel</span>
+            <span class="gaa-practice-chip">Audit &amp; NRC Charters</span>
+            <span class="gaa-practice-chip">MCA Notice Defense</span>
+            <span class="gaa-practice-chip">SEBI LODR Alignment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT GAA CONSULTING SECTION -->
+  <section class="gaa-about-section" id="about-gaa">
+    <div class="gaa-wrap">
+      <div class="gaa-about-grid">
+        <div class="gaa-about-text">
+          <span class="gaa-section-label">About GAA Consulting</span>
+          <h2>
+            Built on <em>fiduciary duty</em> and commercial pragmatism.
+          </h2>
+          <p class="gaa-about-p">
+            GAA Consulting was founded on a singular conviction: corporate governance should accelerate enterprise growth, not paralyze it with bureaucracy. We operate as trusted outside corporate counsel and strategic company secretarial advisors to visionary promoters, institutional investors, and ambitious scaleups.
+          </p>
+          <p className="gaa-about-p" style="font-size:16.5px;line-height:1.65;color:#4D4842;margin-bottom:18px">
+            Our multidisciplinary practice convenes Practising Company Secretaries (FCS/ACS), Corporate Attorneys, M&amp;A Restructuring Specialists, and former regulatory counsels. Every matter is analyzed not in isolation, but through its broader impact on cap tables, investor relations, statutory compliance calendars, and institutional valuation.
+          </p>
+
+          <div class="gaa-values-grid">
+            <div class="gaa-val-item">
+              <b>Partner-Led Fiduciary Care</b>
+              <span>Direct partner oversight from inception to execution. We do not pass strategic briefs to junior trainees.</span>
+            </div>
+            <div class="gaa-val-item">
+              <b>Commercial Pragmatism</b>
+              <span>We evaluate legal risk against commercial realities to deliver actionable pathways, not endless memos.</span>
+            </div>
+            <div class="gaa-val-item">
+              <b>Zero Statutory Default</b>
+              <span>Relentless compliance calendar tracking across all MCA, ROC, RBI, and FEMA statutory filing deadlines.</span>
+            </div>
+            <div class="gaa-val-item">
+              <b>Bilateral Confidentiality</b>
+              <span>Protected under statutory professional privilege with 100% mutual NDA execution before document review.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Credentials Box -->
+        <div class="gaa-cred-box">
+          <div class="gaa-cred-head">
+            <h3>Institutional Standards &amp; Credentials</h3>
+            <p>Governed by strict statutory &amp; professional frameworks</p>
+          </div>
+
+          <div class="gaa-cred-item">
+            <div class="gaa-cred-icon">⚖️</div>
+            <div class="gaa-cred-info">
+              <b>ICSI Peer-Reviewed Practice</b>
+              <span>Compliant with the highest auditing standards issued by the Institute of Company Secretaries of India (ICSI).</span>
+            </div>
+          </div>
+
+          <div class="gaa-cred-item">
+            <div class="gaa-cred-icon">🏛️</div>
+            <div class="gaa-cred-info">
+              <b>NCLT &amp; Regulatory Tribunal Standing</b>
+              <span>Admitted representation privileges before the National Company Law Tribunal (NCLT) and Regional Directors (RD).</span>
+            </div>
+          </div>
+
+          <div class="gaa-cred-item">
+            <div class="gaa-cred-icon">🌐</div>
+            <div class="gaa-cred-info">
+              <b>FEMA &amp; RBI India Entry Desks</b>
+              <span>Direct integration with Authorized Dealer Category-1 banks for swift inbound FDI, FLA, and ODI clearances.</span>
+            </div>
+          </div>
+
+          <div class="gaa-cred-item">
+            <div class="gaa-cred-icon">⏱️</div>
+            <div class="gaa-cred-info">
+              <b>Under 4-Hour Partner Response SLA</b>
+              <span>Committed turnaround on emergency notices, board resolutions, and due diligence inquiries.</span>
+            </div>
+          </div>
+
+          <a href="contact.html" class="gaa-pill-btn" style="width:100%;margin-top:10px">
+            <span>Initiate Engagement Briefing</span>
+            <span class="arr">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 HUBS SECTION -->
+  <section class="gaa-hubs-section" id="hubs">
+    <div class="gaa-wrap">
+      <div class="gaa-section-head">
+        <span class="gaa-section-label">Commercial Hubs</span>
+        <h2 class="gaa-section-title">
+          Physical presence in <em>India's financial corridors.</em>
+        </h2>
+      </div>
+
+      <div class="gaa-hubs-grid">
+        <div class="gaa-hub-card">
+          <span class="gaa-hub-tag">HQ &amp; M&amp;A Advisory</span>
+          <b>Mumbai (BKC)</b>
+          <span class="addr">Financial Centre, G-Block, Bandra Kurla Complex, Mumbai — 400 051</span>
+          <span class="tel">+91 22 4980 1200</span>
+        </div>
+
+        <div class="gaa-hub-card">
+          <span class="gaa-hub-tag">Regulatory &amp; NBFC Desk</span>
+          <b>New Delhi (CP)</b>
+          <span class="addr">Statesman House, Barakhamba Road, Connaught Place, New Delhi — 110 001</span>
+          <span class="tel">+91 11 4150 8800</span>
+        </div>
+
+        <div class="gaa-hub-card">
+          <span class="gaa-hub-tag">Tech &amp; Scaleup Diligence</span>
+          <b>Bengaluru (Indiranagar)</b>
+          <span class="addr">100 Feet Road, HAL 2nd Stage, Indiranagar, Bengaluru — 560 038</span>
+          <span class="tel">+91 80 4320 5500</span>
+        </div>
+
+        <div class="gaa-hub-card">
+          <span class="gaa-hub-tag">Cross-Border &amp; FDI</span>
+          <b>GIFT City IFSC</b>
+          <span class="addr">Brigade International Financial Centre, GIFT City, Gandhinagar — 382 355</span>
+          <span class="tel">+91 79 6770 3300</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="gaa-cta-strip">
+    <div class="gaa-wrap">
+      <div class="gaa-cta-inner">
+        <div class="gaa-cta-text">
+          <h2>
+            Ready to elevate your <em>corporate governance?</em>
+          </h2>
+          <p>
+            Speak directly with a senior practice partner at GAA Consulting. Every briefing is protected under mutual non-disclosure and strict fiduciary privilege.
+          </p>
+        </div>
+        <div class="gaa-cta-actions">
+          <a href="contact.html" class="gaa-cta-btn-o">
+            <span>Schedule Partner Briefing →</span>
+          </a>
+          <a href="index.html" class="gaa-cta-btn-outline">
+            <span>← GAA Group Portal</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="c-footer">
+    <div class="c-footer-inner">
+      <b>GAA Consulting · Corporate Advisory &amp; Company Secretarial Practice</b>
+      <span>Part of GAA Advisory Group (GAA Consulting · Filings First · Hirings First)</span>
+      <a href="index.html" style="color:var(--o);font-weight:700">← Return to Group Home</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+const fs = require('fs');
+const html = fs.readFileSync('ref_GAA_Consulting.html', 'utf8');
+const sStart = html.indexOf('<style>') + 7;
+const sEnd = html.indexOf('</style>', sStart);
+const fullCss = html.substring(sStart, sEnd);
+const firstEnd = fullCss.indexOf('format("woff2")}');
+const secondEnd = fullCss.indexOf('format("woff2")}', firstEnd + 10);
+console.log('firstEnd:', firstEnd, 'secondEnd:', secondEnd);
+const pureCss = fullCss.substring(secondEnd + 'format("woff2")}'.length).trim();
+console.log('pureCss length:', pureCss.length);
+fs.writeFileSync('gaa_exact.css', pureCss);
