@@ -196,7 +196,7 @@ export default function HomePage({ onNavigate }) {
     const lgA = document.getElementById("lgA");
     const cnt = document.getElementById("cnt");
     const cap = document.getElementById("cap");
-    const ring = document.getElementById("ring");
+    const ring = document.getElementById("lc-ring");
     const arc = document.getElementById("arc");
     const svg = document.getElementById("svg");
     const cn = document.getElementById("cn");
@@ -315,7 +315,7 @@ export default function HomePage({ onNavigate }) {
         const R = Sz / 2;
         const mg = narrow ? 30 : 80;
 
-        ring.style.cssText = `width:${Sz}px;height:${Sz}px;margin:${mg}px`;
+        ring.style.cssText = `position:relative;flex:none;opacity:1;visibility:visible;width:${Sz}px;height:${Sz}px;margin:${mg}px`;
         arc.style.cssText = `inset:-1px;border-radius:50%;background:conic-gradient(from ${
           -pos * 60
         }deg,${O} 0deg ${pos * 60}deg,transparent ${
@@ -1044,19 +1044,20 @@ export default function HomePage({ onNavigate }) {
             </div>
 
             <div className="ringw">
-              <div className="ring" id="ring">
+              <div className="ring" id="lc-ring">
                 <div
                   style={{
                     inset: 0,
                     borderRadius: "50%",
-                    border: "1px solid #34302c"
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    boxShadow: "0 0 25px rgba(0, 0, 0, 0.4)"
                   }}
                 ></div>
                 <div
                   style={{
                     inset: "16%",
                     borderRadius: "50%",
-                    border: "1px dashed #2c2926"
+                    border: "1px dashed rgba(255, 255, 255, 0.12)"
                   }}
                 ></div>
                 <div
@@ -1089,14 +1090,15 @@ export default function HomePage({ onNavigate }) {
                       fontWeight: 600,
                       fontStyle: "italic",
                       lineHeight: 1,
-                      letterSpacing: "-.04em"
+                      letterSpacing: "-.04em",
+                      color: "#ffffff"
                     }}
                   ></span>
                   <span className="gm" id="ofl" style={{ color: "#ffffff", fontWeight: 600 }}>
                     OF 06
                   </span>
                 </div>
-                <div id="marks">
+                <div id="marks" style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
                   {J.map((_, i) => (
                     <React.Fragment key={i}>
                       <span

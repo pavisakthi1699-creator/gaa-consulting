@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // magnetic buttons, hero tilt, card spotlights and the custom cursor ring.
 // Extended to cover the new sub-page components.
 const REVEAL =
-  ".card,.rows>div,.links a,.route,.tx>*,.side>*,.det>*,.cc,.pc5,.val,.ci,.hub,.svc,.step,.faq-i,.tl-i,.cal-r,.case,.ppl,.lead,.ori,.bnote,.lc-i,.glance,.legal>*";
+  ".card,.rows>div,.cc,.pc5,.val,.ci,.hub,.ledger>li,.svl>div,.trk>li,.faq-i,.tl-i,.rgn>li,.story,.cal-r,.tier,.stair>li,.lead,.ppl,.statement,.ov-g>*,.legal>*,.brf-feat,.shd>p,.sp-h>p,.sp-h>.acts,.rtabs,.ix-list>button,.why .tx,.gift .tx,.gf-top>*";
 
 export default function useGaaMotion(rootRef, title) {
   useEffect(() => {
@@ -63,8 +63,15 @@ export default function useGaaMotion(rootRef, title) {
             (es) =>
               es.forEach((x) => {
                 if (x.isIntersecting) {
-                  x.target.classList.add("in");
-                  io.unobserve(x.target);
+                  const t = x.target;
+                  t.classList.add("in");
+                  io.unobserve(t);
+                  // hand control back to the element's own hover transitions once revealed
+                  if (t.classList.contains("rv"))
+                    setTimeout(() => {
+                      t.classList.remove("rv");
+                      t.style.transitionDelay = "";
+                    }, 1500);
                 }
               }),
             { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
@@ -140,7 +147,7 @@ export default function useGaaMotion(rootRef, title) {
       }
 
       const onSpot = (e) => {
-        const c = e.target.closest && e.target.closest(".pc5,.case,.svc");
+        const c = e.target.closest && e.target.closest(".pc5");
         if (!c || !root.contains(c)) return;
         const r = c.getBoundingClientRect();
         c.style.setProperty("--x", e.clientX - r.left + "px");
@@ -148,7 +155,7 @@ export default function useGaaMotion(rootRef, title) {
       };
       root.addEventListener("mousemove", onSpot);
 
-      const ring = root.querySelector("#ring");
+      const ring = root.querySelector("#gaa-cursor-ring");
       let x = -100,
         y = -100,
         tx = -100,
@@ -163,7 +170,7 @@ export default function useGaaMotion(rootRef, title) {
         if (ring)
           ring.classList.toggle(
             "big",
-            !!e.target.closest("a,button,.pc5,.hub,.val,.svc,.case,.ppl,.step")
+            !!e.target.closest("a,button,.pc5,.hub,.val,.story,.ppl,.tier")
           );
       };
       window.addEventListener("mousemove", onMouseMove);

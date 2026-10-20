@@ -1,82 +1,201 @@
-import React, { useState } from "react";
-import { GAA_NAV, GAA_FOOTER_LINKS } from "../../data/gaaContent";
+import React, { useEffect, useRef, useState } from "react";
+import { GAA_NAV, GAA_FOOTER_GROUPS, PRACTICES } from "../../data/gaaContent";
 
 /* Build an href + click handler for internal links.
-   `to` is either a GAA sub path ("practices", "practices/fdi-fema", "" for GAA home)
-   or a group page prefixed with "@" ("@home", "@contact", "@about", "@filings-first"). */
+   `to` is a GAA sub path ("practices", "practices/fdi-fema", "" for GAA home),
+   optionally with an in-page anchor ("insights#calendar"),
+   or a group page prefixed with "@" ("@home", "@contact", "@about"). */
 export function useLink(onNavigate) {
   return (to, extra = {}) => {
-    const group = to.startsWith("@");
-    const page = group ? to.slice(1) : to ? `gaa-consulting/${to}` : "gaa-consulting";
-    const href =
-      page === "home" ? "#/" : page === "contact" ? "#/contact?brand=gaa" : `#/${page}`;
+    const [path, anchor] = to.split("#");
+    const group = path.startsWith("@");
+    const page = group ? path.slice(1) : path ? `gaa-consulting/${path}` : "gaa-consulting";
+    const href = page === "home" ? "#/" : page === "contact" ? "#/contact?brand=gaa" : `#/${page}`;
     return {
       href,
       onClick: (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey) return;
         e.preventDefault();
+        if (extra.before) extra.before();
         if (onNavigate) onNavigate(page, extra.intent || null);
         else window.location.hash = href;
+        if (anchor)
+          setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" }), 450);
       },
     };
   };
 }
 
-export function GaaHeader({ link, active }) {
+/* ------------------------------------------------------------------ */
+/* Header: familiar menu labels + Services mega menu + mobile menu     */
+/* ------------------------------------------------------------------ */
+export function GaaHeader({ link, active = "" }) {
+  const [dd, setDd] = useState(false);
+  const [mob, setMob] = useState(false);
+  const ddRef = useRef(null);
+  const closeT = useRef(0);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setDd(false);
+        setMob(false);
+      }
+    };
+    const onDown = (e) => {
+      if (ddRef.current && !ddRef.current.contains(e.target)) setDd(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onDown);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onDown);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("gaa-lock", mob);
+    return () => document.documentElement.classList.remove("gaa-lock");
+  }, [mob]);
+
+  const open = () => {
+    clearTimeout(closeT.current);
+    setDd(true);
+  };
+  const close = () => {
+    closeT.current = setTimeout(() => setDd(false), 140);
+  };
+  const isCur = (to) =>
+    to === active || (to === "practices" && (active === "practices" || active === "india-entry"));
+  const shut = { before: () => { setDd(false); setMob(false); } };
+
   return (
     <>
       <div id="pg"></div>
-      <header id="hdr">
+      <header id="hdr" className={`gh${dd ? " dd-on" : ""}`}>
         <div className="hd">
-          <a {...link("")} aria-label="GAA Consulting home">
+          <a {...link("", shut)} aria-label="GAA Consulting home" className="lg">
             <img src="/gaa-consulting-logo.png" alt="GAA Consulting" />
           </a>
-          <nav aria-label="Main">
-            <a {...link("@home")}>Group Portal</a>
-            {GAA_NAV.map(([to, label]) => (
-              <a key={to} {...link(to)} aria-current={active === to ? "page" : undefined}>
-                {label}
-              </a>
-            ))}
+          <nav aria-label="Main" className="gnav">
+            {GAA_NAV.map(([to, label]) =>
+              to === "practices" ? (
+                <div className="ddw" key={to} ref={ddRef} onMouseEnter={open} onMouseLeave={close}>
+                  <button
+                    type="button"
+                    className="ddb"
+                    aria-expanded={dd}
+                    aria-controls="gaa-services-menu"
+                    aria-current={isCur(to) ? "page" : undefined}
+                    onClick={() => setDd((v) => !v)}
+                  >
+                    {label}
+                    <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+                  </button>
+                  <div className="mega" id="gaa-services-menu" data-open={dd}>
+                    <div className="mega-in">
+                      <ul className="mega-list">
+                        {PRACTICES.map((p) => (
+                          <li key={p.slug}>
+                            <a {...link(`practices/${p.slug}`, shut)}>
+                              <b>{p.navName}</b>
+                              <span>{p.navDesc}</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mega-side">
+                        <a className="mega-feat" {...link("india-entry", shut)}>
+                          <span className="k">For foreign companies</span>
+                          <b>Set up your business in India</b>
+                          <span className="d">Subsidiary, JV, LLP or branch office, incorporated and FEMA compliant.</span>
+                          <i aria-hidden="true">↗</i>
+                        </a>
+                        <a className="mega-all" {...link("practices", shut)}>
+                          View all services
+                        </a>
+                        <a className="mega-all" {...link("how-we-work", shut)}>
+                          How we work and our fees
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a key={label} {...link(to, shut)} aria-current={isCur(to) ? "page" : undefined}>
+                  {label}
+                </a>
+              )
+            )}
           </nav>
-          <a className="book" {...link("@contact")}>
-            Book Consultation →
+          <a className="book" {...link("@contact", shut)}>
+            Book a Consultation
           </a>
+          <button
+            type="button"
+            className="burger"
+            aria-expanded={mob}
+            aria-controls="gaa-mobile-menu"
+            aria-label={mob ? "Close menu" : "Open menu"}
+            onClick={() => setMob((v) => !v)}
+          >
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </header>
+      <div className="mnav" id="gaa-mobile-menu" data-open={mob} aria-hidden={!mob}>
+        <div className="mnav-in">
+          <a {...link("", shut)} tabIndex={mob ? 0 : -1}>Home</a>
+          <a {...link("@about", shut)} tabIndex={mob ? 0 : -1}>About Us</a>
+          <details>
+            <summary tabIndex={mob ? 0 : -1}>Services</summary>
+            <div>
+              {PRACTICES.map((p) => (
+                <a key={p.slug} {...link(`practices/${p.slug}`, shut)} tabIndex={mob ? 0 : -1}>
+                  {p.navName}
+                </a>
+              ))}
+              <a {...link("india-entry", shut)} tabIndex={mob ? 0 : -1}>Set Up in India</a>
+              <a {...link("practices", shut)} tabIndex={mob ? 0 : -1}>All services</a>
+            </div>
+          </details>
+          <a {...link("industries", shut)} tabIndex={mob ? 0 : -1}>Industries</a>
+          <a {...link("experience", shut)} tabIndex={mob ? 0 : -1}>Case Studies</a>
+          <a {...link("insights", shut)} tabIndex={mob ? 0 : -1}>Insights</a>
+          <a {...link("people", shut)} tabIndex={mob ? 0 : -1}>Our Team</a>
+          <a {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>Contact Us</a>
+          <a className="btn o" {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>
+            Book a Consultation
+          </a>
+        </div>
+      </div>
     </>
   );
 }
 
-/* Strip under the header: back link + breadcrumb trail + practice pill */
+/* Strip under the header: back to group + breadcrumb */
 export function GaaSubBar({ link, crumbs = [] }) {
   return (
     <div className="sbar">
       <div className="w">
-        <a className="back" {...link("")}>
+        <a className="back" {...link("@home")}>
           <span>←</span>
-          <span>GAA Consulting Home</span>
+          <span>Back to GAA Group</span>
         </a>
-        <div className="sbr">
-          <nav className="crumbs gm" aria-label="Breadcrumb">
-            <a {...link("@home")}>Group</a>
-            <i>/</i>
-            <a {...link("")}>GAA Consulting</a>
-            {crumbs.map(([to, label], k) => (
-              <React.Fragment key={label}>
-                <i>/</i>
-                {k === crumbs.length - 1 || to == null ? (
-                  <span aria-current="page">{label}</span>
-                ) : (
-                  <a {...link(to)}>{label}</a>
-                )}
-              </React.Fragment>
-            ))}
-          </nav>
-          <span className="bpill">
-            <i></i>GAA Consulting Practice
-          </span>
-        </div>
+        <nav className="crumbs" aria-label="Breadcrumb">
+          <a {...link("")}>Home</a>
+          {crumbs.map(([to, label], k) => (
+            <React.Fragment key={label}>
+              <i aria-hidden="true">/</i>
+              {k === crumbs.length - 1 || to == null ? (
+                <span aria-current="page">{label}</span>
+              ) : (
+                <a {...link(to)}>{label}</a>
+              )}
+            </React.Fragment>
+          ))}
+        </nav>
       </div>
     </div>
   );
@@ -84,15 +203,24 @@ export function GaaSubBar({ link, crumbs = [] }) {
 
 export function GaaFooter({ link }) {
   return (
-    <footer>
-      <div className="ft ft-gaa">
-        <nav aria-label="GAA Consulting">
-          {GAA_FOOTER_LINKS.map(([to, label]) => (
-            <a key={to} {...link(to)}>
-              {label}
-            </a>
-          ))}
-        </nav>
+    <footer className="gf">
+      <div className="w gf-top">
+        <div className="gf-cta">
+          <p className="gf-big">Have a compliance or transaction question?</p>
+          <a className="btn o" {...link("@contact")}>
+            Book a Consultation <span className="ar">→</span>
+          </a>
+        </div>
+        {GAA_FOOTER_GROUPS.map(([title, items]) => (
+          <nav className="gf-col" key={title} aria-label={title}>
+            <b>{title}</b>
+            {items.map(([to, label]) => (
+              <a key={label} {...link(to)}>
+                {label}
+              </a>
+            ))}
+          </nav>
+        ))}
       </div>
       <div className="ft">
         <img src="/gaa-consulting-logo.png" alt="GAA Consulting" />
@@ -109,8 +237,7 @@ export function GaaFooter({ link }) {
   );
 }
 
-/* Hero headline with the same line-mask + hover-skew words as the home hero.
-   lines: ["Board-ready", "compliance,", "every quarter."], em: indexes rendered in orange italic */
+/* Hero headline with the same line-mask + hover-skew words as the home hero. */
 export function HeroTitle({ lines, em = [] }) {
   return (
     <h1 aria-label={lines.join(" ")}>
@@ -131,8 +258,53 @@ export function HeroTitle({ lines, em = [] }) {
   );
 }
 
-/* Shorter version of the home hero for inner pages */
-export function SubHero({ tag, lines, em, sub, actions, aside, ticker }) {
+function Ticker({ items }) {
+  return (
+    <div className="tk" aria-hidden="true">
+      <div>
+        {[0, 1, 2, 3].flatMap((r) =>
+          items.map((t, k) => (
+            <React.Fragment key={`${r}-${k}`}>
+              <span>{t}</span>
+              <span className="s">✦</span>
+            </React.Fragment>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* Inner-page hero.
+   variant "stack": headline left, stacked card right (same device as the GAA home hero).
+   variant "type":  oversized headline across the page, intro + actions in a lower band,
+                    facts in an open row (no card). */
+export function SubHero({ tag, lines, em, sub, actions, aside, facts, ticker, variant = "stack" }) {
+  if (variant === "type") {
+    return (
+      <section className="hero6 hsub htype" id="top">
+        <div className="w">
+          <span className="tag6 e3" style={{ "--t": ".05s" }}>{tag}</span>
+          <HeroTitle lines={lines} em={em} />
+          <div className="ht-low e3" style={{ "--t": ".55s" }}>
+            <p className="sub6">{sub}</p>
+            {actions && <div className="acts">{actions}</div>}
+          </div>
+          {facts && (
+            <dl className="facts e3" style={{ "--t": ".75s" }}>
+              {facts.map(([n, l]) => (
+                <div key={l}>
+                  <dt>{n}</dt>
+                  <dd>{l}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+        {ticker && <Ticker items={ticker} />}
+      </section>
+    );
+  }
   return (
     <section className="hero6 hsub" id="top">
       <span className="sect" aria-hidden="true">§</span>
@@ -143,32 +315,20 @@ export function SubHero({ tag, lines, em, sub, actions, aside, ticker }) {
           <p className="sub6 e3" style={{ "--t": ".55s" }}>{sub}</p>
           {actions && <div className="acts e3" style={{ "--t": ".7s" }}>{actions}</div>}
         </div>
-        {aside && <div className="stackc e3" style={{ "--t": ".4s" }}>
-          <div className="lyr l3"></div>
-          <div className="lyr l2"></div>
-          <div className="front">{aside}</div>
-        </div>}
-      </div>
-      {ticker && (
-        <div className="tk" aria-hidden="true">
-          <div>
-            {[0, 1, 2, 3].flatMap((r) =>
-              ticker.map((t, k) => (
-                <React.Fragment key={`${r}-${k}`}>
-                  <span>{t}</span>
-                  <span className="s">✦</span>
-                </React.Fragment>
-              ))
-            )}
+        {aside && (
+          <div className="stackc e3" style={{ "--t": ".4s" }}>
+            <div className="lyr l3"></div>
+            <div className="lyr l2"></div>
+            <div className="front">{aside}</div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+      {ticker && <Ticker items={ticker} />}
     </section>
   );
 }
 
-/* "At a glance" list inside the hero stack card */
-export function GlanceCard({ head = "At a glance", note, rows }) {
+export function GlanceCard({ head = "At a glance", rows, note }) {
   return (
     <>
       <div className="fh">
@@ -188,33 +348,73 @@ export function GlanceCard({ head = "At a glance", note, rows }) {
   );
 }
 
-export function SectionHead({ eb, children, p }) {
+/* Split section: sticky heading column on the left, content on the right */
+export function Split({ id, alt, dark, title, p, actions, children, wide }) {
   return (
-    <div className="head6">
-      <span className="gm eb">{eb}</span>
-      <h2 style={{ marginTop: "14px" }}>{children}</h2>
+    <section className={`s split${alt ? " alt" : ""}${dark ? " dk" : ""}`} id={id}>
+      <div className={`w sp-g${wide ? " wide" : ""}`}>
+        <div className="sp-h">
+          <h2>{title}</h2>
+          {p && <p>{p}</p>}
+          {actions && <div className="acts">{actions}</div>}
+        </div>
+        <div className="sp-c">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+/* Centered-left section heading with intro on the right of the heading */
+export function SectionHead({ children, p }) {
+  return (
+    <div className="shd">
+      <h2>{children}</h2>
       {p && <p>{p}</p>}
     </div>
   );
 }
 
-export function CtaBand({ link, eb = "Next step", title, em, p, intent }) {
+/* Ledger rows: full-width typographic list that floods ink on hover.
+   items: [{ key, to, title, desc, meta, extra }] */
+export function Ledger({ link, items, numbered = false, big = false }) {
+  return (
+    <ol className={`ledger${big ? " big" : ""}${numbered ? "" : " nn"}`}>
+      {items.map((it, i) => (
+        <li key={it.key || it.title}>
+          <a {...link(it.to, it.linkExtra || {})}>
+            {numbered && <span className="lg-n">{String(i + 1).padStart(2, "0")}</span>}
+            <span className="lg-t">{it.title}</span>
+            <span className="lg-d">
+              {it.desc}
+              {it.extra && <span className="lg-x">{it.extra}</span>}
+            </span>
+            {it.meta && <span className="lg-m">{it.meta}</span>}
+            <span className="lg-a" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 18 18 6M9 6h9v9" /></svg>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+export function CtaBand({ link, title, em, p, intent }) {
   return (
     <section className="s band">
       <span className="orb"></span>
       <span className="orb"></span>
       <div className="w">
-        <span className="gm eb">{eb}</span>
-        <h2 style={{ marginTop: "16px" }}>
+        <h2>
           {title} <em>{em}</em>
         </h2>
         <p>{p}</p>
         <div className="acts">
           <a className="btn o" {...link("@contact", { intent })}>
-            Schedule Partner Briefing <span className="ar">→</span>
+            Book a Consultation <span className="ar">→</span>
           </a>
           <a className="btn g" {...link("practices")}>
-            Explore Practice Areas
+            View All Services
           </a>
         </div>
       </div>
@@ -231,15 +431,9 @@ export function FaqList({ items }) {
         const id = `faq-${i}-${q.length}`;
         return (
           <div className="faq-i" key={q}>
-            <button
-              type="button"
-              aria-expanded={isOpen}
-              aria-controls={id}
-              onClick={() => setOpen(isOpen ? -1 : i)}
-            >
-              <i className="gm">{String(i + 1).padStart(2, "0")}</i>
+            <button type="button" aria-expanded={isOpen} aria-controls={id} onClick={() => setOpen(isOpen ? -1 : i)}>
               <b>{q}</b>
-              <span className="pm" aria-hidden="true">+</span>
+              <span className="pm" aria-hidden="true"></span>
             </button>
             <div className="fa" id={id} role="region">
               <div>
@@ -254,5 +448,5 @@ export function FaqList({ items }) {
 }
 
 export function Ring() {
-  return <div id="ring" aria-hidden="true"></div>;
+  return <div id="gaa-cursor-ring" aria-hidden="true"></div>;
 }

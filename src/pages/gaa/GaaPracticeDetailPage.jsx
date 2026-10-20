@@ -1,35 +1,35 @@
 import React, { useEffect, useRef, useState } from "react";
 import useGaaMotion from "./useGaaMotion";
 import {
-  GaaHeader, GaaSubBar, GaaFooter, SubHero, GlanceCard, SectionHead, CtaBand, FaqList, Ring, useLink,
+  GaaHeader, GaaSubBar, GaaFooter, SubHero, GlanceCard, Split, Ledger, CtaBand, FaqList, Ring, useLink,
 } from "./GaaShell";
 import { PRACTICES, getPractice } from "../../data/gaaContent";
 import { TEAM_MEMBERS } from "../../data/teamData";
 
 const ANCHORS = [
   ["overview", "Overview"],
-  ["services", "Services"],
+  ["services", "What's included"],
   ["process", "Process"],
   ["faq", "FAQs"],
-  ["related", "Related"],
 ];
 
 export default function GaaPracticeDetailPage({ slug, onNavigate }) {
   const ref = useRef(null);
   const link = useLink(onNavigate);
   const p = getPractice(slug) || PRACTICES[0];
-  useGaaMotion(ref, `${p.title} | GAA Consulting`);
+  useGaaMotion(ref, `${p.navName} | GAA Consulting`);
 
-  // Highlight the in-page anchor for the section in view
   const [cur, setCur] = useState("overview");
   useEffect(() => {
-    const els = ANCHORS.map(([id]) => document.getElementById(id)).filter(Boolean);
     if (!("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => e.isIntersecting && setCur(e.target.id)),
       { rootMargin: "-45% 0px -50% 0px" }
     );
-    els.forEach((e) => io.observe(e));
+    ANCHORS.forEach(([id]) => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
     return () => io.disconnect();
   }, []);
 
@@ -45,30 +45,24 @@ export default function GaaPracticeDetailPage({ slug, onNavigate }) {
   return (
     <div className="gaa-consulting-root gaa-sub" ref={ref}>
       <GaaHeader link={link} active="practices" />
-      <GaaSubBar link={link} crumbs={[["practices", "Practice Areas"], [null, p.short]]} />
+      <GaaSubBar link={link} crumbs={[["practices", "Services"], [null, p.navName]]} />
       <main>
         <SubHero
-          tag={`Practice ${p.no} · ${p.short}`}
+          tag={p.navName}
           lines={p.hero}
           em={p.heroEm}
           sub={p.lede}
           actions={
             <>
               <a className="btn o" {...link("@contact", { intent: p.intent })}>
-                Consult the Practice Partner <span className="ar">→</span>
+                Talk to a Partner <span className="ar">→</span>
               </a>
               <a className="btn g" href="#services" onClick={jump("services")}>
-                See Services ↓
+                What's included
               </a>
             </>
           }
-          aside={
-            <GlanceCard
-              head={`Practice ${p.no}`}
-              rows={p.glance}
-              note="Every file is reviewed by a senior partner before it is filed or shared."
-            />
-          }
+          aside={<GlanceCard head="At a glance" rows={p.glance} note="Every file is reviewed by a senior partner before it is filed or shared." />}
           ticker={p.chips}
         />
 
@@ -79,113 +73,93 @@ export default function GaaPracticeDetailPage({ slug, onNavigate }) {
                 {label}
               </a>
             ))}
-            <a className="anav-cta" {...link("@contact", { intent: p.intent })}>Book a Briefing →</a>
+            <a className="anav-cta" {...link("@contact", { intent: p.intent })}>Book a Consultation</a>
           </div>
         </nav>
 
-        <section className="s" id="overview">
-          <div className="w ag">
-            <div>
-              <span className="gm eb">Practice Overview</span>
-              <h2 style={{ marginTop: "14px" }}>{p.short} <em>done properly.</em></h2>
-              {p.overview.map((t) => <p className="ap" key={t.slice(0, 20)}>{t}</p>)}
-              <div className="who">
-                <span className="gm eb">Who we advise</span>
-                <div className="chips">
-                  {p.audience.map((a) => <span key={a}>{a}</span>)}
-                </div>
+        <section className="s ov" id="overview">
+          <div className="w">
+            <p className="statement">{p.overview[0]}</p>
+            <div className="ov-g">
+              <p className="ov-t">{p.overview[1]}</p>
+              <div className="ov-who">
+                <h3>Who we advise</h3>
+                <ul>{p.audience.map((a) => <li key={a}>{a}</li>)}</ul>
               </div>
-            </div>
-            <aside className="cred">
-              <h3>Practice Lead</h3>
-              <p className="sub">Direct partner access on every matter</p>
               {lead && (
-                <div className="plead">
-                  <img src={lead.image} alt={lead.name} loading="lazy" />
-                  <div>
+                <a className="ov-lead" {...link("people")}>
+                  <img src={lead.image} alt="" loading="lazy" />
+                  <span>
+                    <small>Your partner</small>
                     <b>{lead.name}</b>
                     <span>{lead.role}</span>
-                  </div>
-                </div>
+                  </span>
+                </a>
               )}
-              <div className="ci"><span className="ic">01</span><div><b>Under 4-Hour Response</b><span>On urgent notices, board resolutions and transaction queries.</span></div></div>
-              <div className="ci"><span className="ic">02</span><div><b>Fixed, Written Fees</b><span>Scope and fee agreed in writing before work starts.</span></div></div>
-              <div className="ci"><span className="ic">03</span><div><b>Mutual NDA First</b><span>Signed before we review a single document.</span></div></div>
-              <a className="btn o" {...link("@contact", { intent: p.intent })}>
-                <span>Initiate Engagement Briefing</span><span className="ar">→</span>
-              </a>
-            </aside>
+            </div>
           </div>
         </section>
 
-        <section className="s alt" id="services">
-          <div className="w">
-            <SectionHead eb="What We Do" p="The core services within this practice. Every engagement is scoped to your entity, so you only pay for what you need.">
-              Services within <em>this practice.</em>
-            </SectionHead>
-            <div className="svcs">
-              {p.services.map(([t, d], i) => (
-                <div className="svc" key={t}>
-                  <span className="gm">{p.no}.{String(i + 1).padStart(2, "0")}</span>
-                  <h3>{t}</h3>
-                  <p>{d}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Split
+          id="services"
+          alt
+          title={<>What's <em>included.</em></>}
+          p="Every engagement is scoped to your company, so you only pay for what you need."
+          actions={<a className="btn" {...link("@contact", { intent: p.intent })}>Get a fixed quote <span className="ar">→</span></a>}
+        >
+          <dl className="svl">
+            {p.services.map(([t, d]) => (
+              <div key={t}>
+                <dt>{t}</dt>
+                <dd>{d}</dd>
+              </div>
+            ))}
+          </dl>
+        </Split>
 
         <section className="s" id="process">
           <div className="w">
-            <SectionHead eb="How We Work" p="A clear four-stage process with a named partner accountable at every stage.">
-              From first call to <em>final filing.</em>
-            </SectionHead>
-            <ol className="steps draw">
+            <div className="shd">
+              <h2>How the work <em>moves.</em></h2>
+              <p>Four stages, one partner accountable from the first call to the final filing.</p>
+            </div>
+            <ol className="trk draw">
               {p.process.map(([t, d], i) => (
-                <li className="step" key={t}>
-                  <span className="no">{String(i + 1).padStart(2, "0")}</span>
+                <li key={t}>
+                  <span className="trk-n">{i + 1}</span>
                   <b>{t}</b>
-                  <span>{d}</span>
+                  <p>{d}</p>
                 </li>
               ))}
             </ol>
           </div>
         </section>
 
-        <section className="s alt" id="faq">
-          <div className="w ag">
-            <div>
-              <span className="gm eb">Frequently Asked</span>
-              <h2 style={{ marginTop: "14px" }}>Questions clients <em>ask us first.</em></h2>
-              <p className="ap">Short answers to common questions about this practice. For advice on your specific facts, book a confidential briefing with a partner.</p>
-              <div className="acts">
-                <a className="btn" {...link("how-we-work")}>How We Work <span className="ar">→</span></a>
-              </div>
-            </div>
-            <FaqList items={p.faqs} />
-          </div>
-        </section>
+        <Split
+          id="faq"
+          alt
+          title={<>Questions clients <em>ask first.</em></>}
+          p="For advice on your own facts, book a confidential call with a partner."
+          actions={<a className="btn" {...link("how-we-work")}>How we work <span className="ar">→</span></a>}
+        >
+          <FaqList items={p.faqs} />
+        </Split>
 
         <section className="s" id="related">
           <div className="w">
-            <SectionHead eb="Related Practices">
-              Practices that <em>work alongside.</em>
-            </SectionHead>
-            <div className="pgrid">
-              {p.related.map((s) => {
-                const r = getPractice(s);
-                return (
-                  <a className="pc5" key={s} {...link(`practices/${s}`)}>
-                    <div className="top"><span className="n">{r.no} · Practice</span><span className="go2">→</span></div>
-                    <h3>{r.title}</h3>
-                    <p>{r.summary}</p>
-                  </a>
-                );
-              })}
+            <div className="shd">
+              <h2>Often paired <em>with this.</em></h2>
             </div>
+            <Ledger
+              link={link}
+              items={p.related.map((s) => {
+                const r = getPractice(s);
+                return { key: s, to: `practices/${s}`, title: r.navName, desc: r.summary };
+              })}
+            />
             <a className="nextp" {...link(`practices/${next.slug}`)}>
-              <span className="gm">Next practice · {next.no}</span>
-              <b>{next.title}</b>
+              <span>Next service</span>
+              <b>{next.navName}</b>
               <i aria-hidden="true">→</i>
             </a>
           </div>
@@ -195,8 +169,8 @@ export default function GaaPracticeDetailPage({ slug, onNavigate }) {
           link={link}
           intent={p.intent}
           title="Discuss your matter with"
-          em="a practice partner."
-          p="Every briefing is protected under mutual non-disclosure. You will get a written scope, timeline and fixed fee within 48 hours."
+          em="a partner."
+          p="Every conversation is covered by a mutual NDA. You get a written scope, timeline and fixed fee within 48 hours."
         />
       </main>
       <GaaFooter link={link} />

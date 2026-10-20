@@ -9,6 +9,8 @@
 export const PRACTICES = [
   {
     slug: "corporate-secretarial",
+    navName: "Company Secretarial",
+    navDesc: "Board meetings, MCA filings and secretarial audits",
     no: "01",
     title: "Corporate Law & Company Secretarial",
     short: "Corporate Law & CS",
@@ -57,6 +59,8 @@ export const PRACTICES = [
   },
   {
     slug: "mergers-restructuring",
+    navName: "Mergers & Acquisitions",
+    navDesc: "Mergers, demergers, JVs and NCLT schemes",
     no: "02",
     title: "M&A, Restructuring & Joint Ventures",
     short: "M&A & Restructuring",
@@ -105,6 +109,8 @@ export const PRACTICES = [
   },
   {
     slug: "fdi-fema",
+    navName: "FDI & FEMA Advisory",
+    navDesc: "Foreign investment, RBI reporting and ODI",
     no: "03",
     title: "FDI, FEMA & Cross-Border India Entry",
     short: "FDI & FEMA",
@@ -153,6 +159,8 @@ export const PRACTICES = [
   },
   {
     slug: "due-diligence",
+    navName: "Due Diligence",
+    navDesc: "Legal and secretarial checks before a deal",
     no: "04",
     title: "Transaction & Legal Due Diligence",
     short: "Due Diligence",
@@ -201,6 +209,8 @@ export const PRACTICES = [
   },
   {
     slug: "nbfc-regulatory",
+    navName: "NBFC & Fintech Advisory",
+    navDesc: "RBI registration and lending compliance",
     no: "05",
     title: "NBFC & Financial Sector Advisory",
     short: "NBFC Advisory",
@@ -249,6 +259,8 @@ export const PRACTICES = [
   },
   {
     slug: "governance-defense",
+    navName: "Corporate Governance",
+    navDesc: "Board advisory and defence against MCA notices",
     no: "06",
     title: "Board Governance & Regulatory Defense",
     short: "Governance & Defense",
@@ -498,22 +510,20 @@ export const GENERAL_FAQS = [
 /* ------------------------------------------------------------------ */
 /* NAVIGATION                                                          */
 /* ------------------------------------------------------------------ */
+// Familiar, plain-language menu labels
 export const GAA_NAV = [
-  ["practices", "Practice Areas"],
-  ["india-entry", "India Entry"],
+  ["", "Home"],
+  ["@about", "About Us"],
+  ["practices", "Services"], // opens the services menu
   ["industries", "Industries"],
-  ["experience", "Experience"],
+  ["experience", "Case Studies"],
   ["insights", "Insights"],
-  ["people", "People"],
+  ["people", "Our Team"],
+  ["@contact", "Contact Us"],
 ];
 
-export const GAA_FOOTER_LINKS = [
-  ["practices", "Practice Areas"],
-  ["india-entry", "India Entry Desk"],
-  ["industries", "Industries"],
-  ["experience", "Experience"],
-  ["insights", "Insights & Calendar"],
-  ["people", "Our People"],
-  ["how-we-work", "How We Work"],
-  ["disclaimer", "Disclaimer"],
+export const GAA_FOOTER_GROUPS = [
+  ["Services", PRACTICES.map((p) => [`practices/${p.slug}`, p.navName]).concat([["india-entry", "Set Up in India"]])],
+  ["Company", [["@about", "About Us"], ["people", "Our Team"], ["experience", "Case Studies"], ["industries", "Industries"], ["how-we-work", "How We Work"]]],
+  ["Resources", [["insights", "Insights"], ["insights#calendar", "Compliance Calendar"], ["@contact", "Contact Us"], ["disclaimer", "Disclaimer"]]],
 ];

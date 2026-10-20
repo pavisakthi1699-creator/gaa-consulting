@@ -10,13 +10,13 @@ export default function GaaDisclaimerPage({ onNavigate }) {
 
   return (
     <div className="gaa-consulting-root gaa-sub" ref={ref}>
-      <GaaHeader link={link} />
+      <GaaHeader link={link} active="disclaimer" />
       <GaaSubBar link={link} crumbs={[[null, "Disclaimer"]]} />
       <main>
         <section className="s legal-s" id="top">
           <div className="w ag">
             <div>
-              <span className="tag6">Legal · Disclaimer &amp; Privacy</span>
+              <span className="tag6">Legal</span>
               <h2 style={{ marginTop: "18px" }}>Disclaimer &amp; <em>privacy notice.</em></h2>
               <div className="legal">
                 <h3>Disclaimer</h3>

@@ -139,7 +139,7 @@ body{cursor:auto}
 .band .orb{position:absolute;right:-8vw;top:-8vw;width:clamp(200px,34vw,520px);aspect-ratio:1;border-radius:50%;border:1px solid var(--o);animation:orb 9s ease-in-out infinite;pointer-events:none}.band .orb:nth-of-type(2){width:clamp(120px,22vw,340px);right:0;top:0;animation-delay:-3s}@keyframes orb{50%{transform:scale(1.1);opacity:.35}}
 .band .w{position:relative}
 /* cursor ring */
-#ring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid var(--o);border-radius:50%;pointer-events:none;z-index:300;opacity:0;transition:opacity .3s,width .3s,height .3s,margin .3s,background .3s}
-#ring.on{opacity:1}#ring.big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(220,106,64,.16)}
-.rm .sect,.rm .stackc .lyr,.rm .front,.rm .tk>div,.rm .cc.hl,.rm .band .orb,.rm .bpill i{animation:none}.rm .e3{opacity:1;transform:none;transition:none}.rm .num .col{transition:none;transform:translateY(calc(var(--d)*-1em))}.rm .hero6 em::after{transition:none;transform:none}.rm #ring{display:none}
+#gaa-cursor-ring{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid var(--o);border-radius:50%;pointer-events:none;z-index:300;opacity:0;transition:opacity .3s,width .3s,height .3s,margin .3s,background .3s}
+#gaa-cursor-ring.on{opacity:1}#gaa-cursor-ring.big{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(220,106,64,.16)}
+.rm .sect,.rm .stackc .lyr,.rm .front,.rm .tk>div,.rm .cc.hl,.rm .band .orb,.rm .bpill i{animation:none}.rm .e3{opacity:1;transform:none;transition:none}.rm .num .col{transition:none;transform:translateY(calc(var(--d)*-1em))}.rm .hero6 em::after{transition:none;transform:none}.rm #gaa-cursor-ring{display:none}
 @media(max-width:960px){.sect{opacity:.5}.cred{position:static}}

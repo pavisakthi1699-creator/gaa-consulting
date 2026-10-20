@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import useGaaMotion from "./useGaaMotion";
-import { GaaHeader, GaaSubBar, GaaFooter, SubHero, SectionHead, CtaBand, Ring, useLink } from "./GaaShell";
+import { GaaHeader, GaaSubBar, GaaFooter, SubHero, SectionHead, Ledger, CtaBand, Ring, useLink } from "./GaaShell";
 import { CALENDAR, BRIEFINGS } from "../../data/gaaContent";
 
 const WHO = ["All", "Companies", "LLPs", "FEMA"];
@@ -27,6 +27,7 @@ export default function GaaInsightsPage({ onNavigate }) {
   useGaaMotion(ref, "Insights & Compliance Calendar | GAA Consulting");
   const [who, setWho] = useState("All");
   const rows = who === "All" ? CALENDAR : CALENDAR.filter((r) => r.who === who);
+  const [feat, ...rest] = BRIEFINGS;
 
   return (
     <div className="gaa-consulting-root gaa-sub" ref={ref}>
@@ -34,51 +35,33 @@ export default function GaaInsightsPage({ onNavigate }) {
       <GaaSubBar link={link} crumbs={[[null, "Insights"]]} />
       <main>
         <SubHero
-          tag="Insights · Knowledge Hub"
-          lines={["Know the", "deadline before", "it finds you."]}
+          variant="type"
+          tag="Insights"
+          lines={["Know the deadline", "before it", "finds you."]}
           em={[2]}
-          sub="Practical briefing notes from our partners and an annual compliance calendar for Indian companies, LLPs and foreign-owned entities. Written for founders, CFOs and boards, not just lawyers."
+          sub="Practical notes from our partners and a yearly compliance calendar for Indian companies, LLPs and foreign-owned businesses. Written for founders, CFOs and boards."
           actions={
-            <>
-              <a className="btn o" href="#calendar" onClick={(e) => { e.preventDefault(); document.getElementById("calendar")?.scrollIntoView({ behavior: "smooth" }); }}>
-                Open Compliance Calendar <span className="ar">↓</span>
-              </a>
-              <a className="btn g" href="#briefings" onClick={(e) => { e.preventDefault(); document.getElementById("briefings")?.scrollIntoView({ behavior: "smooth" }); }}>
-                Briefing Notes
-              </a>
-            </>
+            <a className="btn o" href="#calendar" onClick={(e) => { e.preventDefault(); document.getElementById("calendar")?.scrollIntoView({ behavior: "smooth" }); }}>
+              Open the calendar <span className="ar">↓</span>
+            </a>
           }
-          aside={
-            <>
-              <div className="fh"><span>Next Key Dates</span><span>FY Calendar</span></div>
-              <ul className="kd">
-                {upcoming().map((r) => (
-                  <li key={r.form + r.when}>
-                    <b>{r.when}</b>
-                    <span><em className="gm">{r.form}</em>{r.desc}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="fnote">For companies with a 31 March year end. Event-based filings follow the trigger date.</p>
-            </>
-          }
-          ticker={CALENDAR.map((r) => `${r.form} · ${r.when}`)}
+          facts={upcoming(4).map((r) => [r.when, `${r.form}, ${r.who === "FEMA" ? "FEMA" : r.who}`])}
         />
 
         <section className="s" id="calendar">
           <div className="w">
-            <SectionHead eb="Compliance Calendar" p="The recurring company law and FEMA due dates most Indian entities face in a financial year. Filter by entity type.">
-              Your annual <em>statutory calendar.</em>
+            <SectionHead p="Recurring company law and FEMA due dates for a 31 March year end. Filter by type of entity.">
+              Your yearly <em>compliance calendar.</em>
             </SectionHead>
             <div className="ftabs" role="group" aria-label="Filter by entity type">
               {WHO.map((w) => (
                 <button type="button" key={w} aria-pressed={who === w} onClick={() => setWho(w)}>
-                  {w} <sup>{w === "All" ? CALENDAR.length : CALENDAR.filter((r) => r.who === w).length}</sup>
+                  {w}
                 </button>
               ))}
             </div>
             <div className="cal" role="table" aria-label="Compliance calendar">
-              <div className="cal-h gm" role="row">
+              <div className="cal-h" role="row">
                 <span role="columnheader">Due</span>
                 <span role="columnheader">Filing</span>
                 <span role="columnheader">What it covers</span>
@@ -89,41 +72,46 @@ export default function GaaInsightsPage({ onNavigate }) {
                   <b role="cell">{r.when}</b>
                   <span role="cell" className="fm">{r.form}</span>
                   <span role="cell" className="ds">{r.desc}</span>
-                  <span role="cell" className="wh gm">{r.who}</span>
+                  <span role="cell" className="wh">{r.who}</span>
                 </div>
               ))}
             </div>
-            <p className="note">General guide only. Due dates can be extended or changed by MCA or RBI notifications, and some depend on your AGM or allotment date. Our retainer clients receive a dated calendar for each entity.</p>
+            <p className="gnote">A general guide. Due dates can be extended or changed by MCA or RBI notifications, and some depend on your AGM or allotment date. Retainer clients get a dated calendar for each company.</p>
           </div>
         </section>
 
         <section className="s alt" id="briefings">
           <div className="w">
-            <SectionHead eb="Briefing Notes" p="Short, practical notes from our partners on the questions clients raise most often. Request any note and we will send it to your inbox.">
-              Partner briefings on <em>what changed.</em>
+            <SectionHead p="Short notes on the questions clients raise most often. Ask for any note and we will email it to you.">
+              Notes from <em>our partners.</em>
             </SectionHead>
-            <div className="pgrid">
-              {BRIEFINGS.map((b) => (
-                <a className="pc5 bnote" key={b.title} {...link("@contact", { intent: b.title })}>
-                  <div className="top">
-                    <span className="n">{b.cat} · {b.read}</span>
-                    <span className="go2">↗</span>
-                  </div>
-                  <h3>{b.title}</h3>
-                  <p>{b.desc}</p>
-                  <div className="chips"><span>Request this note</span></div>
-                </a>
-              ))}
+            <div className="brf">
+              <a className="brf-feat" {...link("@contact", { intent: feat.title })}>
+                <span className="t">{feat.cat}, {feat.read} read</span>
+                <b>{feat.title}</b>
+                <p>{feat.desc}</p>
+                <span className="tlink">Request this note <span aria-hidden="true">→</span></span>
+              </a>
+              <Ledger
+                link={link}
+                items={rest.map((b) => ({
+                  key: b.title,
+                  to: "@contact",
+                  linkExtra: { intent: b.title },
+                  title: b.title,
+                  desc: b.desc,
+                  meta: `${b.cat}, ${b.read}`,
+                }))}
+              />
             </div>
           </div>
         </section>
 
         <CtaBand
           link={link}
-          eb="Never miss a deadline"
           title="Hand us your"
-          em="statutory calendar."
-          p="Our annual retainer clients get a dated calendar for each entity, reminders ahead of every due date and a quarterly compliance report for the board."
+          em="compliance calendar."
+          p="Retainer clients get a dated calendar for each company, reminders before every due date and a quarterly report for the board."
         />
       </main>
       <GaaFooter link={link} />

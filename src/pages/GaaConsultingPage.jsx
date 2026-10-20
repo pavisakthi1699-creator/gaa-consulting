@@ -191,7 +191,7 @@ export default function GaaConsultingPage({ onNavigate }) {
       );
 
       // Custom cursor ring
-      const ring = root.querySelector("#ring");
+      const ring = root.querySelector("#gaa-cursor-ring");
       let x = -100,
         y = -100,
         tx = -100,
@@ -294,7 +294,7 @@ export default function GaaConsultingPage({ onNavigate }) {
 <section className="s band"><span className="orb"></span><span className="orb"></span><div className="w"><span className="gm eb">Next step</span><h2 style={{ marginTop: "16px" }}>Ready to elevate your <em>corporate governance?</em></h2>
 <p>Speak directly with a senior practice partner at GAA Consulting. Every briefing is protected under mutual non-disclosure and strict fiduciary privilege.</p>
 <div className="acts"><a className="btn o" href="#/contact?brand=gaa" onClick={(e) => { e.preventDefault(); navigateTo("contact"); }}>Schedule Partner Briefing →</a><a className="btn g" href="#/" onClick={(e) => { e.preventDefault(); navigateTo("home"); }}>← GAA Group Portal</a></div></div></section>
-</main><GaaFooter link={link} /><div id="ring" aria-hidden="true"></div>
+</main><GaaFooter link={link} /><div id="gaa-cursor-ring" aria-hidden="true"></div>
     </div>
   );
 }

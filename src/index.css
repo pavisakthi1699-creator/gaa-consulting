@@ -682,13 +682,23 @@ img {
   min-width: 0;
 }
 
+#lc-ring,
 .ring {
-  position: relative;
-  flex: none;
+  position: relative !important;
+  flex: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
+#lc-ring > *,
 .ring > * {
   position: absolute;
+}
+
+#marks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
 /* Ensure .leg from the image content is completely removed */

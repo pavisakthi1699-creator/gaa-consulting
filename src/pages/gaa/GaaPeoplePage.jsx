@@ -8,13 +8,13 @@ const GROUPS = [
   ["all", "Everyone"],
   ["senior", "Senior Associates"],
   ["specialist", "Legal"],
-  ["trainee", "CS Trainees"],
+  ["trainee", "Trainees"],
 ];
 
 export default function GaaPeoplePage({ onNavigate }) {
   const ref = useRef(null);
   const link = useLink(onNavigate);
-  useGaaMotion(ref, "Our People | GAA Consulting");
+  useGaaMotion(ref, "Our Team | GAA Consulting");
   const [g, setG] = useState("all");
   const leaders = GAA.filter((m) => m.category === "leadership");
   const team = GAA.filter((m) => m.category !== "leadership");
@@ -24,51 +24,36 @@ export default function GaaPeoplePage({ onNavigate }) {
   return (
     <div className="gaa-consulting-root gaa-sub" ref={ref}>
       <GaaHeader link={link} active="people" />
-      <GaaSubBar link={link} crumbs={[[null, "Our People"]]} />
+      <GaaSubBar link={link} crumbs={[[null, "Our Team"]]} />
       <main>
         <SubHero
-          tag="Our People · GAA Consulting"
-          lines={["Partner-led.", "Practitioner", "staffed."]}
+          variant="type"
+          tag="Our Team"
+          lines={["The people who", "handle your", "file personally."]}
           em={[2]}
-          sub="Company Secretaries, corporate lawyers and finance professionals who handle your file personally. Every engagement is led by a senior partner and supported by a dedicated secretarial team."
-          actions={
-            <a className="btn o" {...link("@contact")}>
-              Speak With Our Team <span className="ar">→</span>
-            </a>
-          }
-          aside={
-            <>
-              <div className="fh"><span>Practice Team</span><span>GAA Consulting</span></div>
-              <div className="sgrid">
-                <div className="st6"><div className="num">{GAA.length}</div><span className="lbl">Professionals</span></div>
-                <div className="st6"><div className="num">{String(leaders.length).padStart(2, "0")}</div><span className="lbl">Practice Leaders</span></div>
-                <div className="st6"><div className="num">{String(count("senior")).padStart(2, "0")}</div><span className="lbl">Senior Associates</span></div>
-                <div className="st6"><div className="num">{count("trainee")}</div><span className="lbl">CS Trainees</span></div>
-              </div>
-              <p className="fnote">Group-wide team across all three practices is on the GAA Group About page.</p>
-            </>
-          }
-          ticker={["Practising Company Secretaries", "Corporate Lawyers", "Finance & Accounts", "Secretarial Associates", "CS Trainees"]}
+          sub="Company Secretaries, corporate lawyers and finance professionals. Every engagement is led by a senior partner and supported by a dedicated secretarial team."
+          actions={<a className="btn o" {...link("@contact")}>Speak with our team <span className="ar">→</span></a>}
+          facts={[[String(GAA.length), "Professionals"], [String(leaders.length), "Practice leaders"], [String(count("senior")), "Senior associates"], [String(count("trainee")), "CS trainees"]]}
         />
 
         <section className="s" id="leadership">
           <div className="w">
-            <SectionHead eb="Practice Leadership" p="The partners and leads accountable for every GAA Consulting engagement.">
-              Leaders on <em>every file.</em>
+            <SectionHead p="The leaders accountable for every GAA Consulting engagement.">
+              Leadership.
             </SectionHead>
             <div className="leads">
               {leaders.map((m) => (
                 <article className="lead" key={m.id}>
                   <div className="ph"><img src={m.image} alt={m.name} loading="lazy" /></div>
                   <div className="bd">
-                    <span className="gm t">{m.badge}</span>
+                    <span className="t">{m.badge}</span>
                     <h3>{m.name}</h3>
                     <span className="rl">{m.role}</span>
                     <p>{m.bio}</p>
-                    <div className="chips">{m.skills.map((s) => <span key={s}>{s}</span>)}</div>
-                    <div className="lnk">
-                      {m.email && <a href={`mailto:${m.email}`} className="gm">Email ↗</a>}
-                      {m.linkedin && <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="gm">LinkedIn ↗</a>}
+                    <p className="sk">{m.skills.join(", ")}</p>
+                    <div className="plnk">
+                      {m.email && <a href={`mailto:${m.email}`}>Email</a>}
+                      {m.linkedin && <a href={m.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>}
                     </div>
                   </div>
                 </article>
@@ -79,13 +64,13 @@ export default function GaaPeoplePage({ onNavigate }) {
 
         <section className="s alt" id="team">
           <div className="w">
-            <SectionHead eb="The Practice Team" p="The associates and trainees who prepare, track and file your work under partner review.">
+            <SectionHead p="The associates and trainees who prepare, track and file your work under partner review.">
               The team behind <em>the filings.</em>
             </SectionHead>
             <div className="ftabs" role="group" aria-label="Filter team">
               {GROUPS.filter(([c]) => count(c) > 0).map(([c, l]) => (
                 <button type="button" key={c} aria-pressed={g === c} onClick={() => setG(c)}>
-                  {l} <sup>{count(c)}</sup>
+                  {l}
                 </button>
               ))}
             </div>
@@ -93,11 +78,10 @@ export default function GaaPeoplePage({ onNavigate }) {
               {shown.map((m) => (
                 <article className="ppl" key={m.id}>
                   <div className="ph"><img src={m.image} alt={m.name} loading="lazy" /></div>
-                  <span className="gm t">{m.badge}</span>
                   <h3>{m.name}</h3>
                   <span className="rl">{m.role}</span>
                   {m.linkedin && (
-                    <a className="li gm" href={m.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${m.name} on LinkedIn`}>in ↗</a>
+                    <a className="lin" href={m.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${m.name} on LinkedIn`}>in</a>
                   )}
                 </article>
               ))}
@@ -105,28 +89,20 @@ export default function GaaPeoplePage({ onNavigate }) {
           </div>
         </section>
 
-        <section className="s">
-          <div className="w two">
-            <div>
-              <span className="gm eb">Careers</span>
-              <h2 style={{ marginTop: "14px" }}>Build your practice <em>with us.</em></h2>
-            </div>
+        <section className="s dk why">
+          <div className="w why-g">
+            <p className="statement">We train CS students and young professionals on live work from day one, with partner mentoring across M&amp;A, FEMA and governance.</p>
             <div className="tx">
-              <p>We train CS students and young professionals on live mandates from day one, with partner mentoring and exposure to M&amp;A, FEMA and governance work.</p>
+              <p>Interested in joining GAA Consulting? Send us your CV and the kind of work you want to do.</p>
               <div className="acts">
-                <a className="btn" {...link("@hirings-first")}>Open Roles via Hirings First <span className="ar">→</span></a>
-                <a className="btn g" {...link("@about")}>Meet the Group Team</a>
+                <a className="btn o" {...link("@contact")}>Send your CV <span className="ar">→</span></a>
+                <a className="btn g" {...link("@about")}>Meet the whole group</a>
               </div>
             </div>
           </div>
         </section>
 
-        <CtaBand
-          link={link}
-          title="Work directly with"
-          em="our partners."
-          p="Book a confidential briefing. You will speak with a senior partner, not a sales team."
-        />
+        <CtaBand link={link} title="Work directly with" em="our partners." p="Book a confidential call. You will speak with a senior partner, not a sales team." />
       </main>
       <GaaFooter link={link} />
       <Ring />
