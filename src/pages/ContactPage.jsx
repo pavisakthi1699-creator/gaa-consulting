@@ -68,7 +68,14 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
-    email: "",
+    // prefilled from the About Us "Request an introduction" box, if used
+    email: (() => {
+      try {
+        return sessionStorage.getItem("gaa-intro-email") || "";
+      } catch (e) {
+        return "";
+      }
+    })(),
     phone: "",
     message: ""
   });

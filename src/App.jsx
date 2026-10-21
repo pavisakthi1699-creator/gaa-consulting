@@ -94,7 +94,8 @@ export default function App() {
 
   return (
     <div className="app-root">
-      {!isDedicatedSite && (
+      {/* About Us has its own header and footer (from the About Us design) */}
+      {!isDedicatedSite && currentPage !== "about" && (
         <Header
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

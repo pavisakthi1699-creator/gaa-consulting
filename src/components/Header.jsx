@@ -60,12 +60,12 @@ export default function Header({ currentPage, setCurrentPage, onNavigate }) {
             About us
           </a>
           <a
-            href="#/gaa-consulting"
+            href="#/gaa-consulting/practices"
             className={`nav-link ${currentPage === "gaa-consulting" ? "active" : ""}`}
             aria-current={currentPage === "gaa-consulting" ? "page" : undefined}
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick("gaa-consulting");
+              handleNavClick("gaa-consulting/practices");
             }}
           >
             GAA Consulting
@@ -143,7 +143,7 @@ export default function Header({ currentPage, setCurrentPage, onNavigate }) {
             <button
               type="button"
               className={`mob-link ${currentPage === "gaa-consulting" ? "active" : ""}`}
-              onClick={() => handleNavClick("gaa-consulting")}
+              onClick={() => handleNavClick("gaa-consulting/practices")}
             >
               <span>03</span> GAA Consulting
             </button>

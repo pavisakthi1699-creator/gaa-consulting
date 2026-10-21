@@ -2,8 +2,8 @@ import React from "react";
 import "../GaaConsultingPage.css";
 import "./GaaSubpages.css";
 import GaaConsultingPage from "../GaaConsultingPage";
-import GaaPracticesPage from "./GaaPracticesPage";
-import GaaPracticeDetailPage from "./GaaPracticeDetailPage";
+import GaaServicesPage from "./GaaServicesPage";
+import GaaServiceDetailPage from "./GaaServiceDetailPage";
 import GaaIndiaEntryPage from "./GaaIndiaEntryPage";
 import GaaIndustriesPage from "./GaaIndustriesPage";
 import GaaExperiencePage from "./GaaExperiencePage";
@@ -11,12 +11,14 @@ import GaaInsightsPage from "./GaaInsightsPage";
 import GaaPeoplePage from "./GaaPeoplePage";
 import GaaHowWeWorkPage from "./GaaHowWeWorkPage";
 import GaaDisclaimerPage from "./GaaDisclaimerPage";
-import { getPractice } from "../../data/gaaContent";
+import { getService, LEGACY_SLUGS } from "../../data/gaaServices";
 
 /* Routes for the GAA Consulting site (all under #/gaa-consulting/...)
    ""                      -> Home (existing GaaConsultingPage)
-   practices               -> Practice Areas index
-   practices/<slug>        -> Practice detail (6 practices)
+   practices               -> GAA Consulting Services (design: GAA_Consulting_Services)
+   practices/<slug>        -> Service detail: corporate-law, company-secretarial,
+                              mergers-and-acquisitions, fundraising-and-restructuring,
+                              regulatory-advisory (older practice slugs map via LEGACY_SLUGS)
    india-entry             -> India Entry Desk
    industries              -> Industries
    experience              -> Representative mandates
@@ -30,8 +32,11 @@ export default function GaaSite({ path = "", onNavigate }) {
 
   switch (a) {
     case "practices":
-      if (b && getPractice(b)) return <GaaPracticeDetailPage slug={b} key={k} onNavigate={onNavigate} />;
-      return <GaaPracticesPage key={k} onNavigate={onNavigate} />;
+    case "services": {
+      const slug = b && (getService(b) ? b : LEGACY_SLUGS[b]);
+      if (slug) return <GaaServiceDetailPage slug={slug} key={k} onNavigate={onNavigate} />;
+      return <GaaServicesPage key={k} onNavigate={onNavigate} />;
+    }
     case "india-entry":
       return <GaaIndiaEntryPage key={k} onNavigate={onNavigate} />;
     case "industries":

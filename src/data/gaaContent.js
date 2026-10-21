@@ -523,7 +523,14 @@ export const GAA_NAV = [
 ];
 
 export const GAA_FOOTER_GROUPS = [
-  ["Services", PRACTICES.map((p) => [`practices/${p.slug}`, p.navName]).concat([["india-entry", "Set Up in India"]])],
+  ["Services", [
+    ["practices/corporate-law", "Corporate law"],
+    ["practices/company-secretarial", "Company secretarial"],
+    ["practices/mergers-and-acquisitions", "Mergers & acquisitions"],
+    ["practices/fundraising-and-restructuring", "Fundraising & restructuring"],
+    ["practices/regulatory-advisory", "Regulatory advisory"],
+    ["india-entry", "Set Up in India"],
+  ]],
   ["Company", [["@about", "About Us"], ["people", "Our Team"], ["experience", "Case Studies"], ["industries", "Industries"], ["how-we-work", "How We Work"]]],
   ["Resources", [["insights", "Insights"], ["insights#calendar", "Compliance Calendar"], ["@contact", "Contact Us"], ["disclaimer", "Disclaimer"]]],
 ];

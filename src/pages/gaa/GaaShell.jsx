@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { GAA_NAV, GAA_FOOTER_GROUPS, PRACTICES } from "../../data/gaaContent";
+import { GAA_NAV, GAA_FOOTER_GROUPS } from "../../data/gaaContent";
+import { GAA_SERVICES } from "../../data/gaaServices";
+
+// Services menu uses the five services from the GAA Consulting Services design
+const MENU = GAA_SERVICES.map((s) => ({ slug: s.slug, navName: s.name, navDesc: s.ideal }));
 
 /* Build an href + click handler for internal links.
    `to` is a GAA sub path ("practices", "practices/fdi-fema", "" for GAA home),
@@ -95,7 +99,7 @@ export function GaaHeader({ link, active = "" }) {
                   <div className="mega" id="gaa-services-menu" data-open={dd}>
                     <div className="mega-in">
                       <ul className="mega-list">
-                        {PRACTICES.map((p) => (
+                        {MENU.map((p) => (
                           <li key={p.slug}>
                             <a {...link(`practices/${p.slug}`, shut)}>
                               <b>{p.navName}</b>
@@ -151,7 +155,7 @@ export function GaaHeader({ link, active = "" }) {
           <details>
             <summary tabIndex={mob ? 0 : -1}>Services</summary>
             <div>
-              {PRACTICES.map((p) => (
+              {MENU.map((p) => (
                 <a key={p.slug} {...link(`practices/${p.slug}`, shut)} tabIndex={mob ? 0 : -1}>
                   {p.navName}
                 </a>
