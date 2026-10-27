@@ -155,8 +155,8 @@ export function GaaHeader({ link, active = "" }) {
       </header>
       <div className="mnav" id="gaa-mobile-menu" data-open={mob} aria-hidden={!mob}>
         <div className="mnav-in">
-          <a {...link("", shut)} tabIndex={mob ? 0 : -1}>Home</a>
-          {site === "gaa" && <a {...link("@about", shut)} tabIndex={mob ? 0 : -1}>About Us</a>}
+          <a {...link("gaa", shut)} tabIndex={mob ? 0 : -1}>Home</a>
+          <a {...link("@about", shut)} tabIndex={mob ? 0 : -1}>About Us</a>
           {site === "ga" && (
             <details>
               <summary tabIndex={mob ? 0 : -1}>Services</summary>

@@ -7,7 +7,7 @@ import { go } from "../../site/gaaPaths.js";
 import { GAA_CONTACT } from "../../site/gaaContact.js";
 import "./GaaHomeV2.css";
 
-const O = "#DC6A40", K = "#121212", P = "#F3EDE6";
+const O = "#DC6A40", K = "#121212";
 const cl = (x) => Math.min(1, Math.max(0, x));
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const prog = (el, vh) => { const b = el.getBoundingClientRect(); return cl(-b.top / Math.max(1, b.height - vh)); };
@@ -16,11 +16,11 @@ const LOGO = { gaa: SITES.gaa.logo, ga: SITES.ga.logo, ff: SITES.ff.logo, hf: SI
 const SITE_URL = { gaa: href("gaa", "/"), ga: href("ga", "/"), ff: href("ff", "/"), hf: href("hf", "/") };
 
 // chapters
-const BG = [P, O, K, "#fff"];
-const CAP = ["One group, three firms", "Corporate & strategic advisory", "Accounting, taxation & compliance", "Talent & workforce"];
-const NM = ["The GAA Group", "GAA Associates", "Filings First", "Hirings First"];
-const CH_LOGO = ["gaa", "ga", "ff", "hf"];
-const WORDS = ["ONE", "GROW", "FILE", "HIRE"];
+const BG = [O, K, "#fff"];
+const CAP = ["Corporate & strategic advisory", "Accounting, taxation & compliance", "Talent & workforce"];
+const NM = ["GAA Associates", "Filings First", "Hirings First"];
+const CH_LOGO = ["ga", "ff", "hf"];
+const WORDS = ["GROW", "FILE", "HIRE"];
 
 // lifecycle ring
 const FIRMS = ["GAA Associates", "Filings First", "Hirings First"];
@@ -106,24 +106,24 @@ export default function GaaHomeV2() {
       el.classList.toggle("gh-st", stat);
 
       // chapters: left panel follows the article in view
-      const b = ch.getBoundingClientRect(), cp = cl(-b.top / Math.max(1, b.height - vh)), raw = cp * 3;
-      const k0 = Math.min(2, Math.floor(raw)), fr = raw - k0;
-      const k = raw >= 3 ? 3 : k0 + ease(cl((fr - 0.35) / 0.3)), c = Math.round(k);
+      const b = ch.getBoundingClientRect(), cp = cl(-b.top / Math.max(1, b.height - vh)), raw = cp * 2;
+      const k0 = Math.min(1, Math.floor(raw)), fr = raw - k0;
+      const k = raw >= 2 ? 2 : k0 + ease(cl((fr - 0.35) / 0.3)), c = Math.round(k);
       if (c !== lastC) {
         lastC = c;
         li.style.background = BG[c];
-        li.style.color = c === 2 ? "#fff" : K;
+        li.style.color = c === 1 ? "#fff" : K;
         lgImg.src = LOGO[CH_LOGO[c]];
         lgImg.alt = NM[c];
         lgn.textContent = NM[c];
-        cnt.textContent = "0" + c + " / 03";
+        cnt.textContent = "0" + (c + 1) + " / 03";
         cap.textContent = CAP[c];
       }
       col.style.transform = `translateY(${-k}em)`;
       bars.forEach((e, i) => {
         e.style.width = cl(raw + 1 - i) * 100 + "%";
-        e.style.background = c === 2 ? "#fff" : c === 1 ? K : O;
-        e.parentNode.style.background = c === 2 ? "#3a3632" : "rgba(18,18,18,.25)";
+        e.style.background = c === 1 ? "#fff" : c === 0 ? K : O;
+        e.parentNode.style.background = c === 1 ? "#3a3632" : "rgba(18,18,18,.25)";
       });
       if (stat) return;
 
@@ -293,13 +293,6 @@ export default function GaaHomeV2() {
         {/* 1. Hero: fits one screen */}
         <section className="gh-top" id="gh-top">
           <div className="gh-lai">
-            <div className="gh-tr gh-gm">
-              <div>
-                <span>GAA Consulting · Corporate &amp; strategic advisory</span>
-                <p className="gh-sub">Corporate law, company secretarial, transactional and regulatory advisory for businesses, financial institutions, NBFCs and promoters.</p>
-              </div>
-              <span>Part of the GAA Group</span>
-            </div>
             <h1>
               <span className="gh-w"><span style={{ "--d": ".15s" }}>Business,</span></span>
               <br />
@@ -353,34 +346,20 @@ export default function GaaHomeV2() {
           <div className="gh-left">
             <div className="gh-li">
               <div className="gh-lgw">
-                <span className="gh-l"><img src={LOGO.gaa} alt="The GAA Group" /></span>
-                <span className="gh-lgn">The GAA Group</span>
-                <span className="gh-cnt gh-gm">00 / 03</span>
+                <span className="gh-l"><img src={LOGO.ga} alt="GAA Associates" /></span>
+                <span className="gh-lgn">GAA Associates</span>
+                <span className="gh-cnt gh-gm">01 / 03</span>
               </div>
               <div className="gh-slot" aria-hidden="true">
                 <div>{WORDS.map((w) => <span key={w}>{w}</span>)}</div>
               </div>
               <div className="gh-cap">
-                <b>One group, three firms</b>
+                <b>Corporate &amp; strategic advisory</b>
                 <div className="gh-bars">{[0, 1, 2].map((i) => <span key={i}><i /></span>)}</div>
               </div>
             </div>
           </div>
           <div>
-            <article className="gh-chap">
-              <span className="gh-pm" style={{ color: "var(--od)" }}>00 · Group companies</span>
-              <h2>One advisory group. <span style={{ color: "var(--o)" }}>Two specialist desks.</span></h2>
-              <p className="gh-t">GAA Associates is the established advisory practice. Filings First is its Compliance &amp; Filings Execution Desk, and Hirings First is its recruitment and workforce arm.</p>
-              <div style={{ borderTop: "1px solid var(--k)" }}>
-                {COMPANIES.map(([k, name, line]) => (
-                  <a key={k} className="gh-lnk" {...siteLink(k)} aria-label={`Visit the ${name} website`}>
-                    <span className="gh-ll"><i><img src={LOGO[k]} alt="" /></i>{name}</span>
-                    <span className="gh-go"><span>{line}</span><i aria-hidden="true">→</i></span>
-                  </a>
-                ))}
-              </div>
-            </article>
-
             <article className="gh-chap">
               <div className="gh-bp"><span className="gh-bl"><img src={LOGO.ga} alt="GAA Associates logo" /></span><h2>GAA Associates</h2></div>
               <span className="gh-pm" style={{ color: "var(--od)" }}>01 · Corporate &amp; strategic advisory</span>

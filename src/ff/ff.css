@@ -53,7 +53,8 @@ html.ff-lock{overflow:hidden}
 .ff-brand{display:flex;align-items:center;gap:12px;flex:0 0 auto}
 .ff-brand img{width:44px;height:44px;object-fit:contain;mix-blend-mode:multiply}
 .ff-brand span{font-size:18px;font-weight:700;letter-spacing:-.01em}
-.ff-nav{display:flex;align-items:center;gap:26px;font-size:14px;font-weight:500}
+.ff-nav{display:flex;align-items:center;gap:clamp(16px,1.7vw,26px);font-size:14px;font-weight:500}
+.ff-nav>a{white-space:nowrap}
 .ff-nav.home{gap:30px;font-size:15px}
 .ff-nav>a{position:relative;padding:8px 0}
 .ff-nav>a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--o);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s var(--ez)}
@@ -86,7 +87,7 @@ html.ff-lock{overflow:hidden}
 .ff-mob>a.anchor{padding:16px 0;font-size:18px}
 .ff-mob>a span{color:var(--od)}
 .ff-mob .ff-btn{margin-top:12px;justify-content:center}
-@media (max-width:1100px){.ff-nav,.ff-cta{display:none}.ff-burger{display:flex}.ff-mega{display:none}}
+@media (max-width:1180px){.ff-nav,.ff-cta{display:none}.ff-burger{display:flex}.ff-mega{display:none}}
 
 /* ---------- footer ---------- */
 .ff-foot{background:var(--cr);color:var(--k);border-top:1px solid var(--ln2)}

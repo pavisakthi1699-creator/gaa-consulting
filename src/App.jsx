@@ -18,7 +18,7 @@ import { isPage } from "./ff/ffData.js";
 // Hirings First
 import HFHome from "./hf/HFHome.jsx";
 import HFCategory from "./hf/HFCategory.jsx";
-import { getCategory } from "./hf/hfData.js";
+import { getCategory, getService } from "./hf/hfData.js";
 
 /* One project, three websites, all linked to each other.
 
@@ -32,6 +32,7 @@ import { getCategory } from "./hf/hfData.js";
                     /filings-first/services/<service>      25 service pages
    Hirings First    /hirings-first                         Home
                     /hirings-first/talent/<category>       6 talent category pages
+                    /hirings-first/services/<service>      4 service pages
 
    On the live domains Filings First and Hirings First sit at the root of their own domains. */
 
@@ -114,6 +115,8 @@ function HF({ path }) {
   if (path === "/") return <HFHome />;
   const m = path.match(/^\/talent\/([a-z-]+)$/);
   if (m && getCategory(m[1])) return <HFCategory key={m[1]} slug={m[1]} />;
+  const sv = path.match(/^\/services\/([a-z-]+)$/);
+  if (sv && getService(sv[1])) return <HFCategory key={"s-" + sv[1]} slug={sv[1]} kind="svc" />;
   // older addresses go to the matching home page section
   const old = { "/talent": "hf-talent", "/hire": "hf-contact", "/talent/sales-business-development": "" };
   if (path in old) return <Redirect to={old[path] ? `${href("hf", "/")}#${old[path]}` : href("hf", "/talent/sales-and-business-development")} />;
