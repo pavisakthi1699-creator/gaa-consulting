@@ -293,6 +293,10 @@ export default function GaaHomeV2() {
         {/* 1. Hero: fits one screen */}
         <section className="gh-top" id="gh-top">
           <div className="gh-lai">
+            <div className="gh-tr gh-gm">
+              <span>GAA Consulting · Corporate &amp; strategic advisory</span>
+              <span>Part of the GAA Group</span>
+            </div>
             <h1>
               <span className="gh-w"><span style={{ "--d": ".15s" }}>Business,</span></span>
               <br />
