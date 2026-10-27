@@ -32,8 +32,9 @@ export const SITES = {
   hf: { key: "hf", name: "Hirings First", domain: "https://www.hiringsfirst.com", base: "/hirings-first", logo: hfLogo, email: "hello@hiringsfirst.in", line: "Pre-screened talent, ready to perform" },
 };
 
-// Order used in every "Group" dropdown: GAA Consulting (group home), then the group companies
-export const GROUP_ORDER = ["gaa", "ga", "ff", "hf"];
+// Order used in every "Group" dropdown: the three group companies. GAA Consulting (the group
+// home) is reached through the Home and About us links at the start of every site's menu.
+export const GROUP_ORDER = ["ga", "ff", "hf"];
 
 /** Path prefix of a site on the current address ("" on its own domain). */
 export const baseOf = (key) => (LOCAL || SITES[key].host ? SITES[key].base : "");

@@ -72,6 +72,9 @@ function Header({ nav, home }) {
           <span>Filings First</span>
         </Link>
         <nav className={`ff-nav${home ? " home" : ""}`} aria-label="Main">
+          {/* Home and About us: the GAA Group home (GAA Consulting) */}
+          <Link to={href("gaa", "/")} onMouseEnter={close}>Home</Link>
+          <Link to={href("gaa", "/about")} onMouseEnter={close}>About us</Link>
           <span style={{ position: "relative", display: "flex", alignItems: "center" }} onMouseEnter={open}>
             <button type="button" className="ff-svc-btn" aria-expanded={mega} aria-controls="ff-mega" onClick={() => setMega((v) => !v)}>
               Services <i>▾</i>
@@ -113,6 +116,8 @@ function Header({ nav, home }) {
       </div>
 
       <div className="ff-mob" id="ff-mob" data-open={mob}>
+        <Link className="anchor" to={href("gaa", "/")} onClick={shut}>Home</Link>
+        <Link className="anchor" to={href("gaa", "/about")} onClick={shut}>About us</Link>
         <span className="ff-mono">Services</span>
         {SERVICES.map((s) => (
           <Link key={s.slug} to={svcHref(s.slug)} onClick={shut}>

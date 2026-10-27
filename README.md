@@ -9,7 +9,7 @@ One project, three separate websites, all linked to each other.
 | Filings First | http://localhost:5173/filings-first | filingsfirst.com |
 | Hirings First | http://localhost:5173/hirings-first | hiringsfirst.com |
 
-Every site's menu ends with a **Group** dropdown: GAA Consulting, GAA Associates, Filings First, Hirings First.
+Every site's menu starts with **Home** and **About us** (the GAA Consulting group home and About page) and ends with a **Group** dropdown: GAA Associates, Filings First, Hirings First.
 
 ## GAA Consulting pages (the GAA Group home)
 
@@ -43,14 +43,15 @@ Old /services addresses redirect here.
 
 Menu (as in the mockups): Services (mega menu) · Packages · Process · FAQs · Insights · Group
 
-## Hirings First pages (built from the "Hirings First Site" mockups)
+## Hirings First pages (built from the "Hirings First Site" mockups, v2)
 
 | Address | Page |
 | --- | --- |
 | /hirings-first | Home |
-| /hirings-first/talent/finance-accounting, /human-resources, /sales-and-business-development, /marketing, /operations, /technology | 6 talent category pages |
+| /hirings-first/talent/finance-accounting, /human-resources, /sales-and-business-development, /marketing, /operations, /technology | 6 talent pages |
+| /hirings-first/services/it-corporate-recruitment, /leadership-hiring, /campus-placements, /workforce-outsourcing | 4 service pages |
 
-Menu (as in the mockups): Talent (mega menu) · Talent pool · How it works · For candidates · Contact · Group
+Menu: Home · About us · Talent & services (mega menu) · Talent pool · How it works · Contact · Group
 
 ## Run it on your computer
 

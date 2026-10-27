@@ -518,9 +518,11 @@ export const GAA_NAV = [
   ["@contact", "Contact Us"],
 ];
 
-// GAA Associates menu: Home, Services (dropdown with the five services), Contact us (+ Group dropdown)
+// GAA Associates menu: Home and About us (GAA Consulting group pages), Services (dropdown with the
+// five services), Contact us (+ Group dropdown)
 export const GA_NAV = [
-  ["", "Home"],
+  ["gaa", "Home"],
+  ["@about", "About Us"],
   ["practices", "Services"],
   ["@contact", "Contact Us"],
 ];
