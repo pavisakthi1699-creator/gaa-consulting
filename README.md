@@ -34,6 +34,15 @@ Menu: Home · About us · Services · Contact us · Group
 
 Menu (as in the mockups): Services (mega menu) · Packages · Process · FAQs · Insights · Group
 
+## Hirings First pages (built from the "Hirings First Site" mockups)
+
+| Address | Page |
+| --- | --- |
+| /hirings-first | Home |
+| /hirings-first/talent/finance-accounting, /human-resources, /sales-and-business-development, /marketing, /operations, /technology | 6 talent category pages |
+
+Menu (as in the mockups): Talent (mega menu) · Talent pool · How it works · For candidates · Contact · Group
+
 ## Run it on your computer
 
 1. Install **Node.js 22 LTS** (or 20.19 and above) from https://nodejs.org
@@ -77,6 +86,8 @@ Check a build before uploading: `npm run preview:gaa` (or `preview:ff`, `preview
 | Filings First text: home, menus, GST registration, contact details | src/ff/ffData.js |
 | Filings First service pages (all 24 other pages) | src/ff/ffPages.js |
 | Filings First design | src/ff/ff.css |
+| Hirings First text, categories, roles, contact details | src/hf/hfData.js |
+| Hirings First design | src/hf/hf.css |
 | Google titles and descriptions | src/seo/gaa.js, src/seo/ff.js, src/seo/hf.js |
 
 ## Old files

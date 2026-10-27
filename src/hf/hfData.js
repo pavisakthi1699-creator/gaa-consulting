@@ -1,95 +1,90 @@
-// Hirings First content, from the client's "References for HF Website" brief.
-
-export const HF = {
-  name: "Hirings First",
-  headline: ["Great Talent.", "Ready to Perform."],
-  sub: "Pre-screened professionals across Finance, HR, Sales, Marketing, Operations, and Technology.",
-  diff: ["We don't send resumes.", "We send people ready to contribute."],
-  sla: "Most mandates receive profiles within 72 hours.",
-  banner: ["Hiring shouldn't be complicated.", "Find the right person. Faster."],
+// Hirings First: all text and data, taken from the "Hirings First Site" mockups.
+// TODO(client): confirm the contact details below (the mockup uses placeholders).
+export const HF_CONTACT = {
+  email: "hello@hiringsfirst.in",
+  phone: "+91 00000 00000",
+  office: "Office address",
 };
 
-export const PILLARS = [
-  { key: "screened", title: "Screened", text: "Technical and communication assessments completed." },
-  { key: "deployable", title: "Deployable", text: "Ready to join and perform from day one." },
-  { key: "fast", title: "Fast", text: "Shortlists delivered within days, not weeks." },
-];
-
-export const CATEGORIES = [
+// The six talent categories. `slug` is the page address: /talent/<slug>
+export const CATS = [
   {
-    slug: "finance-accounting",
-    name: "Finance & Accounting",
-    line: "Accountants, finance executives and analysts who close books on time.",
-    tone: "light",
-    roles: ["Accounts Executive", "Finance Executive", "Accounts Payable / Receivable", "GST & Tax Associate", "Financial Analyst", "Finance Manager"],
-    assess: ["Tally / Zoho Books / ERP test", "GST and TDS knowledge check", "Reconciliation exercise", "Communication round"],
+    slug: "finance-accounting", name: "Finance & Accounting", short: "Finance", roles: "Accountants · Finance executives · Analysts", glyph: "₹",
+    hero: "Accountants, finance executives and analysts screened on the tools and compliance work your team does every day.",
+    roleList: [["Accounts Executive", "Junior – Mid"], ["Finance Executive", "Mid"], ["Accounts Payable / Receivable", "Junior – Mid"], ["GST & Tax Executive", "Mid"], ["Financial Analyst", "Mid – Senior"], ["Finance Manager", "Senior"]],
+    screen: [["Technical", "Practical test on books, reconciliation and tax.", ["Tally", "Zoho Books", "GST", "TDS"]], ["Communication", "Clarity with stakeholders and reporting.", ["Spoken English", "Email", "MIS"]], ["Role fit", "Industry, notice period and expectations.", ["Availability", "Salary fit"]]],
+    profiles: [["Finance Executive", "2–5 yrs · Bengaluru", ["Zoho Books", "GST", "Tally"]], ["Accounts Payable Specialist", "1–3 yrs · Bengaluru", ["AP", "Reconciliation", "SAP"]], ["Financial Analyst", "3–6 yrs · Hybrid", ["MIS", "Excel", "Budgeting"]]],
   },
   {
-    slug: "human-resources",
-    name: "Human Resources",
-    line: "HR generalists, recruiters and payroll specialists who keep people moving.",
-    tone: "dark",
-    roles: ["HR Executive", "Talent Acquisition Specialist", "Payroll Executive", "HR Business Partner", "HR Operations", "HR Manager"],
-    assess: ["Recruitment workflow case", "Payroll and statutory compliance check", "HRMS familiarity", "Communication round"],
+    slug: "human-resources", name: "Human Resources", short: "HR", roles: "HR executives · Recruiters · Payroll", glyph: "HR",
+    hero: "HR professionals across recruitment, payroll and compliance, assessed for process knowledge and people skills.",
+    roleList: [["HR Executive", "Junior – Mid"], ["Talent Acquisition Specialist", "Mid"], ["Payroll Executive", "Junior – Mid"], ["HR Generalist", "Mid"], ["HR Business Partner", "Senior"], ["HR Manager", "Senior"]],
+    screen: [["Technical", "Recruitment, payroll and statutory knowledge.", ["Payroll", "PF & ESI", "HRMS"]], ["Communication", "Interviewing and employee communication.", ["Spoken English", "Stakeholders"]], ["Role fit", "Team size, industry and expectations.", ["Availability", "Salary fit"]]],
+    profiles: [["HR Executive", "2–4 yrs · Bengaluru", ["Recruitment", "Payroll", "Compliance"]], ["Talent Acquisition Specialist", "3–5 yrs · Hybrid", ["Sourcing", "ATS", "Tech hiring"]], ["Payroll Executive", "2–4 yrs · Bengaluru", ["Payroll", "PF & ESI", "Excel"]]],
   },
   {
-    slug: "sales-business-development",
-    name: "Sales & Business Development",
-    line: "Closers and relationship builders for B2B and B2C growth.",
-    tone: "light",
-    roles: ["Sales Executive", "Inside Sales", "Business Development Executive", "Key Account Manager", "Channel Sales", "Sales Manager"],
-    assess: ["Mock sales pitch", "CRM familiarity", "Target and pipeline discussion", "Communication round"],
+    slug: "sales-and-business-development", name: "Sales & Business Development", short: "Sales", roles: "B2B sales · Inside sales · Key accounts", glyph: "↗",
+    hero: "Sales professionals assessed on pitch, pipeline discipline and CRM use, ready to start conversations from week one.",
+    roleList: [["Inside Sales Executive", "Junior"], ["B2B Sales Executive", "Junior – Mid"], ["Business Development Manager", "Mid"], ["Key Account Manager", "Mid – Senior"], ["Channel Sales Manager", "Mid – Senior"], ["Sales Lead", "Senior"]],
+    screen: [["Technical", "Mock pitch and pipeline exercise.", ["Prospecting", "CRM", "Negotiation"]], ["Communication", "Clarity, confidence and objection handling.", ["Spoken English", "Regional language"]], ["Role fit", "Target experience and territory.", ["Availability", "Salary fit"]]],
+    profiles: [["Sales Executive", "1–4 yrs · Bengaluru", ["B2B Sales", "CRM", "Lead Generation"]], ["Key Account Manager", "4–7 yrs · Bengaluru", ["Enterprise", "Renewals", "Upsell"]], ["Inside Sales Executive", "1–2 yrs · Remote", ["Cold calling", "HubSpot", "Demos"]]],
   },
   {
-    slug: "marketing",
-    name: "Marketing",
-    line: "Digital, performance and brand marketers who bring in demand.",
-    tone: "accent",
-    roles: ["Digital Marketing Executive", "Performance Marketer", "SEO Specialist", "Content Writer", "Social Media Executive", "Marketing Manager"],
-    assess: ["Portfolio review", "Channel and analytics test", "Campaign brief exercise", "Communication round"],
+    slug: "marketing", name: "Marketing", short: "Marketing", roles: "Digital · Content · Brand", glyph: "◎",
+    hero: "Digital, content and brand marketers assessed on real work samples, not just titles.",
+    roleList: [["Digital Marketing Executive", "Junior – Mid"], ["Performance Marketer", "Mid"], ["Content Writer", "Junior – Mid"], ["Social Media Manager", "Mid"], ["Brand Manager", "Mid – Senior"], ["Marketing Manager", "Senior"]],
+    screen: [["Technical", "Portfolio review and practical brief.", ["SEO", "Paid ads", "Analytics"]], ["Communication", "Writing and presentation skills.", ["Copy", "Presentation"]], ["Role fit", "Industry and channel experience.", ["Availability", "Salary fit"]]],
+    profiles: [["Digital Marketing Executive", "2–4 yrs · Remote", ["SEO", "Paid ads", "Analytics"]], ["Content Writer", "1–3 yrs · Hybrid", ["B2B content", "SEO", "Editing"]], ["Performance Marketer", "3–5 yrs · Bengaluru", ["Google Ads", "Meta Ads", "GA4"]]],
   },
   {
-    slug: "operations",
-    name: "Operations",
-    line: "Operators who run processes, vendors and reporting without friction.",
-    tone: "light",
-    roles: ["Operations Executive", "MIS Executive", "Admin & Facilities", "Supply Chain Executive", "Customer Support Lead", "Operations Manager"],
-    assess: ["Excel and MIS test", "Process scenario", "Vendor coordination case", "Communication round"],
+    slug: "operations", name: "Operations", short: "Operations", roles: "Admin · Supply chain · Customer ops", glyph: "⚙",
+    hero: "Operations and admin talent who keep the business running, screened for process, systems and reliability.",
+    roleList: [["Admin Executive", "Junior"], ["Operations Coordinator", "Junior – Mid"], ["Customer Operations Executive", "Junior – Mid"], ["Supply Chain Executive", "Mid"], ["Procurement Executive", "Mid"], ["Operations Manager", "Senior"]],
+    screen: [["Technical", "Process and systems exercise.", ["MIS", "Excel", "ERP"]], ["Communication", "Vendor and team coordination.", ["Spoken English", "Email"]], ["Role fit", "Shift, location and expectations.", ["Availability", "Salary fit"]]],
+    profiles: [["Operations Coordinator", "2–5 yrs · Bengaluru", ["Vendor mgmt", "MIS", "Excel"]], ["Procurement Executive", "3–5 yrs · Bengaluru", ["Sourcing", "POs", "SAP"]], ["Admin Executive", "1–3 yrs · Bengaluru", ["Facilities", "Travel", "Records"]]],
   },
   {
-    slug: "technology",
-    name: "Technology",
-    line: "Engineers and IT professionals assessed on real technical tasks.",
-    tone: "dark",
-    roles: ["Frontend Developer", "Backend Developer", "Full Stack Developer", "QA Engineer", "IT Support", "Data Analyst"],
-    assess: ["Hands-on coding or technical task", "System and tools review", "Problem-solving round", "Communication round"],
+    slug: "technology", name: "Technology", short: "Technology", roles: "Developers · QA · IT support", glyph: "</>",
+    hero: "Developers, QA and IT professionals assessed with hands-on technical rounds before they reach you.",
+    roleList: [["Frontend Developer", "Junior – Mid"], ["Backend Developer", "Mid"], ["Full-stack Developer", "Mid – Senior"], ["QA Engineer", "Junior – Mid"], ["IT Support Engineer", "Junior"], ["Tech Lead", "Senior"]],
+    screen: [["Technical", "Coding or practical round.", ["React", "Node.js", "SQL", "Testing"]], ["Communication", "Explaining decisions and working in teams.", ["Spoken English", "Code review"]], ["Role fit", "Stack, work mode and notice period.", ["Availability", "Salary fit"]]],
+    profiles: [["Full-stack Developer", "3–6 yrs · Hybrid", ["React", "Node.js", "SQL"]], ["QA Engineer", "2–4 yrs · Bengaluru", ["Manual QA", "Selenium", "API testing"]], ["IT Support Engineer", "1–3 yrs · Bengaluru", ["Networking", "Windows", "Helpdesk"]]],
   },
 ];
-export const getCategory = (slug) => CATEGORIES.find((c) => c.slug === slug);
 
-// "Available Talent": anonymised example profiles (no names), per the brief.
-// TODO(client): replace with your live talent pool when ready.
-export const TALENT = [
-  { role: "Finance Executive", cat: "finance-accounting", skills: ["Zoho Books", "GST", "Tally"], exp: "2-4 yrs", city: "Bengaluru" },
-  { role: "HR Executive", cat: "human-resources", skills: ["Recruitment", "Payroll", "Compliance"], exp: "2-3 yrs", city: "Bengaluru" },
-  { role: "Sales Executive", cat: "sales-business-development", skills: ["B2B Sales", "CRM", "Lead Generation"], exp: "1-3 yrs", city: "Bengaluru" },
-  { role: "Digital Marketing Executive", cat: "marketing", skills: ["SEO", "Meta Ads", "Analytics"], exp: "2-4 yrs", city: "Remote" },
-  { role: "Operations Executive", cat: "operations", skills: ["MIS", "Excel", "Vendor Management"], exp: "1-3 yrs", city: "Bengaluru" },
-  { role: "Full Stack Developer", cat: "technology", skills: ["React", "Node.js", "SQL"], exp: "3-5 yrs", city: "Bengaluru" },
-  { role: "Accounts Payable Executive", cat: "finance-accounting", skills: ["Tally", "Reconciliation", "TDS"], exp: "1-2 yrs", city: "Bengaluru" },
-  { role: "Talent Acquisition Specialist", cat: "human-resources", skills: ["Sourcing", "Naukri", "LinkedIn"], exp: "2-4 yrs", city: "Bengaluru" },
-  { role: "Inside Sales Executive", cat: "sales-business-development", skills: ["Cold Calling", "CRM", "Demos"], exp: "0-2 yrs", city: "Bengaluru" },
-  { role: "Content Writer", cat: "marketing", skills: ["SEO Writing", "Research", "WordPress"], exp: "1-3 yrs", city: "Remote" },
-  { role: "MIS Executive", cat: "operations", skills: ["Advanced Excel", "Power BI", "Reporting"], exp: "2-4 yrs", city: "Bengaluru" },
-  { role: "QA Engineer", cat: "technology", skills: ["Manual Testing", "Selenium", "API Testing"], exp: "2-4 yrs", city: "Bengaluru" },
+export const getCategory = (slug) => CATS.find((c) => c.slug === slug);
+
+// Home: featured talent pool (category short name, role, meta, skills)
+export const POOL = [
+  ["Finance", "Finance Executive", "2–5 yrs · Bengaluru", ["Zoho Books", "GST", "Tally"]],
+  ["HR", "HR Executive", "2–4 yrs · Bengaluru", ["Recruitment", "Payroll", "Compliance"]],
+  ["Sales", "Sales Executive", "1–4 yrs · Bengaluru", ["B2B Sales", "CRM", "Lead Generation"]],
+  ["Marketing", "Digital Marketing Executive", "2–4 yrs · Remote", ["SEO", "Paid ads", "Analytics"]],
+  ["Operations", "Operations Coordinator", "2–5 yrs · Bengaluru", ["Vendor mgmt", "MIS", "Excel"]],
+  ["Technology", "Full-stack Developer", "3–6 yrs · Hybrid", ["React", "Node.js", "SQL"]],
+  ["Finance", "Accounts Payable Specialist", "1–3 yrs · Bengaluru", ["AP", "Reconciliation", "SAP"]],
+  ["Technology", "QA Engineer", "2–4 yrs · Bengaluru", ["Manual QA", "Selenium", "API testing"]],
 ];
 
-export const PROCESS = [
-  ["Tell Us What You Need", "Share the role, team and timeline in a short brief."],
-  ["We Screen & Match", "Technical and communication assessments narrow the field."],
-  ["Interview & Select", "You meet a focused shortlist and choose."],
-  ["Hire", "We support the offer, joining and first weeks."],
+export const FILTERS = ["All", ...CATS.map((c) => c.short)];
+
+export const STEPS = [
+  ["Tell us what you need", "Share the role, skills and timelines in a short call."],
+  ["We screen & match", "Candidates are assessed for skills, communication and fit."],
+  ["Interview & select", "You meet a focused shortlist, not a pile of resumes."],
+  ["Hire", "We handle offers and joining so they start on time."],
 ];
 
-// TODO(client): add client logo files (public/clients/*.png) and names to show "Companies hiring through HF".
-export const CLIENT_LOGOS = [];
+export const DIFF = [
+  ["Screened", "Technical and communication assessments completed.", "3 checks"],
+  ["Deployable", "Ready to join and perform from day one.", "Day 1"],
+  ["Fast", "Shortlists delivered within days, not weeks.", "72h"],
+];
+
+export const SHORTLIST = [
+  ["Candidate A", "4 yrs · Manufacturing", ["Zoho Books", "GST", "Tally"], [92, 88, 85]],
+  ["Candidate B", "3 yrs · Services", ["Tally", "TDS", "MIS"], [86, 91, 80]],
+  ["Candidate C", "5 yrs · Retail", ["GST", "Audit", "Excel"], [89, 84, 90]],
+];
+
+export const TICKER = ["Finance & Accounting", "Human Resources", "Sales", "Marketing", "Operations", "Technology", "Leadership hiring", "Campus placements", "Workforce outsourcing", "Contract staffing"];

@@ -25,7 +25,7 @@ export const LOCAL =
 export const SITES = {
   gaa: { key: "gaa", name: "GAA Consulting", domain: "https://www.gaaconsulting.com", base: "", logo: gaaLogo, email: "enquiries@gaaconsulting.com", line: "Corporate law, company secretarial and transaction advisory" },
   ff: { key: "ff", name: "Filings First", domain: "https://filingsfirst.com", base: "/filings-first", logo: ffLogo, email: "info@filingsfirst.com", line: "Accounting, taxation, GST and compliance" },
-  hf: { key: "hf", name: "Hirings First", domain: "https://www.hiringsfirst.com", base: "/hirings-first", logo: hfLogo, email: "hello@hiringsfirst.com", line: "Pre-screened talent, ready to perform" },
+  hf: { key: "hf", name: "Hirings First", domain: "https://www.hiringsfirst.com", base: "/hirings-first", logo: hfLogo, email: "hello@hiringsfirst.in", line: "Pre-screened talent, ready to perform" },
 };
 
 // Order used in every "Group" dropdown (as requested): Filings First, Hirings First, GAA Consulting

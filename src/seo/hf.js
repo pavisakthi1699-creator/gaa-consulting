@@ -6,13 +6,11 @@ export const ORG = { type: "EmploymentAgency", extra: { address: { "@type": "Pos
 const cat = (slug, name, desc) => ({ path: `/talent/${slug}`, title: `Hire Pre-screened ${name} Talent | Hirings First`, description: desc });
 
 export const ROUTES = [
-  { path: "/", title: "Hirings First | Great Talent. Ready to Perform.", description: "We don't send resumes. We send people ready to contribute. Pre-screened professionals across Finance, HR, Sales, Marketing, Operations and Technology." },
-  { path: "/talent", title: "Explore Candidates | Available Talent | Hirings First", description: "Browse pre-screened talent across Finance, HR, Sales, Marketing, Operations and Technology, and request matching profiles." },
-  { path: "/hire", title: "Hire Talent | Request Profiles | Hirings First", description: "Tell us who you need. Most mandates receive pre-screened profiles within 72 hours. Candidates can also join our talent pool." },
-  cat("finance-accounting", "Finance & Accounting", "Accountants, finance executives and analysts assessed on Tally, Zoho Books, GST and reconciliation."),
-  cat("human-resources", "Human Resources", "HR executives, recruiters and payroll specialists assessed on real HR workflows."),
-  cat("sales-business-development", "Sales & Business Development", "Sales and business development professionals assessed through mock pitches and CRM checks."),
-  cat("marketing", "Marketing", "Digital, performance and content marketers assessed on portfolios and channel skills."),
-  cat("operations", "Operations", "Operations, MIS and admin professionals assessed on Excel, process and vendor scenarios."),
-  cat("technology", "Technology", "Developers, QA engineers and IT professionals assessed on hands-on technical tasks."),
+  { path: "/", title: "Hirings First | Pre-screened Talent, Ready to Perform", description: "Hirings First delivers pre-screened professionals across Finance, HR, Sales, Marketing, Operations and Technology. Shortlists within 72 hours. A GAA Group company." },
+  cat("finance-accounting", "Finance & Accounting", "Accountants, finance executives and analysts screened on the tools and compliance work your team does every day. Request profiles from Hirings First."),
+  cat("human-resources", "Human Resources", "HR professionals across recruitment, payroll and compliance, assessed for process knowledge and people skills."),
+  cat("sales-and-business-development", "Sales & Business Development", "Sales professionals assessed on pitch, pipeline discipline and CRM use, ready to start conversations from week one."),
+  cat("marketing", "Marketing", "Digital, content and brand marketers assessed on real work samples, not just titles."),
+  cat("operations", "Operations", "Operations and admin talent who keep the business running, screened for process, systems and reliability."),
+  cat("technology", "Technology", "Developers, QA and IT professionals assessed with hands-on technical rounds before they reach you."),
 ];
