@@ -1472,7 +1472,7 @@ export const PAGES = {
    "items": [
     [
      "Do you handle board and secretarial work?",
-     "Routine filings yes; complex secretarial advisory is provided by GAA Consulting."
+     "Routine filings yes; complex secretarial advisory is provided by GAA Associates."
     ],
     [
      "Can you clear past defaults?",
@@ -3734,7 +3734,7 @@ export const PAGES = {
     ],
     [
      "Do you prepare board resolutions?",
-     "Routine resolutions are included; complex secretarial work is handled by GAA Consulting."
+     "Routine resolutions are included; complex secretarial work is handled by GAA Associates."
     ],
     [
      "Do signatories need digital signatures?",

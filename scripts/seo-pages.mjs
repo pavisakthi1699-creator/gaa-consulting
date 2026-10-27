@@ -10,9 +10,14 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 // Usage: node scripts/seo-pages.mjs <gaa|ff|hf>
 const key = process.argv[2];
 const { SITES_SEO: SITES } = await import(pathToFileURL(join(root, "src/routes.js")).href);
-if (!SITES[key]) throw new Error("Pass the site: gaa, ff or hf");
+if (!SITES[key] || key === "ga") throw new Error("Pass the site: gaa, ff or hf");
 const dist = join(root, "dist", key);
-const { ROUTES, SITE, BRAND, ORG } = SITES[key];
+const { SITE, BRAND, ORG } = SITES[key];
+// GAA Associates pages are served by the GAA Consulting build under /gaa-associates
+const ROUTES = [
+  ...SITES[key].ROUTES,
+  ...(key === "gaa" ? SITES.ga.ROUTES.map((r) => ({ ...r, path: "/gaa-associates" + (r.path === "/" ? "" : r.path), brand: SITES.ga.BRAND })) : []),
+];
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 const base = readFileSync(join(dist, "index.html"), "utf8");
@@ -23,7 +28,7 @@ function head(r) {
   const ld = {
     "@context": "https://schema.org",
     "@type": ORG?.type || "Organization",
-    name: BRAND,
+    name: r.brand || BRAND,
     url: SITE,
     logo: SITE + "/logo.png",
     parentOrganization: { "@type": "Organization", name: "G Akshay and Associates (GAA Group)" },
@@ -34,7 +39,7 @@ function head(r) {
     `<meta name="description" content="${esc(r.description)}" />`,
     `<link rel="canonical" href="${esc(canonical)}" />`,
     `<meta property="og:type" content="website" />`,
-    `<meta property="og:site_name" content="${esc(BRAND)}" />`,
+    `<meta property="og:site_name" content="${esc(r.brand || BRAND)}" />`,
     `<meta property="og:title" content="${esc(r.title)}" />`,
     `<meta property="og:description" content="${esc(r.description)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`,

@@ -511,10 +511,17 @@ export const GENERAL_FAQS = [
 /* NAVIGATION                                                          */
 /* ------------------------------------------------------------------ */
 // Familiar, plain-language menu labels
+// GAA Consulting (group home) menu: Home, About us, Contact us (+ Group dropdown)
 export const GAA_NAV = [
   ["", "Home"],
   ["@about", "About Us"],
-  ["practices", "Services"], // link to the Services page + hover dropdown with the five services
+  ["@contact", "Contact Us"],
+];
+
+// GAA Associates menu: Home, Services (dropdown with the five services), Contact us (+ Group dropdown)
+export const GA_NAV = [
+  ["", "Home"],
+  ["practices", "Services"],
   ["@contact", "Contact Us"],
 ];
 

@@ -1,4 +1,4 @@
-// GAA Consulting home page, built from the "GAA Home v2" design.
+// GAA Consulting home page (the GAA Group home), built from the "GAA Home v2" design.
 // Header and footer are the shared GAA Consulting ones (GaaShell.jsx).
 import React, { useEffect, useRef, useState } from "react";
 import { GaaHeader, GaaFooter, useLink } from "./GaaShell";
@@ -12,19 +12,19 @@ const cl = (x) => Math.min(1, Math.max(0, x));
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const prog = (el, vh) => { const b = el.getBoundingClientRect(); return cl(-b.top / Math.max(1, b.height - vh)); };
 
-const LOGO = { gaa: SITES.gaa.logo, ff: SITES.ff.logo, hf: SITES.hf.logo };
-const SITE_URL = { gaa: href("gaa", "/services"), ff: href("ff", "/"), hf: href("hf", "/") };
+const LOGO = { gaa: SITES.gaa.logo, ga: SITES.ga.logo, ff: SITES.ff.logo, hf: SITES.hf.logo };
+const SITE_URL = { gaa: href("gaa", "/"), ga: href("ga", "/"), ff: href("ff", "/"), hf: href("hf", "/") };
 
 // chapters
 const BG = [P, O, K, "#fff"];
 const CAP = ["One group, three firms", "Corporate & strategic advisory", "Accounting, taxation & compliance", "Talent & workforce"];
-const NM = ["The GAA Group", "GAA Consulting", "Filings First", "Hirings First"];
-const CH_LOGO = ["gaa", "gaa", "ff", "hf"];
+const NM = ["The GAA Group", "GAA Associates", "Filings First", "Hirings First"];
+const CH_LOGO = ["gaa", "ga", "ff", "hf"];
 const WORDS = ["ONE", "GROW", "FILE", "HIRE"];
 
 // lifecycle ring
-const FIRMS = ["GAA Consulting", "Filings First", "Hirings First"];
-const FKEY = ["gaa", "ff", "hf"];
+const FIRMS = ["GAA Associates", "Filings First", "Hirings First"];
+const FKEY = ["ga", "ff", "hf"];
 const FC = ["#ffffff", "#F0A98A", O];
 const ROLE = ["Corporate & strategic advisory", "Accounting, taxation & compliance", "Talent acquisition & workforce"];
 const W = [["Advise", "Structure"], ["Account", "Comply"], ["Recruit", "Staff"]];
@@ -38,10 +38,16 @@ const TOPICS = {
 };
 const BRANDS = [["gaa", "Corporate advisory"], ["filings", "Accounting & compliance"], ["hirings", "Hiring / jobs"], ["careers", "CS training"]];
 const BRAND_EMAIL = { gaa: SITES.gaa.email, filings: SITES.ff.email, hirings: SITES.hf.email, careers: SITES.gaa.email };
-const BRAND_NAME = { gaa: "GAA Consulting", filings: "Filings First", hirings: "Hirings First", careers: "GAA Consulting (CS training)" };
+const BRAND_NAME = { gaa: "GAA Associates", filings: "Filings First", hirings: "Hirings First", careers: "GAA Associates (CS training)" };
 
+// The three group companies (hero links use the order GAA Associates, Hirings First, Filings First)
+const HERO_COS = [
+  ["ga", "GAA Associates", "Corporate law & advisory"],
+  ["hf", "Hirings First", "Talent & workforce"],
+  ["ff", "Filings First", "Accounting, tax & compliance"],
+];
 const COMPANIES = [
-  ["gaa", "GAA Consulting", "Corporate advisory"],
+  ["ga", "GAA Associates", "Corporate advisory"],
   ["ff", "Filings First", "Accounting & compliance"],
   ["hf", "Hirings First", "Talent & workforce"],
 ];
@@ -173,6 +179,90 @@ export default function GaaHomeV2() {
     };
   }, []);
 
+  /* ---------- group companies: one scroll = one chapter (desktop) ----------
+     Each wheel / key step inside the section glides to the next (or previous) chapter, so the
+     left panel and the article on the right change together. Phones keep normal scrolling. */
+  useEffect(() => {
+    const el = root.current;
+    const sec = el.querySelector("#gh-chapters");
+    const arts = [...sec.querySelectorAll(".gh-chap")];
+    const RM = matchMedia("(prefers-reduced-motion:reduce)").matches;
+    let enabled = false, anim = 0, busy = false, quiet = false, lastWheel = 0;
+
+    const check = () => {
+      enabled = !RM && innerWidth >= 900 && innerHeight >= 600;
+      el.classList.toggle("gh-snap", enabled);
+      // never hide content: if a chapter does not fit the screen, fall back to normal scrolling
+      if (enabled && arts.some((a) => a.scrollHeight > a.clientHeight + 2)) {
+        enabled = false;
+        el.classList.remove("gh-snap");
+      }
+    };
+    const tops = () => arts.map((a) => Math.round(a.getBoundingClientRect().top + scrollY));
+    const glide = (y) => {
+      cancelAnimationFrame(anim);
+      busy = true;
+      const y0 = scrollY, d = y - y0, t0 = performance.now(), T = 850;
+      const step = (t) => {
+        const p = Math.min(1, (t - t0) / T);
+        window.scrollTo({ top: y0 + d * ease(p), behavior: "instant" });
+        if (p < 1) anim = requestAnimationFrame(step);
+        else {
+          busy = false;
+          quiet = true;
+        }
+      };
+      anim = requestAnimationFrame(step);
+    };
+    // where one step in direction `dir` should go, or null to let the page scroll normally
+    const targetFor = (dir) => {
+      const T = tops(), y = scrollY, vh = innerHeight, first = T[0], last = T[T.length - 1];
+      if (y < first - 2) return dir > 0 && first - y < vh * 0.6 ? first : null; // entering from above
+      if (y > last + 2) return dir < 0 && y - last < vh * 0.6 ? last : null; // entering from below
+      const to = dir > 0 ? T.find((t) => t > y + 2) : [...T].reverse().find((t) => t < y - 2);
+      return to === undefined ? null : to;
+    };
+    const onWheel = (e) => {
+      if (!enabled || e.ctrlKey || Math.abs(e.deltaY) < 2) return;
+      const now = performance.now(), gap = now - lastWheel;
+      lastWheel = now;
+      const to = targetFor(Math.sign(e.deltaY));
+      if (busy) {
+        if (to !== null || targetFor(-Math.sign(e.deltaY)) !== null) e.preventDefault();
+        return;
+      }
+      // swallow the tail of a trackpad swipe that already moved one chapter
+      if (quiet && gap < 180 && to !== null) {
+        e.preventDefault();
+        return;
+      }
+      quiet = false;
+      if (to === null) return;
+      e.preventDefault();
+      glide(to);
+    };
+    const onKey = (e) => {
+      if (!enabled || busy || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(document.activeElement?.tagName || "")) return;
+      const dir = { ArrowDown: 1, PageDown: 1, " ": e.shiftKey ? -1 : 1, ArrowUp: -1, PageUp: -1 }[e.key];
+      if (!dir) return;
+      const to = targetFor(dir);
+      if (to === null) return;
+      e.preventDefault();
+      glide(to);
+    };
+    check();
+    addEventListener("wheel", onWheel, { passive: false });
+    addEventListener("keydown", onKey);
+    addEventListener("resize", check);
+    return () => {
+      removeEventListener("wheel", onWheel);
+      removeEventListener("keydown", onKey);
+      removeEventListener("resize", check);
+      cancelAnimationFrame(anim);
+    };
+  }, []);
+
   /* ---------- form ---------- */
   const onSubmit = (e) => {
     e.preventDefault();
@@ -216,16 +306,19 @@ export default function GaaHomeV2() {
               <span className="gh-w"><span style={{ "--d": ".35s" }}><em>first.</em></span></span>
             </h1>
             <div className="gh-bot">
-              <div className="gh-fr">
-                {[["Corporate law", "Company secretarial & governance"], ["Transactions", "M&A, fundraising & restructuring"], ["Regulatory", "NBFCs & financial institutions"]].map(([b, s], i) => (
-                  <div key={b} style={{ "--d": `${0.7 + i * 0.15}s` }}>
-                    <b>{b}</b>
-                    <span>{s}</span>
-                  </div>
+              <nav className="gh-fr" aria-label="Group companies">
+                {HERO_COS.map(([k, name, line], i) => (
+                  <a key={k} className="gh-hco" {...siteLink(k)} style={{ "--d": `${0.7 + i * 0.15}s` }} aria-label={`Visit the ${name} website`}>
+                    <span className="gh-hco-tx">
+                      <b>{name}</b>
+                      <span>{line}</span>
+                    </span>
+                    <i aria-hidden="true">→</i>
+                  </a>
                 ))}
-              </div>
+              </nav>
               <div className="gh-hb">
-                <a className="gh-pill o" href="#gh-chapters" onClick={(e) => { e.preventDefault(); scrollToId("gh-chapters"); }}>Explore services</a>
+                <a className="gh-pill o" href="#gh-chapters" onClick={(e) => { e.preventDefault(); scrollToId("gh-chapters"); }}>Explore the group</a>
                 <a className="gh-pill g" href="#gh-contact" onClick={toContact("gaa")}>Book a consultation</a>
               </div>
             </div>
@@ -237,7 +330,7 @@ export default function GaaHomeV2() {
           <div className="gh-sh">
             <span className="gh-gm" style={{ color: "var(--od)" }}>Why GAA</span>
             <h2>Advice that holds up.<br /><em>Execution that follows through.</em></h2>
-            <p>What clients get when they work with GAA Consulting.</p>
+            <p>What clients get when they work with the GAA Group.</p>
           </div>
           <div className="gh-wg">
             {[
@@ -277,7 +370,7 @@ export default function GaaHomeV2() {
             <article className="gh-chap">
               <span className="gh-pm" style={{ color: "var(--od)" }}>00 · Group companies</span>
               <h2>One advisory group. <span style={{ color: "var(--o)" }}>Two specialist desks.</span></h2>
-              <p className="gh-t">GAA Consulting is the established advisory practice. Filings First is its Compliance &amp; Filings Execution Desk, and Hirings First is its recruitment and workforce arm.</p>
+              <p className="gh-t">GAA Associates is the established advisory practice. Filings First is its Compliance &amp; Filings Execution Desk, and Hirings First is its recruitment and workforce arm.</p>
               <div style={{ borderTop: "1px solid var(--k)" }}>
                 {COMPANIES.map(([k, name, line]) => (
                   <a key={k} className="gh-lnk" {...siteLink(k)} aria-label={`Visit the ${name} website`}>
@@ -289,20 +382,20 @@ export default function GaaHomeV2() {
             </article>
 
             <article className="gh-chap">
-              <div className="gh-bp"><span className="gh-bl"><img src={LOGO.gaa} alt="GAA Consulting logo" /></span><h2>GAA Consulting</h2></div>
+              <div className="gh-bp"><span className="gh-bl"><img src={LOGO.ga} alt="GAA Associates logo" /></span><h2>GAA Associates</h2></div>
               <span className="gh-pm" style={{ color: "var(--od)" }}>01 · Corporate &amp; strategic advisory</span>
               <p className="gh-t">Corporate law, company secretarial, transactional and regulatory advisory for businesses, financial institutions, NBFCs and promoters.</p>
               <Rows items={["Corporate law & company secretarial", "Mergers, acquisitions & restructuring", "Fundraising & transactions", "Regulatory advisory for NBFCs & institutions"]} />
               <div className="gh-ca">
-                <a className="gh-cb" href="#gh-contact" onClick={toContact("gaa")}>Speak to GAA Consulting →</a>
-                <a className="gh-cb line" {...siteLink("gaa")}>View all services</a>
+                <a className="gh-cb" href="#gh-contact" onClick={toContact("gaa")}>Speak to GAA Associates →</a>
+                <a className="gh-cb line" {...siteLink("ga")}>Visit GAA Associates</a>
               </div>
             </article>
 
             <article className="gh-chap">
               <div className="gh-bp"><span className="gh-bl"><img src={LOGO.ff} alt="Filings First logo" /></span><h2>Filings First</h2></div>
               <span className="gh-pm" style={{ color: "var(--od)" }}>02 · Accounting, taxation &amp; compliance</span>
-              <p className="gh-t">The Compliance &amp; Filings Execution Desk of GAA Consulting. Accounting, bookkeeping, taxation, GST and corporate compliance, filed on time.</p>
+              <p className="gh-t">The Compliance &amp; Filings Execution Desk of GAA Associates. Accounting, bookkeeping, taxation, GST and corporate compliance, filed on time.</p>
               <Rows items={["Accounting & bookkeeping", "Taxation", "GST", "Corporate compliance"]} />
               <div className="gh-ca">
                 <a className="gh-cb" href="#gh-contact" onClick={toContact("filings")}>Get compliant with Filings First →</a>
@@ -335,9 +428,9 @@ export default function GaaHomeV2() {
                 </div>
                 <div className="gh-sb">
                   <div className="gh-fh">
-                    <span className="gh-l"><img src={LOGO.gaa} alt="" /></span>
+                    <span className="gh-l"><img src={LOGO.ga} alt="" /></span>
                     <div>
-                      <b className="gh-sfirm">GAA Consulting</b>
+                      <b className="gh-sfirm">GAA Associates</b>
                       <span className="gh-gm gh-srole" style={{ color: "#a39c94" }}>Corporate &amp; strategic advisory</span>
                     </div>
                   </div>

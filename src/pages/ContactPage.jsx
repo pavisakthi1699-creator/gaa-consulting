@@ -9,7 +9,7 @@ const CONFIG = {
 const BRANDS = [
   {
     id: "gaa",
-    name: "GAA Consulting",
+    name: "GAA Associates",
     label: "Corporate Advisory",
     lead: "Senior Corporate Law Partner",
     sla: "< 4 business hours",

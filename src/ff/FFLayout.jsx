@@ -147,7 +147,8 @@ function Footer() {
         </nav>
         <nav className="ff-foot-col" aria-label="Group companies">
           <span className="ff-mono">Group companies</span>
-          <Link to={href("gaa", "/")}>G Akshay and Associates</Link>
+          <Link to={href("gaa", "/")}>GAA Consulting</Link>
+          <Link to={href("ga", "/")}>GAA Associates</Link>
           <Link to={ffHref("/")}>Filings First</Link>
           <Link to={href("hf", "/")}>Hirings First</Link>
           <Link to={href("gaa", "/about")}>About the group</Link>

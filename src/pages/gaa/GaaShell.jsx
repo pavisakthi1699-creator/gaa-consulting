@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { GAA_NAV, GAA_FOOTER_GROUPS } from "../../data/gaaContent";
+import { GAA_NAV, GA_NAV, GAA_FOOTER_GROUPS } from "../../data/gaaContent";
 import { GAA_SERVICES } from "../../data/gaaServices";
 import { gaaPath, go } from "../../site/gaaPaths.js";
 import { GroupMenu, GroupLinks } from "../../site/GroupMenu.jsx";
-import { SITES, href } from "../../site/sites.js";
+import { SITES, href, resolve } from "../../site/sites.js";
+import { usePath } from "../../site/router.jsx";
 import { GAA_CONTACT } from "../../site/gaaContact.js";
 import "./GaaFooter.css";
 
@@ -34,6 +35,9 @@ export function useLink(onNavigate) {
 /* Header: familiar menu labels + Services mega menu + mobile menu     */
 /* ------------------------------------------------------------------ */
 export function GaaHeader({ link, active = "" }) {
+  // GAA Consulting (group home) and GAA Associates share this header with their own menus
+  const site = resolve(usePath()).site === "ga" ? "ga" : "gaa";
+  const NAV = site === "ga" ? GA_NAV : GAA_NAV;
   const [dd, setDd] = useState(false);
   const [mob, setMob] = useState(false);
   const ddRef = useRef(null);
@@ -78,11 +82,11 @@ export function GaaHeader({ link, active = "" }) {
       <div id="pg"></div>
       <header id="hdr" className={`gh${dd ? " dd-on" : ""}`}>
         <div className="hd">
-          <a {...link("", shut)} aria-label="GAA Consulting home" className="lg">
-            <img src="/gaa-consulting-logo.png" alt="GAA Consulting" />
+          <a {...link("", shut)} aria-label={`${SITES[site].name} home`} className="lg">
+            <img src={site === "ga" ? SITES.ga.logo : "/gaa-consulting-logo.png"} alt={SITES[site].name} />
           </a>
           <nav aria-label="Main" className="gnav">
-            {GAA_NAV.map(([to, label]) =>
+            {NAV.map(([to, label]) =>
               to === "practices" ? (
                 <div className="ddw" key={to} ref={ddRef} onMouseEnter={open} onMouseLeave={close}>
                   <a
@@ -131,7 +135,7 @@ export function GaaHeader({ link, active = "" }) {
                 </a>
               )
             )}
-            <GroupMenu current="gaa" btnClass="ddb" />
+            <GroupMenu current={site} btnClass="ddb" />
           </nav>
           <a className="book" {...link("@contact", shut)}>
             Book a Consultation
@@ -152,23 +156,22 @@ export function GaaHeader({ link, active = "" }) {
       <div className="mnav" id="gaa-mobile-menu" data-open={mob} aria-hidden={!mob}>
         <div className="mnav-in">
           <a {...link("", shut)} tabIndex={mob ? 0 : -1}>Home</a>
-          <a {...link("@about", shut)} tabIndex={mob ? 0 : -1}>About Us</a>
-          <details>
-            <summary tabIndex={mob ? 0 : -1}>Services</summary>
-            <div>
-              {MENU.map((p) => (
-                <a key={p.slug} {...link(`practices/${p.slug}`, shut)} tabIndex={mob ? 0 : -1}>
-                  {p.navName}
-                </a>
-              ))}
-              <a {...link("india-entry", shut)} tabIndex={mob ? 0 : -1}>Set Up in India</a>
-              <a {...link("practices", shut)} tabIndex={mob ? 0 : -1}>All services</a>
-              <a {...link("industries", shut)} tabIndex={mob ? 0 : -1}>Industries</a>
-              <a {...link("how-we-work", shut)} tabIndex={mob ? 0 : -1}>How we work</a>
-            </div>
-          </details>
+          {site === "gaa" && <a {...link("@about", shut)} tabIndex={mob ? 0 : -1}>About Us</a>}
+          {site === "ga" && (
+            <details>
+              <summary tabIndex={mob ? 0 : -1}>Services</summary>
+              <div>
+                {MENU.map((p) => (
+                  <a key={p.slug} {...link(`practices/${p.slug}`, shut)} tabIndex={mob ? 0 : -1}>
+                    {p.navName}
+                  </a>
+                ))}
+                <a {...link("practices", shut)} tabIndex={mob ? 0 : -1}>All services</a>
+              </div>
+            </details>
+          )}
           <a {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>Contact Us</a>
-          <GroupLinks current="gaa" onPick={() => setMob(false)} tabIndex={mob ? 0 : -1} />
+          <GroupLinks current={site} onPick={() => setMob(false)} tabIndex={mob ? 0 : -1} />
           <a className="btn o" {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>
             Book a Consultation
           </a>
@@ -207,9 +210,11 @@ export function GaaSubBar({ link, crumbs = [] }) {
 
 // Footer from the "GAA Home v2" design, on every GAA Consulting page
 export function GaaFooter({ link }) {
-  const L = link || useLink();
+  const own = useLink();
+  const L = link || own;
+  const site = resolve(usePath()).site === "ga" ? "ga" : "gaa";
   const cos = [
-    ["gaa", "GAA Consulting", "Corporate advisory", href("gaa", "/services")],
+    ["ga", "GAA Associates", "Corporate advisory", href("ga", "/")],
     ["ff", "Filings First", "Accounting, tax & compliance", href("ff", "/")],
     ["hf", "Hirings First", "Talent & workforce", href("hf", "/")],
   ];
@@ -218,8 +223,12 @@ export function GaaFooter({ link }) {
       <div className="gft-w">
         <div className="gft-top">
           <div className="gft-b">
-            <span className="gft-lg"><img src="/gaa-consulting-logo.png" alt="GAA Consulting" /></span>
-            <p>Corporate law, company secretarial, transactional and regulatory advisory for businesses, financial institutions, NBFCs and promoters.</p>
+            <span className="gft-lg"><img src={site === "ga" ? SITES.ga.logo : "/gaa-consulting-logo.png"} alt={SITES[site].name} /></span>
+            <p>
+              {site === "ga"
+                ? "Corporate law, company secretarial, transactional and regulatory advisory for businesses, financial institutions, NBFCs and promoters."
+                : "The home of the GAA Group: GAA Associates for corporate advisory, Filings First for compliance and Hirings First for talent."}
+            </p>
             <a className="gft-pill" {...L("@contact")}>Book a consultation</a>
           </div>
           <nav className="gft-col" aria-label="Group companies">
@@ -237,6 +246,7 @@ export function GaaFooter({ link }) {
           </nav>
           <nav className="gft-col" aria-label="Explore">
             <span className="gft-k">Explore</span>
+            <a {...L("gaa")}>GAA Consulting</a>
             <a {...L("#gh-why")}>Why GAA</a>
             <a {...L("#gh-lifecycle")}>How we work together</a>
             <a {...L("@about")}>About us</a>
@@ -252,7 +262,7 @@ export function GaaFooter({ link }) {
           </div>
         </div>
         <div className="gft-bot">
-          <span>© 2026 GAA Consulting. All rights reserved.</span>
+          <span>{site === "ga" ? "© 2026 GAA Associates · A GAA Group company. All rights reserved." : "© 2026 GAA Consulting. All rights reserved."}</span>
           <div>
             <a {...L("disclaimer")}>Privacy policy</a>
             <a {...L("disclaimer")}>Terms of use</a>

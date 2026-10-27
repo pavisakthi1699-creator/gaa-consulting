@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./GaaServices.css";
-import logoMain from "../../assets/logo-main.png";
+import { SITES } from "../../site/sites.js";
+const logoMain = SITES.ga.logo;
 import { GAA_FIRM, GAA_SERVICES, GAA_STEPS, OTHER_FIRMS } from "../../data/gaaServices";
 import { useScrollState, useNav, SvHeader, CallbackForm, SvFootBar, servicePage, jumpTo } from "./GaaServiceShell";
 
@@ -30,7 +31,7 @@ export default function GaaServicesPage({ onNavigate }) {
 
   return (
     <div className="gsv">
-      <SvHeader up={up} nav={nav} />
+      <SvHeader up={up} nav={nav} active="" />
 
       {/* ============ HERO ============ */}
       <section className="sv-herow">

@@ -83,6 +83,7 @@ function Header({ home }) {
           <span className="hf-mono">A GAA Group company</span>
           <nav aria-label="Group companies">
             <Link to={href("gaa", "/")}>GAA Consulting</Link>
+            <Link to={href("ga", "/")}>GAA Associates</Link>
             <Link to={href("ff", "/")}>Filings First</Link>
             <Link to={hfHref("/")} aria-current="page" className="here">Hirings First</Link>
           </nav>
@@ -160,6 +161,7 @@ function Footer({ tone }) {
         <nav className="hf-foot-col" aria-label="Group companies">
           <span className="hf-mono">Group companies</span>
           <Link to={href("gaa", "/")}>GAA Consulting</Link>
+          <Link to={href("ga", "/")}>GAA Associates</Link>
           <Link to={href("ff", "/")}>Filings First</Link>
           <Link to={hfHref("/")}>Hirings First</Link>
           <Link to={href("gaa", "/about")}>About the group</Link>
