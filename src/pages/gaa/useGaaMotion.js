@@ -14,8 +14,6 @@ export default function useGaaMotion(rootRef, title) {
     if (RM) document.documentElement.classList.add("rm");
     const cl = (x) => Math.min(1, Math.max(0, x));
 
-    const prevTitle = document.title;
-    if (title) document.title = title;
     window.scrollTo({ top: 0, behavior: "instant" });
 
     const readyTimer = setTimeout(() => document.body.classList.add("ready"), 80);
@@ -198,7 +196,6 @@ export default function useGaaMotion(rootRef, title) {
       clearTimeout(sgridTimer);
       window.removeEventListener("scroll", req);
       window.removeEventListener("resize", req);
-      document.title = prevTitle;
       document.body.classList.remove("ready");
       document.documentElement.classList.remove("gaa-hdr-off");
       if (io) io.disconnect();

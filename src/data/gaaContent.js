@@ -514,11 +514,7 @@ export const GENERAL_FAQS = [
 export const GAA_NAV = [
   ["", "Home"],
   ["@about", "About Us"],
-  ["practices", "Services"], // opens the services menu
-  ["industries", "Industries"],
-  ["experience", "Case Studies"],
-  ["insights", "Insights"],
-  ["people", "Our Team"],
+  ["practices", "Services"], // link to the Services page + hover dropdown with the five services
   ["@contact", "Contact Us"],
 ];
 

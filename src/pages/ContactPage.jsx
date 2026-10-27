@@ -153,7 +153,7 @@ export default function ContactPage() {
         if (!res.ok) throw new Error("Failed to dispatch brief");
       } else {
         // Mailto fallback
-        const subject = encodeURIComponent(`[${refCode}] ${payload.desk} — ${payload.topic}`);
+        const subject = encodeURIComponent(`[${refCode}] ${payload.desk}: ${payload.topic}`);
         const bodyLines = [
           `REFERENCE: ${refCode}`,
           `PRACTICE DESK: ${payload.desk}`,

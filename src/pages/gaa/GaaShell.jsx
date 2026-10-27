@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { GAA_NAV, GAA_FOOTER_GROUPS } from "../../data/gaaContent";
 import { GAA_SERVICES } from "../../data/gaaServices";
+import { gaaPath, go } from "../../site/gaaPaths.js";
+import { GroupMenu, GroupLinks } from "../../site/GroupMenu.jsx";
+import { SITES, href } from "../../site/sites.js";
+import { GAA_CONTACT } from "../../site/gaaContact.js";
+import "./GaaFooter.css";
 
 // Services menu uses the five services from the GAA Consulting Services design
 const MENU = GAA_SERVICES.map((s) => ({ slug: s.slug, navName: s.name, navDesc: s.ideal }));
@@ -9,22 +14,17 @@ const MENU = GAA_SERVICES.map((s) => ({ slug: s.slug, navName: s.name, navDesc: 
    `to` is a GAA sub path ("practices", "practices/fdi-fema", "" for GAA home),
    optionally with an in-page anchor ("insights#calendar"),
    or a group page prefixed with "@" ("@home", "@contact", "@about"). */
+// eslint-disable-next-line no-unused-vars
 export function useLink(onNavigate) {
   return (to, extra = {}) => {
-    const [path, anchor] = to.split("#");
-    const group = path.startsWith("@");
-    const page = group ? path.slice(1) : path ? `gaa-consulting/${path}` : "gaa-consulting";
-    const href = page === "home" ? "#/" : page === "contact" ? "#/contact?brand=gaa" : `#/${page}`;
+    const href = gaaPath(to);
     return {
       href,
       onClick: (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey) return;
         e.preventDefault();
         if (extra.before) extra.before();
-        if (onNavigate) onNavigate(page, extra.intent || null);
-        else window.location.hash = href;
-        if (anchor)
-          setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: "smooth" }), 450);
+        go(href);
       },
     };
   };
@@ -85,17 +85,17 @@ export function GaaHeader({ link, active = "" }) {
             {GAA_NAV.map(([to, label]) =>
               to === "practices" ? (
                 <div className="ddw" key={to} ref={ddRef} onMouseEnter={open} onMouseLeave={close}>
-                  <button
-                    type="button"
+                  <a
                     className="ddb"
+                    {...link("practices", shut)}
                     aria-expanded={dd}
                     aria-controls="gaa-services-menu"
                     aria-current={isCur(to) ? "page" : undefined}
-                    onClick={() => setDd((v) => !v)}
+                    onFocus={open}
                   >
                     {label}
                     <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
-                  </button>
+                  </a>
                   <div className="mega" id="gaa-services-menu" data-open={dd}>
                     <div className="mega-in">
                       <ul className="mega-list">
@@ -131,6 +131,7 @@ export function GaaHeader({ link, active = "" }) {
                 </a>
               )
             )}
+            <GroupMenu current="gaa" btnClass="ddb" />
           </nav>
           <a className="book" {...link("@contact", shut)}>
             Book a Consultation
@@ -162,13 +163,12 @@ export function GaaHeader({ link, active = "" }) {
               ))}
               <a {...link("india-entry", shut)} tabIndex={mob ? 0 : -1}>Set Up in India</a>
               <a {...link("practices", shut)} tabIndex={mob ? 0 : -1}>All services</a>
+              <a {...link("industries", shut)} tabIndex={mob ? 0 : -1}>Industries</a>
+              <a {...link("how-we-work", shut)} tabIndex={mob ? 0 : -1}>How we work</a>
             </div>
           </details>
-          <a {...link("industries", shut)} tabIndex={mob ? 0 : -1}>Industries</a>
-          <a {...link("experience", shut)} tabIndex={mob ? 0 : -1}>Case Studies</a>
-          <a {...link("insights", shut)} tabIndex={mob ? 0 : -1}>Insights</a>
-          <a {...link("people", shut)} tabIndex={mob ? 0 : -1}>Our Team</a>
           <a {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>Contact Us</a>
+          <GroupLinks current="gaa" onPick={() => setMob(false)} tabIndex={mob ? 0 : -1} />
           <a className="btn o" {...link("@contact", shut)} tabIndex={mob ? 0 : -1}>
             Book a Consultation
           </a>
@@ -185,7 +185,7 @@ export function GaaSubBar({ link, crumbs = [] }) {
       <div className="w">
         <a className="back" {...link("@home")}>
           <span>←</span>
-          <span>Back to GAA Group</span>
+          <span>Back to home</span>
         </a>
         <nav className="crumbs" aria-label="Breadcrumb">
           <a {...link("")}>Home</a>
@@ -205,37 +205,59 @@ export function GaaSubBar({ link, crumbs = [] }) {
   );
 }
 
+// Footer from the "GAA Home v2" design, on every GAA Consulting page
 export function GaaFooter({ link }) {
+  const L = link || useLink();
+  const cos = [
+    ["gaa", "GAA Consulting", "Corporate advisory", href("gaa", "/services")],
+    ["ff", "Filings First", "Accounting, tax & compliance", href("ff", "/")],
+    ["hf", "Hirings First", "Talent & workforce", href("hf", "/")],
+  ];
   return (
-    <footer className="gf">
-      <div className="w gf-top">
-        <div className="gf-cta">
-          <p className="gf-big">Have a compliance or transaction question?</p>
-          <a className="btn o" {...link("@contact")}>
-            Book a Consultation <span className="ar">→</span>
-          </a>
-        </div>
-        {GAA_FOOTER_GROUPS.map(([title, items]) => (
-          <nav className="gf-col" key={title} aria-label={title}>
-            <b>{title}</b>
-            {items.map(([to, label]) => (
-              <a key={label} {...link(to)}>
-                {label}
+    <footer className="gft">
+      <div className="gft-w">
+        <div className="gft-top">
+          <div className="gft-b">
+            <span className="gft-lg"><img src="/gaa-consulting-logo.png" alt="GAA Consulting" /></span>
+            <p>Corporate law, company secretarial, transactional and regulatory advisory for businesses, financial institutions, NBFCs and promoters.</p>
+            <a className="gft-pill" {...L("@contact")}>Book a consultation</a>
+          </div>
+          <nav className="gft-col" aria-label="Group companies">
+            <span className="gft-k">Group companies</span>
+            {cos.map(([k, name, line, to]) => (
+              <a key={k} className="gft-co" href={to} onClick={(e) => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); go(to); }}>
+                <i><img src={SITES[k].logo} alt="" /></i>
+                <span>
+                  <b>{name}</b>
+                  <small>{line}</small>
+                </span>
+                <em aria-hidden="true">→</em>
               </a>
             ))}
           </nav>
-        ))}
-      </div>
-      <div className="ft">
-        <img src="/gaa-consulting-logo.png" alt="GAA Consulting" />
-        <div>
-          <a data-site="gaa" {...link("")}>GAA Consulting</a>
-          <span style={{ color: "var(--m)", cursor: "default", userSelect: "none" }}>Filings First</span>
-          <span style={{ color: "var(--m)", cursor: "default", userSelect: "none" }}>Hirings First</span>
-          <a {...link("@about")}>About us</a>
-          <a {...link("@contact")}>Contact us</a>
+          <nav className="gft-col" aria-label="Explore">
+            <span className="gft-k">Explore</span>
+            <a {...L("#gh-why")}>Why GAA</a>
+            <a {...L("#gh-lifecycle")}>How we work together</a>
+            <a {...L("@about")}>About us</a>
+            <a {...L("careers")}>Careers &amp; CS Training</a>
+            <a {...L("@contact")}>Contact</a>
+          </nav>
+          <div className="gft-col">
+            <span className="gft-k">Contact</span>
+            <span>{GAA_CONTACT.office}</span>
+            <a href={`mailto:${GAA_CONTACT.email}`}>{GAA_CONTACT.email}</a>
+            <span>{GAA_CONTACT.phone}</span>
+            <span style={{ color: "#8a847d" }}>{GAA_CONTACT.hours}</span>
+          </div>
         </div>
-        <span>© 2026 · All rights reserved</span>
+        <div className="gft-bot">
+          <span>© 2026 GAA Consulting. All rights reserved.</span>
+          <div>
+            <a {...L("disclaimer")}>Privacy policy</a>
+            <a {...L("disclaimer")}>Terms of use</a>
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -296,8 +318,8 @@ export function SubHero({ tag, lines, em, sub, actions, aside, facts, ticker, va
           </div>
           {facts && (
             <dl className="facts e3" style={{ "--t": ".75s" }}>
-              {facts.map(([n, l]) => (
-                <div key={l}>
+              {facts.map(([n, l], i) => (
+                <div key={`${n}-${l}-${i}`}>
                   <dt>{n}</dt>
                   <dd>{l}</dd>
                 </div>

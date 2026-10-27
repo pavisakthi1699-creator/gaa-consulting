@@ -16,13 +16,6 @@ export default function GaaServiceDetailPage({ slug, onNavigate }) {
   const si = GAA_SERVICES.indexOf(svc);
   const next = GAA_SERVICES[(si + 1) % GAA_SERVICES.length];
 
-  useEffect(() => {
-    const prev = document.title;
-    document.title = `${svc.name} | GAA Consulting`;
-    return () => {
-      document.title = prev;
-    };
-  }, [svc.name]);
 
   return (
     <div className="gsv">

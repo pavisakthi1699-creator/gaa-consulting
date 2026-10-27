@@ -27,13 +27,6 @@ export default function GaaServicesPage({ onNavigate }) {
   const { y, up, vw, mounted } = useScrollState(measureActive);
   const narrow = vw < 900;
 
-  useEffect(() => {
-    const prev = document.title;
-    document.title = "Services | GAA Consulting";
-    return () => {
-      document.title = prev;
-    };
-  }, []);
 
   return (
     <div className="gsv">
@@ -168,7 +161,7 @@ export default function GaaServicesPage({ onNavigate }) {
         </div>
         <div className="x-cards">
           {OTHER_FIRMS.map((f) => (
-            <div key={f.key} className={`x-card ${f.key}`}>
+            <a key={f.key} className={`x-card ${f.key}`} {...nav(f.key === "filings" ? "filings-first" : "hirings-first")}>
               <div className="x-top">
                 <span className="x-mono">{f.area}</span>
                 <span className="x-ar">→</span>
@@ -177,7 +170,7 @@ export default function GaaServicesPage({ onNavigate }) {
                 <span className="x-nm">{f.name}</span>
                 <span className="x-ls">{f.services.join(" · ")}</span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </section>

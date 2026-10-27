@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { gaaPath, go } from "../../site/gaaPaths.js";
+import { GaaHeader, useLink } from "./GaaShell";
 import logoMain from "../../assets/logo-main.png";
 import { GAA_FIRM, OTHER_FIRMS } from "../../data/gaaServices";
 
@@ -46,15 +48,19 @@ export function useScrollState(onMeasure) {
 }
 
 // Internal link helper: page names are the ones App.handleNavigate understands
+// eslint-disable-next-line no-unused-vars
 export function useNav(onNavigate) {
-  return (page) => ({
-    href: page === "home" ? "#/" : `#/${page}`,
-    onClick: (e) => {
-      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
-      e.preventDefault();
-      if (onNavigate) onNavigate(page);
-    },
-  });
+  return (page) => {
+    const href = gaaPath(page);
+    return {
+      href,
+      onClick: (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        go(href);
+      },
+    };
+  };
 }
 
 export const SERVICES_PAGE = "gaa-consulting/practices";
@@ -67,25 +73,14 @@ export function jumpTo(id) {
   };
 }
 
+// Same GAA Consulting menu as every other page: Home, About us, Services, Contact us, Group
+// eslint-disable-next-line no-unused-vars
 export function SvHeader({ up, nav }) {
+  const link = useLink();
   return (
-    <header className="sv-hdr" style={{ transform: `translateY(${up ? 0 : -100}%)` }}>
-      <div className="sv-hdr-in">
-        <a {...nav("home")} className="sv-logo" aria-label="GAA Group home">
-          <img src={logoMain} alt="GAA Consulting" />
-        </a>
-        <nav className="sv-nav" aria-label="Main">
-          <a {...nav("home")}>Home</a>
-          <a {...nav("about")}>About us</a>
-          {OTHER_FIRMS.map((f) => (
-            // Sister-firm sites are switched off for now
-            <span key={f.key} className="sv-firm x-off" aria-disabled="true">{f.name}</span>
-          ))}
-          <a {...nav(SERVICES_PAGE)} className="sv-firm x-cur" aria-current="page">{GAA_FIRM.name}</a>
-        </nav>
-        <a href="#contact" onClick={jumpTo("contact")} className="sv-cta">Start a conversation</a>
-      </div>
-    </header>
+    <div className="gaa-consulting-root gaa-chrome">
+      <GaaHeader link={link} active="practices" />
+    </div>
   );
 }
 
@@ -116,9 +111,9 @@ export function SvFootBar({ nav }) {
       <span className="x-lgw"><img src={logoMain} alt="GAA Consulting" /></span>
       <div>
         {OTHER_FIRMS.map((f) => (
-          <span key={f.key} className="x-off">{f.name}</span>
+          <a key={f.key} {...nav(f.key === "filings" ? "filings-first" : "hirings-first")}>{f.name}</a>
         ))}
-        <a {...nav(SERVICES_PAGE)}>{GAA_FIRM.name}</a>
+        <a {...nav("home")}>{GAA_FIRM.name}</a>
       </div>
       <span>© 2026 · All rights reserved</span>
     </div>

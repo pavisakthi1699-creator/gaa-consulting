@@ -11,6 +11,7 @@ import GaaInsightsPage from "./GaaInsightsPage";
 import GaaPeoplePage from "./GaaPeoplePage";
 import GaaHowWeWorkPage from "./GaaHowWeWorkPage";
 import GaaDisclaimerPage from "./GaaDisclaimerPage";
+import GaaCareersPage from "./GaaCareersPage";
 import { getService, LEGACY_SLUGS } from "../../data/gaaServices";
 
 /* Routes for the GAA Consulting site (all under #/gaa-consulting/...)
@@ -49,6 +50,8 @@ export default function GaaSite({ path = "", onNavigate }) {
       return <GaaPeoplePage key={k} onNavigate={onNavigate} />;
     case "how-we-work":
       return <GaaHowWeWorkPage key={k} onNavigate={onNavigate} />;
+    case "careers":
+      return <GaaCareersPage key={k} onNavigate={onNavigate} />;
     case "disclaimer":
       return <GaaDisclaimerPage key={k} onNavigate={onNavigate} />;
     default:

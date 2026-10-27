@@ -1,0 +1,31 @@
+/* GAA Consulting footer (from "GAA Home v2"), used on every GAA Consulting page. Classes gft-* */
+.gft{background:#121212;color:#cfc8c0;font-size:14px;font-family:Geist,system-ui,sans-serif;width:100%}
+.gft *{box-sizing:border-box}
+.gft a{color:inherit;text-decoration:none}
+.gft a:hover{opacity:1}
+.gft-w{max-width:1400px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(16px,3vw,32px) 28px;display:flex;flex-direction:column;gap:48px}
+.gft-top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:40px}
+@media(max-width:900px){.gft-top{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}}
+.gft-b{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.gft-lg{background:#fff;border-radius:8px;padding:8px;display:flex}
+.gft-lg img{height:64px;width:64px;object-fit:contain}
+.gft-b p{margin:0;font-size:15px;line-height:1.6;max-width:340px}
+.gft-pill{padding:13px 22px;border-radius:999px;background:#DC6A40;color:#121212!important;font:500 14px Geist,sans-serif;min-height:46px;display:inline-flex;align-items:center;gap:8px;transition:background .3s,transform .3s}
+.gft-pill:hover{background:#fff;transform:translateY(-2px)}
+.gft-col{display:flex;flex-direction:column;gap:12px}
+.gft-k{font:500 11px/1.4 "Geist Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#8a847d;margin-bottom:4px}
+.gft-col>a:not(.gft-co){color:#fff;width:fit-content;background:linear-gradient(#DC6A40,#DC6A40) 0 100%/0 1.5px no-repeat;transition:background-size .35s cubic-bezier(.2,.8,.2,1)}
+.gft-col>a:not(.gft-co):hover{background-size:100% 1.5px}
+.gft-co{display:flex;align-items:center;gap:12px;color:#fff;padding:6px 8px;margin:-6px -8px;border-radius:8px;transition:background .3s}
+.gft-co i{background:#fff;border-radius:5px;padding:3px;display:flex;font-style:normal;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.gft-co img{height:30px;width:30px;object-fit:contain}
+.gft-co>span{flex:1;min-width:0}
+.gft-co b{font-weight:600;display:block}
+.gft-co small{color:#8a847d;font-size:12px}
+.gft-co em{font-style:normal;color:#DC6A40;font-size:16px;opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.gft-co:hover{background:#1f1d1b}
+.gft-co:hover i{transform:rotate(-6deg) scale(1.06)}
+.gft-co:hover em{opacity:1;transform:none}
+.gft-bot{display:flex;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-top:24px;border-top:1px solid #2e2b28;font-size:13px;color:#8a847d}
+.gft-bot div{display:flex;gap:20px}
+.gft-bot a:hover{color:#fff}

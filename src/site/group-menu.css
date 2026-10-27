@@ -1,0 +1,31 @@
+/* Group dropdown (shared by GAA Consulting, Filings First and Hirings First headers) */
+.grpdd{position:relative;display:flex;align-items:center}
+.grpdd-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 2px;border:0;background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer}
+.grpdd-btn svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.6;transition:transform .25s}
+.grpdd-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+.grpdd-panel{position:absolute;right:-12px;top:calc(100% + 10px);width:340px;padding:10px;background:#fff;color:#121212;border-radius:12px;box-shadow:0 0 0 1px #ece6df,0 30px 60px -30px rgba(18,18,18,.35);display:flex;flex-direction:column;gap:2px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .25s,visibility .25s;z-index:80}
+.grpdd-panel::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}
+.grpdd-panel[data-open="true"]{opacity:1;visibility:visible;transform:none}
+.grpdd-k{display:block;padding:8px 10px 6px;font:500 11px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:#C25A34}
+.grpdd-item{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:12px;padding:10px;border-radius:8px;text-decoration:none;color:inherit;transition:background .2s}
+.grpdd-item:hover{background:#F7F3EE;opacity:1}
+.grpdd-logo{display:grid;place-items:center;width:40px;height:40px;border-radius:8px;background:#fff;box-shadow:0 0 0 1px #ece6df;padding:5px}
+.grpdd-logo img{width:100%;height:100%;object-fit:contain}
+.grpdd-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.grpdd-tx b{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.grpdd-tx small{font-size:12.5px;line-height:1.35;color:#6b655e}
+.grpdd-item i{font-style:normal;color:#DC6A40;transition:transform .25s}
+.grpdd-item:hover i{transform:translateX(3px)}
+.grpdd-item em,.grpdd-mi em{font-style:normal;font:500 10px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.04em;padding:4px 7px;border-radius:999px;background:#F3EDE6;color:#C25A34;white-space:nowrap}
+.grpdd-m{display:flex;flex-direction:column;padding-top:8px}
+.grpdd-mi{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #ece6df;font-size:17px;text-decoration:none;color:inherit}
+.grpdd-mi .grpdd-logo{width:36px;height:36px}
+.grpdd-mi i{font-style:normal;color:#DC6A40}
+@media (max-width:1100px){.grpdd-panel{right:0}}
+
+/* keep header link styles (nowrap, current-page colour, underline) out of the panel */
+.grpdd .grpdd-panel .grpdd-item{white-space:normal;padding:10px;color:#121212;font:inherit}
+.grpdd .grpdd-panel .grpdd-item::after{content:none}
+.grpdd .grpdd-panel .grpdd-item .grpdd-tx b{font:700 15px "Instrument Sans",system-ui,sans-serif;color:#121212}
+.grpdd .grpdd-panel .grpdd-item .grpdd-tx small{font:400 12.5px/1.35 "Instrument Sans",system-ui,sans-serif;color:#6b655e;white-space:normal}
+.grpdd .grpdd-panel .grpdd-item.here{background:#FBF8F4}

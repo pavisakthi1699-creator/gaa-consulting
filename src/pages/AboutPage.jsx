@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./AboutPage.css";
+import { GaaHeader, GaaFooter, useLink } from "./gaa/GaaShell";
 import { TEAM_MEMBERS } from "../data/teamData";
 import logoMain from "../assets/logo-main.png";
 import logoMark from "../assets/logo-mark.png";
@@ -52,8 +53,6 @@ export default function AboutPage({ onNavigate }) {
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    const prevTitle = document.title;
-    document.title = "About Us | GAA Group";
     window.scrollTo({ top: 0, behavior: "instant" });
 
     const measure = () => {
@@ -80,7 +79,6 @@ export default function AboutPage({ onNavigate }) {
     measure();
     const t = setTimeout(() => setMounted(true), 80);
     return () => {
-      document.title = prevTitle;
       document.removeEventListener("scroll", onScroll, true);
       window.removeEventListener("resize", onScroll);
       cancelAnimationFrame(raf.current);
@@ -88,6 +86,7 @@ export default function AboutPage({ onNavigate }) {
     };
   }, []);
 
+  const link = useLink(onNavigate);
   const go = (page, section) => (e) => {
     e.preventDefault();
     if (onNavigate) onNavigate(page, section);
@@ -121,21 +120,10 @@ export default function AboutPage({ onNavigate }) {
 
   return (
     <div className="ab">
-      {/* ================= HEADER ================= */}
-      <header className="ab-hdr" style={{ transform: `translateY(${up ? 0 : -100}%)` }}>
-        <div className="ab-hdr-in">
-          <a href="#/" onClick={go("home")} className="ab-logo" aria-label="GAA Group home">
-            <img src={logoMain} alt="GAA Consulting" />
-          </a>
-          <nav className="ab-nav" aria-label="Main">
-            <a href="#/" onClick={go("home")}>Home</a>
-            <a href="#story" onClick={jump("story")} className="cur" aria-current="page">About us</a>
-            <a href="#team" onClick={jump("team")}>Team</a>
-            <a href="#contact" onClick={jump("contact")}>Contact</a>
-          </nav>
-          <a href="#contact" onClick={jump("contact")} className="ab-cta">Start a conversation</a>
-        </div>
-      </header>
+      {/* ================= HEADER (same GAA Consulting menu as every page) ================= */}
+      <div className="gaa-consulting-root gaa-chrome">
+        <GaaHeader link={link} active="@about" />
+      </div>
 
       {/* ================= HERO ================= */}
       <section id="top" className="ab-hero">
@@ -222,7 +210,7 @@ export default function AboutPage({ onNavigate }) {
             <p>Each firm is led by its own domain specialists and shares one client relationship.</p>
           </div>
           <div className="ab-firms">
-            <div className="ab-firm f1">
+            <a className="ab-firm f1" {...link("@hirings-first")}>
               <div className="top">
                 <span className="lg"><img src={logoMark} alt="" /></span>
                 <span className="mono">01</span>
@@ -230,8 +218,8 @@ export default function AboutPage({ onNavigate }) {
               <div className="sp"></div>
               <h3>Hirings First</h3>
               <p>Talent acquisition and workforce solutions: recruitment across IT and corporate functions, leadership hiring, campus placements and workforce outsourcing.</p>
-            </div>
-            <div className="ab-firm f2">
+            </a>
+            <a className="ab-firm f2" {...link("@filings-first")}>
               <div className="top">
                 <span className="lg"><img src={logoMark} alt="" /></span>
                 <span className="mono" style={{ color: O }}>02</span>
@@ -239,8 +227,8 @@ export default function AboutPage({ onNavigate }) {
               <div className="sp"></div>
               <h3>Filings First</h3>
               <p>Comprehensive accounting, bookkeeping, taxation, GST and corporate compliance, with reliable execution and timely filings.</p>
-            </div>
-            <a className="ab-firm f3" href="#/gaa-consulting/practices" onClick={go("gaa-consulting/practices")}>
+            </a>
+            <a className="ab-firm f3" href="/services" onClick={go("gaa-consulting/practices")}>
               <div className="top">
                 <img src={logoMain} alt="" className="gl" />
                 <span className="mono" style={{ color: "#C25A34" }}>03</span>
@@ -350,20 +338,15 @@ export default function AboutPage({ onNavigate }) {
               <button type="submit">Request an introduction</button>
             </div>
             <span className="car">
-              Interested in joining us? <a href="#/" onClick={go("home", "careers")}>See careers</a>
+              Interested in joining us? <a href="/" onClick={go("home", "careers")}>See careers</a>
             </span>
           </form>
         </div>
-        <div className="ab-foot">
-          <span className="lgw"><img src={logoMain} alt="GAA Consulting" /></span>
-          <div>
-            <a href="#/" onClick={go("home")}>Home</a>
-            <a href="#story" onClick={jump("story")}>About</a>
-            <a href="#team" onClick={jump("team")}>Team</a>
-          </div>
-          <span>© 2026 · All rights reserved</span>
-        </div>
       </section>
+
+      <div className="gaa-consulting-root gaa-chrome">
+        <GaaFooter link={link} />
+      </div>
     </div>
   );
 }
