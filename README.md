@@ -1,28 +1,37 @@
-# GAA Group websites: GAA Consulting, Filings First, Hirings First
+# GAA Group websites: GAA Consulting, GAA Associates, Filings First, Hirings First
 
 One project, three separate websites, all linked to each other.
 
 | Website | On your computer | Live domain |
 | --- | --- | --- |
-| GAA Consulting | http://localhost:5173/ | gaaconsulting.com |
+| GAA Consulting (group home) | http://localhost:5173/ | gaaconsulting.com |
+| GAA Associates | http://localhost:5173/gaa-associates | gaaconsulting.com/gaa-associates |
 | Filings First | http://localhost:5173/filings-first | filingsfirst.com |
 | Hirings First | http://localhost:5173/hirings-first | hiringsfirst.com |
 
-Every site's menu ends with a **Group** dropdown: Filings First, Hirings First, GAA Consulting.
+Every site's menu ends with a **Group** dropdown: GAA Consulting, GAA Associates, Filings First, Hirings First.
 
-## GAA Consulting pages
+## GAA Consulting pages (the GAA Group home)
 
 | Address | Page |
 | --- | --- |
-| / | Home (built from the "GAA Home v2" design) |
+| / | Home ("GAA Home v2" design) |
 | /about | About us |
-| /services | Services (menu "Services": click opens this page, hover shows the 5 services) |
-| /services/corporate-law, /company-secretarial, /mergers-and-acquisitions, /fundraising-and-restructuring, /regulatory-advisory | The 5 service pages |
 | /contact | Contact us |
-| /careers | Careers & CS training |
-| /industries, /insights, /people, /how-we-work, /india-entry, /experience, /disclaimer | Other pages (footer links) |
+| /careers, /industries, /insights, /people, /how-we-work, /india-entry, /experience, /disclaimer | Other pages (footer links) |
 
-Menu: Home · About us · Services · Contact us · Group
+Menu: Home · About us · Contact us · Group
+
+## GAA Associates pages (corporate advisory)
+
+| Address | Page |
+| --- | --- |
+| /gaa-associates | Home ("GAA Consulting Services" design) |
+| /gaa-associates/services/corporate-law, /company-secretarial, /mergers-and-acquisitions, /fundraising-and-restructuring, /regulatory-advisory | The 5 service pages |
+| /gaa-associates/contact | Contact us |
+
+Menu: Home · Services (hover shows the 5 services, click opens the services list) · Contact us · Group.
+Old /services addresses redirect here.
 
 ## Filings First pages (built from the "Filings First Site" mockups)
 
@@ -81,7 +90,8 @@ Check a build before uploading: `npm run preview:gaa` (or `preview:ff`, `preview
 | Domains, emails, Group dropdown text | src/site/sites.js |
 | GAA Consulting menu labels | src/data/gaaContent.js (GAA_NAV) |
 | GAA Consulting home page | src/pages/gaa/GaaHomeV2.jsx (+ GaaHomeV2.css) |
-| GAA Consulting header, footer | src/pages/gaa/GaaShell.jsx |
+| GAA Consulting and GAA Associates header, footer | src/pages/gaa/GaaShell.jsx |
+| GAA Associates home and services text | src/data/gaaServices.js |
 | GAA Consulting office address, phone, hours | src/site/gaaContact.js |
 | Filings First text: home, menus, GST registration, contact details | src/ff/ffData.js |
 | Filings First service pages (all 24 other pages) | src/ff/ffPages.js |

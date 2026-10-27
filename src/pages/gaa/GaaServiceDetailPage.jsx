@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./GaaServices.css";
-import logoMain from "../../assets/logo-main.png";
+import { SITES } from "../../site/sites.js";
+const logoMain = SITES.ga.logo;
 import { GAA_FIRM, GAA_SERVICES, GAA_STEPS, getService } from "../../data/gaaServices";
 import { useScrollState, useNav, SvHeader, CallbackForm, SvFootBar, SERVICES_PAGE, servicePage, jumpTo } from "./GaaServiceShell";
 

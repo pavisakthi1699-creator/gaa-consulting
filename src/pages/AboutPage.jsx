@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./AboutPage.css";
 import { GaaHeader, GaaFooter, useLink } from "./gaa/GaaShell";
 import { TEAM_MEMBERS } from "../data/teamData";
-import logoMain from "../assets/logo-main.png";
+import { SITES } from "../site/sites.js";
 import logoMark from "../assets/logo-mark.png";
 
 /* GAA Group About Us: built 1:1 from the "GAA_Group_About_Us.html" design.
@@ -15,7 +15,7 @@ const HERO_PHOTO = "/about-hero.jpg";
 
 const O = "#DC6A40";
 const K = "#121212";
-const FIRMS = ["Group", "Hirings First", "Filings First", "GAA Consulting"];
+const FIRMS = ["Group", "Hirings First", "Filings First", "GAA Associates"];
 const firmIndex = (dept) => Math.max(0, FIRMS.indexOf(dept));
 const cl = (x) => Math.min(1, Math.max(0, x));
 const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -129,7 +129,7 @@ export default function AboutPage({ onNavigate }) {
       <section id="top" className="ab-hero">
         <div className="ab-meta">
           <span>About us</span>
-          <span>Hirings First · Filings First · GAA Consulting</span>
+          <span>Hirings First · Filings First · GAA Associates</span>
         </div>
         <h1 className="ab-h1" aria-label="Specialists who work as one.">
           <span className="ab-l1" aria-hidden="true">
@@ -158,7 +158,7 @@ export default function AboutPage({ onNavigate }) {
               We are a group of three specialist firms in talent, compliance and corporate advisory, built around one idea: a growing business shouldn't have to coordinate its advisors.
             </p>
             <p>
-              Hirings First builds your teams. Filings First keeps your books, taxes and filings on time. GAA Consulting advises on corporate law, transactions and regulation. Together, we give businesses, financial institutions, NBFCs and promoters one accountable partner for the work that keeps a company moving.
+              Hirings First builds your teams. Filings First keeps your books, taxes and filings on time. GAA Associates advises on corporate law, transactions and regulation. Together, we give businesses, financial institutions, NBFCs and promoters one accountable partner for the work that keeps a company moving.
             </p>
           </div>
         </div>
@@ -228,13 +228,13 @@ export default function AboutPage({ onNavigate }) {
               <h3>Filings First</h3>
               <p>Comprehensive accounting, bookkeeping, taxation, GST and corporate compliance, with reliable execution and timely filings.</p>
             </a>
-            <a className="ab-firm f3" href="/services" onClick={go("gaa-consulting/practices")}>
+            <a className="ab-firm f3" {...link("@gaa-associates")}>
               <div className="top">
-                <img src={logoMain} alt="" className="gl" />
+                <img src={SITES.ga.logo} alt="" className="gl" />
                 <span className="mono" style={{ color: "#C25A34" }}>03</span>
               </div>
               <div className="sp"></div>
-              <h3>GAA Consulting</h3>
+              <h3>GAA Associates</h3>
               <p>Corporate law, company secretarial, transactional and regulatory advisory, including restructuring, fundraising and M&amp;A.</p>
             </a>
           </div>

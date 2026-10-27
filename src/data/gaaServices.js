@@ -1,10 +1,10 @@
-// Content for the "GAA Consulting Services" page and the five service detail pages,
+// Content for the GAA Associates home page (design: "GAA Consulting Services") and the five service detail pages,
 // taken from the design files (GAA_Consulting_Services.dc.html and
 // GAA_Consulting_-_<service>.dc.html). Em dashes from the design copy are replaced
 // with commas / colons per the brand's writing rules.
 
 export const GAA_FIRM = {
-  name: "GAA Consulting",
+  name: "GAA Associates",
   area: "Corporate & strategic advisory",
   verb: "GROW",
   cta: "Speak to an advisor",

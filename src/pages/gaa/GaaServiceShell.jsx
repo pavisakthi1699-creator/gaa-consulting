@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gaaPath, go } from "../../site/gaaPaths.js";
 import { GaaHeader, useLink } from "./GaaShell";
-import logoMain from "../../assets/logo-main.png";
+import { SITES } from "../../site/sites.js";
+const logoMain = SITES.ga.logo;
 import { GAA_FIRM, OTHER_FIRMS } from "../../data/gaaServices";
 
 /* Shared pieces for the GAA Consulting Services page and the service detail pages,
@@ -75,11 +76,11 @@ export function jumpTo(id) {
 
 // Same GAA Consulting menu as every other page: Home, About us, Services, Contact us, Group
 // eslint-disable-next-line no-unused-vars
-export function SvHeader({ up, nav }) {
+export function SvHeader({ up, nav, active = "practices" }) {
   const link = useLink();
   return (
     <div className="gaa-consulting-root gaa-chrome">
-      <GaaHeader link={link} active="practices" />
+      <GaaHeader link={link} active={active} />
     </div>
   );
 }
@@ -108,12 +109,13 @@ export function CallbackForm({ onNavigate }) {
 export function SvFootBar({ nav }) {
   return (
     <div className="sv-foot">
-      <span className="x-lgw"><img src={logoMain} alt="GAA Consulting" /></span>
+      <span className="x-lgw"><img src={logoMain} alt="GAA Associates" /></span>
       <div>
         {OTHER_FIRMS.map((f) => (
           <a key={f.key} {...nav(f.key === "filings" ? "filings-first" : "hirings-first")}>{f.name}</a>
         ))}
         <a {...nav("home")}>{GAA_FIRM.name}</a>
+        <a {...nav("gaa")}>GAA Consulting</a>
       </div>
       <span>© 2026 · All rights reserved</span>
     </div>

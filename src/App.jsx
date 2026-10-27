@@ -22,7 +22,8 @@ import { getCategory } from "./hf/hfData.js";
 
 /* One project, three websites, all linked to each other.
 
-   GAA Consulting   /                  Home (GAA Consulting home page)
+   GAA Consulting   /                  Home (the GAA Group home)
+   GAA Associates   /gaa-associates    Home (services overview), /gaa-associates/services/<service>, /gaa-associates/contact
                     /about             About us
                     /services          Services (+ /services/corporate-law and the other 4 services)
                     /contact           Contact us
@@ -34,7 +35,7 @@ import { getCategory } from "./hf/hfData.js";
 
    On the live domains Filings First and Hirings First sit at the root of their own domains. */
 
-const GAA_SUB = ["services", "practices", "india-entry", "industries", "experience", "insights", "people", "how-we-work", "disclaimer", "careers"];
+const GAA_SUB = ["india-entry", "industries", "experience", "insights", "people", "how-we-work", "disclaimer", "careers"];
 
 // Old #/ links (earlier review links) go to the new addresses
 function useLegacyHashRedirect() {
@@ -79,6 +80,10 @@ function NotFound({ site }) {
 
 function Gaa({ path }) {
   if (path === "/") return <GaaHomeV2 />;
+  // services moved to GAA Associates
+  if (path === "/services" || path === "/practices") return <Redirect to={`${href("ga", "/")}#services`} />;
+  const sv = path.match(/^\/(?:services|practices)\/(.+)$/);
+  if (sv) return <Redirect to={href("ga", `/services/${sv[1]}`)} />;
   if (path === "/about") return <main id="main-content"><AboutPage onNavigate={onNavigate} /></main>;
   if (path === "/contact") return <GaaChrome active="@contact"><ContactPage onNavigate={onNavigate} /></GaaChrome>;
   const [first] = path.slice(1).split("/");
@@ -87,6 +92,15 @@ function Gaa({ path }) {
     return <GaaSite path={sub} onNavigate={onNavigate} />;
   }
   return <NotFound site="gaa" />;
+}
+
+// GAA Associates: home (services overview), the five service pages and contact
+function GA({ path }) {
+  if (path === "/") return <GaaSite path="practices" onNavigate={onNavigate} />;
+  if (path === "/services") return <Redirect to={`${href("ga", "/")}#services`} />;
+  if (path.startsWith("/services/")) return <GaaSite path={"practices" + path.slice("/services".length)} onNavigate={onNavigate} />;
+  if (path === "/contact") return <GaaChrome active="@contact"><ContactPage onNavigate={onNavigate} brand="gaa" /></GaaChrome>;
+  return <NotFound site="ga" />;
 }
 
 function FF({ path }) {
@@ -117,5 +131,6 @@ export default function App() {
   useSeo(seoFor(site, path));
   if (site === "ff") return <FF path={path} />;
   if (site === "hf") return <HF path={path} />;
+  if (site === "ga") return <GA path={path} />;
   return <Gaa path={path} />;
 }

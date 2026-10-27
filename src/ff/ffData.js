@@ -80,7 +80,7 @@ export const HOME = {
   terms: {
     eyebrow: "Exclusions & terms",
     h2: "Clear boundaries, no surprises",
-    excluded: ["Statutory audit (coordinated, but performed by an independent auditor)", "Litigation, appeals and tribunal representation", "Backlogs older than the current financial year", "Government fees, penalties and late charges", "Valuation and transaction advisory (via GAA Consulting)"],
+    excluded: ["Statutory audit (coordinated, but performed by an independent auditor)", "Litigation, appeals and tribunal representation", "Backlogs older than the current financial year", "Government fees, penalties and late charges", "Valuation and transaction advisory (via GAA Associates)"],
     terms: ["12-month engagement, renewable annually", "Fees billed in advance, monthly or annually", "Timelines depend on complete information from you", "Scope changes agreed in writing", "All client data handled confidentially"],
   },
   faqs: {
