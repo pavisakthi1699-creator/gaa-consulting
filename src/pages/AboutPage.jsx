@@ -3,7 +3,6 @@ import "./AboutPage.css";
 import { GaaHeader, GaaFooter, useLink } from "./gaa/GaaShell";
 import { TEAM_MEMBERS } from "../data/teamData";
 import { SITES } from "../site/sites.js";
-import logoMark from "../assets/logo-mark.png";
 
 /* GAA Group About Us: built 1:1 from the "GAA_Group_About_Us.html" design.
    Fonts: Instrument Sans (text and headings) + IBM Plex Mono (labels), both already in fonts.css.
@@ -199,44 +198,36 @@ export default function AboutPage({ onNavigate }) {
         </div>
       </section>
 
-      {/* ================= THE GROUP ================= */}
-      <section className="ab-group">
+      {/* ================= GROUP STRUCTURE ("How the GAA Group fits together") ================= */}
+      <section className="ab-group abg">
         <div className="ab-wrap">
-          <div className="ab-head">
-            <div>
-              <span className="mono o2">The group</span>
-              <h2>Three firms. <span className="o">One partner.</span></h2>
-            </div>
-            <p>Each firm is led by its own domain specialists and shares one client relationship.</p>
+          <div className="abg-head">
+            <span className="mono">Group structure</span>
+            <h2>How the GAA Group fits together</h2>
           </div>
-          <div className="ab-firms">
-            <a className="ab-firm f1" {...link("@hirings-first")}>
-              <div className="top">
-                <span className="lg"><img src={logoMark} alt="" /></span>
-                <span className="mono">01</span>
-              </div>
-              <div className="sp"></div>
-              <h3>Hirings First</h3>
-              <p>Talent acquisition and workforce solutions: recruitment across IT and corporate functions, leadership hiring, campus placements and workforce outsourcing.</p>
-            </a>
-            <a className="ab-firm f2" {...link("@filings-first")}>
-              <div className="top">
-                <span className="lg"><img src={logoMark} alt="" /></span>
-                <span className="mono" style={{ color: O }}>02</span>
-              </div>
-              <div className="sp"></div>
-              <h3>Filings First</h3>
-              <p>Comprehensive accounting, bookkeeping, taxation, GST and corporate compliance, with reliable execution and timely filings.</p>
-            </a>
-            <a className="ab-firm f3" {...link("@gaa-associates")}>
-              <div className="top">
-                <img src={SITES.ga.logo} alt="" className="gl" />
-                <span className="mono" style={{ color: "#C25A34" }}>03</span>
-              </div>
-              <div className="sp"></div>
-              <h3>GAA Associates</h3>
-              <p>Corporate law, company secretarial, transactional and regulatory advisory, including restructuring, fundraising and M&amp;A.</p>
-            </a>
+          <div className="abg-org">
+            <div className="abg-parent">
+              <span className="mono">Parent group</span>
+              <b>GAA Group</b>
+            </div>
+            <div className="abg-bus" aria-hidden="true"><i /></div>
+            <div className="abg-cards">
+              {[
+                ["ga", "GAA", "G Akshay and Associates", "Corporate Advisory", "practices"],
+                ["ff", "FF", "Filings First", "Accounting, Taxation & Compliance", "@filings-first"],
+                ["hf", "HF", "Hirings First", "Talent Acquisition & Workforce Solutions", "@hirings-first"],
+              ].map(([k, tag, name, line, to]) => (
+                <a key={k} className={`abg-card ${k}`} {...link(to)}>
+                  <span className="abg-logo"><img src={SITES[k].logo} alt={`${name} logo`} /></span>
+                  <span className="abg-body">
+                    <span className="mono abg-tag">{tag}</span>
+                    <b>{name}</b>
+                    <span className="abg-line">{line}</span>
+                    <span className="abg-cta">View services <i aria-hidden="true">→</i></span>
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
           <div className="ab-serve">
             {["Growing businesses", "Financial institutions", "NBFCs", "Promoters & founders"].map((s) => (

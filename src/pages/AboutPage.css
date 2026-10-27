@@ -143,3 +143,48 @@
   .ab-hdr,.ab-l1>span,.ab-l2>span,.ab-panel{transition:none}
   .ab-l1>span,.ab-l2>span{transform:none!important}
 }
+
+/* ===== Group structure: "How the GAA Group fits together" (org chart) ===== */
+.ab-group.abg{background:#F7F3EE}
+.abg-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.abg-head .mono{color:#C25A34;font:500 12px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase}
+.abg-head h2{margin:0;font-family:"Instrument Sans",system-ui,sans-serif;font-weight:600;font-size:clamp(36px,4.6vw,64px);line-height:1;letter-spacing:-.045em;color:#121212}
+.abg-org{--g:clamp(16px,3.4vw,48px);display:flex;flex-direction:column;align-items:center;margin-top:clamp(40px,5vw,64px);padding:0 clamp(0px,3vw,48px)}
+.abg-parent{position:relative;background:#121212;color:#fff;border-radius:6px;padding:22px 32px;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:198px;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.abg-parent .mono{font:500 11px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#DC6A40}
+.abg-parent b{font-family:"Instrument Sans",system-ui,sans-serif;font-size:26px;font-weight:600;letter-spacing:-.02em}
+/* connector: stem from the parent, a bar across, and a drop into each card */
+.abg-bus{position:relative;width:100%;height:84px}
+.abg-bus::before{content:"";position:absolute;left:50%;top:0;width:2px;height:42px;margin-left:-1px;background:#121212}
+.abg-bus i{position:absolute;top:42px;height:2px;background:#121212;left:calc((100% - 2 * var(--g)) / 6);right:calc((100% - 2 * var(--g)) / 6)}
+.abg-cards{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--g)}
+.abg-card{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:10px;box-shadow:0 0 0 1px #e6e0d8;border-top:6px solid #8B4A2B;text-decoration:none;color:#121212;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s}
+.abg-card::before{content:"";position:absolute;left:50%;bottom:100%;width:2px;height:42px;margin-left:-1px;margin-bottom:6px;background:#121212}
+.abg-card.ff{border-top-color:#121212}
+.abg-card.hf{border-top-color:#DC6A40}
+.abg-logo{height:172px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #ece6df;padding:20px}
+.abg-logo img{max-height:84px;max-width:150px;object-fit:contain;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.abg-body{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:28px 28px 30px}
+.abg-tag{font:500 12px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#8B4A2B}
+.abg-card.ff .abg-tag{color:#6b655e}
+.abg-card.hf .abg-tag{color:#DC6A40}
+.abg-body b{font-family:"Instrument Sans",system-ui,sans-serif;font-size:clamp(22px,2vw,27px);font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.abg-line{font-size:17px;color:#6b655e;line-height:1.45}
+.abg-cta{margin-top:18px;font-size:16px;font-weight:600;display:inline-flex;align-items:center;gap:6px;position:relative}
+.abg-cta::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:#DC6A40;transform:scaleX(0);transform-origin:0 50%;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.abg-cta i{font-style:normal;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.abg-card:hover{opacity:1!important;transform:translateY(-6px);box-shadow:0 0 0 1px #d9d1c7,0 30px 60px -36px rgba(18,18,18,.4)}
+.abg-card:hover .abg-logo img{transform:scale(1.06)}
+.abg-card:hover .abg-cta::after{transform:scaleX(1)}
+.abg-card:hover .abg-cta i{transform:translateX(5px)}
+.abg-card:focus-visible{outline:3px solid #DC6A40;outline-offset:4px}
+.abg .ab-serve{margin-top:clamp(56px,7vw,88px)}
+@media(max-width:820px){
+  .abg-org{padding:0}
+  .abg-bus{height:32px}
+  .abg-bus::before{height:32px}
+  .abg-bus i,.abg-card::before{display:none}
+  .abg-cards{grid-template-columns:1fr;gap:14px}
+  .abg-logo{height:130px}
+}
+@media(prefers-reduced-motion:reduce){.abg-card,.abg-card *{transition:none!important}}
